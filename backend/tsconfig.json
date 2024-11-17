@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",                    // Ensures modern syntax support
+    "module": "NodeNext",                   // Node's ESM module resolution
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",                     // Output directory for compiled JS
+    "esModuleInterop": true,                // Allows `require()` if needed
+    "skipLibCheck": true,                   // Skips type checking of libraries
+    "strict": true                          // Enables strict type checking
+  },
+  "include": ["src/**/*.ts"],               // Include all TypeScript files in src
+  "exclude": ["node_modules", "dist"]       // Exclude these directories
+}
