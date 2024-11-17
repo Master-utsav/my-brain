@@ -18,7 +18,7 @@ function App() {
       navigate("/user/tweet-box");
     }
   } , [isLoggedIn]);
-  
+
   const memoizedRoutes = React.useMemo(() => {
     if (isLoggedIn) {
       return (
@@ -41,7 +41,7 @@ function App() {
         <Route path="/signup" element={<SignupForm />} />
       </>
     );
-  }, [isLoggedIn]); // Memoize routes based on login status
+  }, [isLoggedIn]); 
 
   return (
     <main className="w-full justify-center items-center dark:bg-[#121212] bg-[#f5f5f5] scrollbar-custom ">
