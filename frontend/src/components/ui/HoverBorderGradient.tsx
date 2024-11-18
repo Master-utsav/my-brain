@@ -12,6 +12,8 @@ export function HoverBorderGradient({
   as: Tag = "button",
   duration = 1,
   clockwise = true,
+  isAnimation = true,
+  isActive = false,
   ...props
 }: React.PropsWithChildren<
   {
@@ -19,11 +21,13 @@ export function HoverBorderGradient({
     containerClassName?: string;
     className?: string;
     duration?: number;
+    isAnimation? : boolean;
+    isActive?: boolean;
     clockwise?: boolean;
   } & React.HTMLAttributes<HTMLElement>
 >) {
   const [hovered, setHovered] = useState<boolean>(false);
-  const [direction, setDirection] = useState<Direction>("TOP");
+  const [direction, setDirection] = useState<Direction>("TOP")
 
   const rotateDirection = (currentDirection: Direction): Direction => {
     const directions: Direction[] = ["TOP", "LEFT", "BOTTOM", "RIGHT"];
@@ -61,7 +65,7 @@ export function HoverBorderGradient({
       }}
       onMouseLeave={() => setHovered(false)}
       className={cn(
-        "relative flex rounded-full border  content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
+        "relative flex rounded-full border content-center bg-black/20 hover:bg-black/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
         containerClassName
       )}
       {...props}
@@ -84,12 +88,16 @@ export function HoverBorderGradient({
           width: "100%",
           height: "100%",
         }}
-        initial={{ background: movingMap[direction] }}
-        animate={{
-          background: hovered
+        initial={isAnimation ? { background: movingMap[direction] } : {}}
+        animate={isActive ? {
+          background: hovered 
+            ? [highlight]
+            : isAnimation ?  movingMap[direction] : "",
+        } :  {
+          background: hovered 
             ? [movingMap[direction], highlight]
-            : movingMap[direction],
-        }}
+            : isAnimation ?  movingMap[direction] : "",
+        } }
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
       <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[100px]" />
