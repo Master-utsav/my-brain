@@ -44,7 +44,7 @@ const UserBoardNavitems: React.FC<UserBoardNavitemsProps> = ({
       }}
       className={`relative overflow-hidden w-full group flex items-center justify-center py-1 ${isSideBarOpen ? "px-4 " : "px-2 "}`}
     >
-    <HoverBorderGradient isActive={isActive} isAnimation={false} containerClassName="w-full rounded-2xl" className={`w-full font-ubuntu dark:bg-black bg-white-800  text-black py-1 dark:text-white ${isActive ? "dark:bg-black-300 bg-white px-2" : ""}`}>
+    <HoverBorderGradient isActive={isActive} isAnimation={false} containerClassName={`w-full ${isSideBarOpen ? "rounded-2xl" : "rounded-full"}`} className={`w-full font-ubuntu dark:bg-black bg-white-800  text-black py-1 dark:text-white ${isActive ? "dark:bg-black-300 bg-white px-2" : ""}`}>
     <Link
         to={link}
         className={`flex items-center space-x-2 relative overflow-hidden w-full p-1 ${isSideBarOpen ? "" : "justify-center"}`}
