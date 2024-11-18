@@ -11,20 +11,29 @@ import { Image } from "@nextui-org/react";
 import { GoSidebarExpand } from "react-icons/go";
 import { GoSidebarCollapse } from "react-icons/go";
 import { motion } from "framer-motion";
+import ShareButton from "../ui/ShareButton";
+import ContactButton from "../ui/ContactButton";
+import HomeButton from "../ui/HomeButton";
 
 interface SideBarProps {
   className: string;
   isSideBarOpen: boolean;
   OnSideBarOpen: (val : boolean) => void; 
 }
+
 const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarOpen}) => {
   const location = useLocation();
-
   const { theme } = useTheme();
   const locName = location.pathname.split("/")[2];
 
   return (
-    <aside
+    <motion.aside
+      initial={{x: -100}}
+      animate={{x: 0}}
+      transition={{
+        duration: 0.8,
+        ease: "easeInOut",
+      }}
       className={cn(
         "h-screen dark:bg-black-200 bg-white-800 z-50 flex justify-between flex-col items-center",
         className
@@ -59,13 +68,14 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
         animate={{ x: [-2, 2, -2] }} 
         transition={{
           repeat: Infinity,
-          duration: 5,      
+          duration: 3,      
           ease: "easeInOut",
         }}
-        onClick={() => OnSideBarOpen(!isSideBarOpen)}
+          onClick={() => OnSideBarOpen(!isSideBarOpen)}
          className=" p-0 justify-center items-center dark:bg-black bg-white-800 text-black dark:text-white">
           {isSideBarOpen ? <GoSidebarExpand className="text-black dark:text-white size-8"/> : <GoSidebarCollapse className="text-black dark:text-white size-8"/> }
         </motion.button>
+
       </div>
       <div className="w-full relative overflow-hidden">
         <nav
@@ -87,10 +97,13 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
       </div>
       <div
         className={`flex ${
-          isSideBarOpen ? "flex-row" : "flex-col"
-        } items-center justify-center gap-2 relative w-full py-5`}
+          isSideBarOpen ? "flex-row py-5" : "flex-col py-2"
+        } items-center justify-center gap-2 relative w-full `}
       >
+        <HomeButton />
+        <ContactButton />
         <ModeToggle />
+        <ShareButton />
       </div>
       <div className={`w-full ${isSideBarOpen ? "h-[12%]" : ""} rounded-lg relative p-2 overflow-hidden flex justify-start flex-col items-center`}>
         <Logo className="w-12" theme={theme} />
@@ -98,7 +111,7 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
           <MasterBrainSvg className="absolute top-2 scale-[0.35]" />
         )}
       </div>
-    </aside>
+    </motion.aside>
   );
 };
 

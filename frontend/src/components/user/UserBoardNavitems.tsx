@@ -42,9 +42,9 @@ const UserBoardNavitems: React.FC<UserBoardNavitemsProps> = ({
         duration: 0.5,
         delay: index * 0.1,
       }}
-      className={`relative overflow-hidden w-full group flex items-center justify-center ${isSideBarOpen ? "px-4 py-2" : "px-2 py-1"}`}
+      className={`relative overflow-hidden w-full group flex items-center justify-center py-1 ${isSideBarOpen ? "px-4 " : "px-2 "}`}
     >
-    <HoverBorderGradient isActive={isActive} isAnimation={false} containerClassName="w-full rounded-2xl" className={`w-full font-ubuntu dark:bg-black bg-white-800  text-black dark:text-white ${isActive ? "dark:bg-black-300 bg-white" : ""}`}>
+    <HoverBorderGradient isActive={isActive} isAnimation={false} containerClassName="w-full rounded-2xl" className={`w-full font-ubuntu dark:bg-black bg-white-800  text-black py-1 dark:text-white ${isActive ? "dark:bg-black-300 bg-white px-2" : ""}`}>
     <Link
         to={link}
         className={`flex items-center space-x-2 relative overflow-hidden w-full p-1 ${isSideBarOpen ? "" : "justify-center"}`}
@@ -65,22 +65,22 @@ const UserBoardNavitems: React.FC<UserBoardNavitemsProps> = ({
             ],
           }}
         >
-          <span className={`transition-all ease-in-out duration-300 cursor-pointer px-4 ${isActive ? "opacity-100" : "opacity-70"}`}>
+          <span className={`transition-all ease-in-out duration-300 cursor-pointer px-1 ${isActive ? "opacity-100" : "opacity-70"}`}>
             {theme === "dark" ? (
-              <Icon className={cn("text-black dark:text-white size-6" , iconClassName)} />
+              <Icon className={cn("text-black dark:text-white size-5" , iconClassName)} />
             ) : (
-              <Icon className={cn("text-black dark:text-white size-6" , iconClassName)} />
+              <Icon className={cn("text-black dark:text-white size-5" , iconClassName)} />
             )}
           </span>
          </Tooltip>
-}
+        }
         {isSideBarOpen ? (
           <>
           <span className={`transition-all ease-in-out duration-300 cursor-pointer ${isActive ? "opacity-100" : "opacity-70"}`}>
             {theme === "dark" ? (
-             <Icon className={cn("text-black dark:text-white size-6" , iconClassName)} />
+             <Icon className={cn("text-black dark:text-white size-5" , iconClassName)} />
             ) : (
-              <Icon className={cn("text-black dark:text-white size-6" , iconClassName)} />
+              <Icon className={cn("text-black dark:text-white size-5" , iconClassName)} />
             )}
           </span>
           <span

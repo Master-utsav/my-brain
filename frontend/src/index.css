@@ -138,7 +138,7 @@
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
   width: 8px;
   background: linear-gradient(90deg, #2d3748, #1a202c); /* Darker hover shade */
-  box-shadow: 0 0 15px 8px rgba(45, 55, 72, 0.8), 0 0 25px 12px rgba(26, 32, 44, 0.8);
+  /* box-shadow: 0 0 15px 8px rgba(45, 55, 72, 0.8), 0 0 25px 12px rgba(26, 32, 44, 0.8); */
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
@@ -157,7 +157,7 @@
 
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(90deg, #edf2f7, #e2e8f0); /* Lighter hover shade */
-    box-shadow: 0 0 15px 8px rgba(226, 232, 240, 0.8), 0 0 25px 12px rgba(247, 250, 252, 0.8);
+    /* box-shadow: 0 0 15px 8px rgba(226, 232, 240, 0.8), 0 0 25px 12px rgba(247, 250, 252, 0.8); */
   }
 }
 
@@ -173,7 +173,7 @@
 
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(90deg, #2d3748, #1a202c); /* Darker hover shade */
-    box-shadow: 0 0 15px 8px rgba(45, 55, 72, 0.8), 0 0 25px 12px rgba(26, 32, 44, 0.8);
+    /* box-shadow: 0 0 15px 8px rgba(45, 55, 72, 0.8), 0 0 25px 12px rgba(26, 32, 44, 0.8); */
   }
 }
 
