@@ -6,7 +6,7 @@ import MasterBrainSvg from "../ui/MasterBrainSvg";
 import { ModeToggle } from "../ui/ThemeBtn";
 import { DashBoardNavItems } from "@/constants";
 import UserBoardNavitems from "./UserBoardNavitems";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Image } from "@nextui-org/react";
 import { GoSidebarExpand } from "react-icons/go";
 import { GoSidebarCollapse } from "react-icons/go";
@@ -25,6 +25,7 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
   const location = useLocation();
   const { theme } = useTheme();
   const locName = location.pathname.split("/")[2];
+  const navigate = useNavigate();
 
   return (
     <motion.aside
@@ -35,14 +36,14 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
         ease: "easeInOut",
       }}
       className={cn(
-        "h-screen dark:bg-black-200 bg-white-800 z-50 flex justify-between flex-col items-center",
+        `h-screen dark:bg-black-200 bg-white-800 z-50 flex justify-between flex-col items-center overflow-hidden`,
         className
       )}
     >
       <div
         className={`flex ${
           isSideBarOpen ? "flex-row" : "flex-col"
-        } items-center justify-start gap-2 relative w-full py-5 px-2`}
+        } items-center sm:justify-start justify-around gap-2 relative w-full py-5 sm:px-2`}
       >
         <Link
           to="/user/edit-profile"
@@ -100,8 +101,8 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
           isSideBarOpen ? "flex-row py-5" : "flex-col py-2"
         } items-center justify-center gap-2 relative w-full `}
       >
-        <HomeButton />
-        <ContactButton />
+        <HomeButton onClickBtn={() => navigate("/")}/>
+        <ContactButton onClickBtn={() => navigate("/contact")} />
         <ModeToggle />
         <ShareButton />
       </div>
