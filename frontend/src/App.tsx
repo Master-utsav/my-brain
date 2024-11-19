@@ -7,6 +7,8 @@ import LoginForm from "@/components/LoginForm";
 import { useAuthContext } from "@/context/AuthContext";
 import UserRoutes from "./components/user/UserRoutes";
 import React from "react";
+import UnauthenticatedPage from "./components/UnauthenticatedPage";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const location = useLocation();
@@ -18,6 +20,9 @@ function App() {
   React.useEffect(() => {
     if (isLoggedIn && location.pathname.startsWith("/user")) {
       setIsUserRoute(true);
+    }
+    else if (isLoggedIn && !location.pathname.startsWith("/user")) {
+        setIsUserRoute(false)
     }
   }, [isLoggedIn, location.pathname]);
 
@@ -31,6 +36,8 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/contact" element={<SignupForm />} />
+            <Route path="/user/*" element={<UnauthenticatedPage />} />
+            <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </main>
       ) : (
@@ -40,6 +47,7 @@ function App() {
             <Route path="/" element={<HeroSection />} />
             <Route path="/contact" element={<SignupForm />} />
             <Route path="/user/*" element={<UserRoutes />} />
+            <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </main>
       )}

@@ -1,45 +1,36 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "@/context/ThemeProvider";
 import { motion } from "framer-motion";
-import { Button } from "@nextui-org/react";
+import { HoverBorderGradient } from "./ui/HoverBorderGradient";
 
 const UnauthenticatedPage: React.FC = () => {
   const navigate = useNavigate();
-  const { theme } = useTheme();
 
   return (
     <motion.div
-      className={` flex flex-col items-center justify-center h-screen dark:bg-black-[#121212] bg-white-[#f5f5f5] px-4`}
+      className={` w-full flex flex-col items-center  gap-1 justify-center h-screen dark:bg-black-[#121212] bg-white-[#f5f5f5] px-4`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <h1 className="text-5xl font-bold mb-6">401 Unauthenticated</h1>
-      <p className="text-lg mb-8 text-center">
+      <h1 className="text-5xl font-bold mb-6 text-center text-transparent bg-clip-text font-
+        font-kalnia bg-gradient-to-r from-gray-400 via-gray-600 to-gray-800 dark:from-gray-100 dark:via-gray-300 dark:to-gray-500">401 Unauthenticated</h1>
+      <p className="text-lg mb-8 text-center ">
         Oops! You don't have access to this page. <br />
         Please log in to continue.
       </p>
-      <Button
+      <HoverBorderGradient
         onClick={() => navigate("/login")}
-        className={`px-6 py-3 rounded-md text-lg transition-all ${
-          theme === "dark"
-            ? "bg-blue-600 hover:bg-blue-700"
-            : "bg-blue-500 hover:bg-blue-600"
-        } text-white`}
+        className={`text-lg transition-all font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white`}
       >
         Go to Login
-      </Button>
-      <Button
+      </HoverBorderGradient>
+      <HoverBorderGradient
         onClick={() => navigate("/")}
-        className={`mt-4 px-6 py-3 rounded-md text-lg transition-all ${
-          theme === "dark"
-            ? "bg-gray-700 hover:bg-gray-800"
-            : "bg-gray-200 hover:bg-gray-300"
-        }`}
+        className={`text-lg transition-all font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white`}
       >
         Back to Home
-      </Button>
+      </HoverBorderGradient>
     </motion.div>
   );
 };

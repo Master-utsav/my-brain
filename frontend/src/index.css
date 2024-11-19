@@ -114,6 +114,7 @@
 .scrollbar-custom {
   height: 100vh;
   overflow-y: auto;
+  z-index: 999;
 }
 
 .scrollbar-custom::-webkit-scrollbar {
@@ -287,22 +288,4 @@ input:-ms-input-placeholder {
 }
 .my-logo-text path:nth-child(10) {
   animation-delay: 0.45s;
-}
-.my-logo-text path:nth-child(11) {
-  animation-delay: 0.5s;
-}
-.my-logo-text path:nth-child(12) {
-  animation-delay: 0.55s;
-}
-.my-logo-text path:nth-child(13) {
-  animation-delay: 0.6s;
-}
-.my-logo-text path:nth-child(14) {
-  animation-delay: 0.65s;
-}
-.my-logo-text path:nth-child(15) {
-  animation-delay: 0.7s;
-}
-.my-logo-text path:nth-child(16) {
-  animation-delay: 0.75s;
 }

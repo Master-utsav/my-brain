@@ -147,7 +147,7 @@ const SignupModal: React.FC = () => {
                       {...register("password")}
                     />
                     <div
-                      className="w-full absolute right-0 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                      className="absolute right-0 top-1/2 transform -translate-y-1/2 cursor-pointer"
                       onClick={() => setPasswordVisible(!passwordVisible)}
                     >
                       {passwordVisible ? (

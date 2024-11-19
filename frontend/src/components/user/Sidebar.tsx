@@ -29,10 +29,10 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
 
   return (
     <motion.aside
-      initial={{x: -100}}
+      initial={{x: -56}}
       animate={{x: 0}}
       transition={{
-        duration: 0.8,
+        duration: 0.4,
         ease: "easeInOut",
       }}
       className={cn(
@@ -86,7 +86,6 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
             <UserBoardNavitems
               key={index}
               index={index}
-              theme={theme}
               Icon={item.Icon}
               title={item.title}
               link={item.link}
