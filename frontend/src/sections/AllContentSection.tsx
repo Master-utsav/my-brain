@@ -36,9 +36,6 @@ const AllContentSection = () => {
     ].sort((a, b) => {
       const dateA = new Date(a.AddedOn).getTime();
       const dateB = new Date(b.AddedOn).getTime();
-  
-      console.log('Comparing:', a.AddedOn, dateA, b.AddedOn, dateB);
-  
       return dateB - dateA; 
     });
 

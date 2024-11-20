@@ -1,17 +1,64 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChooseCategoryItemsItems } from "@/constants";
-import UserChooseContentItems from "../user/UserChooseContentItems";
 import CloseButton from "../ui/CloseButton";
 import { useNavigate } from "react-router-dom";
+import { HoverBorderGradient } from "../ui/HoverBorderGradient";
+import { NoteInterfaceSchema } from "@/constants/zodValidations";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "../ui/button";
+import AutoGrowTextArea from "../ui/AutoGrowTextArea";
+import ListWithAutoGrowTextArea from "../ui/ListWithAutoGrowTextArea";
+import ShareableSelectButton from "../ui/ShareableSelectButton";
+
+type NoteInterface = z.infer<typeof NoteInterfaceSchema>;
 
 const NoteFormModal: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setValue,
+    getValues,
+    watch
+  } = useForm<NoteInterface>({
+    resolver: zodResolver(NoteInterfaceSchema),
+    defaultValues: {
+      list: [""],
+      tags: [],
+      type: "note",
+      isShareable: false,
+      description: "",
+    },
+  });
+
+
+  const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const onClose = () => {
-    setIsOpen((prev) => !prev);
-    navigate("/user/note-box")
+    navigate("/user/note-box");
+  };
+
+  const onSubmit = (data: NoteInterface) => {
+    console.log("submitting")
+    console.log("Form Submitted", data);
+  };
+  
+  console.log(getValues("description"))
+  console.log(getValues("tags"))
+  console.log(getValues("isShareable"))
+  console.log(getValues("link"))
+  console.log(getValues("title"))
+  console.log(getValues("list"))
+  console.log(getValues("type"))
+
+  const toggleLinkInput = () => {
+    setShowLinkInput(!showLinkInput);
+    if(showLinkInput){
+      setValue("link", "")
+    }
   };
 
   return (
@@ -21,17 +68,14 @@ const NoteFormModal: React.FC = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className={`fixed min-h-screen flex inset-0 justify-center items-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ${
-          isOpen ? "block" : "hidden"
-        }`}
-        onClick={onClose}
+        className={`flex w-full justify-center items-center bg-black bg-opacity-50 backdrop-blur-lg z-50 transition-opacity duration-300`}
       >
         <motion.div
           initial={{ scale: 0.9, y: -100 }}
           animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.9, y: 100 }}
           transition={{ duration: 0.5 }}
-          className="relative bg-white space-y-2 overflow-hidden dark:bg-black rounded-lg  w-full sm:w-96 mx-auto my-16 p-6 shadow-lg"
+          className="relative bg-white space-y-2 overflow-hidden dark:bg-black rounded-lg w-full mx-auto p-6 shadow-lg"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="top-1 right-1 absolute">
@@ -43,28 +87,120 @@ const NoteFormModal: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:text-3xl text-2xl text-center text-transparent bg-clip-text font-medium font-
-        font-kalnia bg-gradient-to-r from-gray-400 via-gray-600 to-gray-800 dark:from-gray-100 dark:via-gray-300 dark:to-gray-500"
+            className="md:text-3xl text-2xl text-center text-transparent bg-clip-text font-medium font-kalnia bg-gradient-to-r from-gray-400 via-gray-600 to-gray-800 dark:from-gray-100 dark:via-gray-300 dark:to-gray-500"
           >
-            Create your Note 
+            Create your Note
           </motion.h2>
           <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
-            fill the given fields to create a note 
+            Fill the given fields to create a note
           </p>
 
-          <div className="w-full relative overflow-hidden bg-transparent">
-            <nav className={`gap-2 flex flex-wrap justify-center items-center`}>
-              {ChooseCategoryItemsItems.map((item, index) => (
-                <UserChooseContentItems
-                  key={index}
-                  index={index}
-                  Icon={item.Icon}
-                  title={item.title}
-                  link={item.link}
-                  onClickBtn={onClose}
+          <div className="space-y-4 max-h-screen relative">
+            {/* Title Input */}
+            <div className="w-full relative">
+              <HoverBorderGradient
+                isAnimation={false}
+                containerClassName="w-full rounded-xl"
+                className="w-full flex font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
+              >
+                <input
+                  type="text"
+                  placeholder="title"
+                  className="w-full text-sm bg-transparent font-ubuntu outline-none focus:outline-none"
+                  {...register("title")}
                 />
-              ))}
-            </nav>
+              </HoverBorderGradient>
+              {errors.title && (
+                <p className="text-red-500 text-sm text-end">
+                  {errors.title.message}
+                </p>
+              )}
+            </div>
+
+            {/* Description Input */}
+
+            <HoverBorderGradient
+              isAnimation={false}
+              containerClassName="w-full rounded-xl"
+              className="w-full flex p-0 font-ubuntu  text-black dark:text-white"
+            >
+              <AutoGrowTextArea
+                placeholder="write your description (optional)"
+                OnTextArea={(data: string) => setValue("description", data)} // Update form value
+                textAreaValue={watch("description", "")??"" } // Reactively watch the value
+              />
+              {errors && errors.description && errors.description.message && (
+                <p className="absolute text-sm bottom-0 right-0 text-end text-red-800 dark:text-red-500">
+                  {errors.description.message}
+                </p>
+              )}
+            </HoverBorderGradient>
+
+            {/* List Input */}
+            <ListWithAutoGrowTextArea
+              onListItem={(data: string[]) => setValue("list", data)}
+              listItem={getValues("list")}
+            />
+
+            {/* Add Link Button */}
+            <button
+              type="button"
+              onClick={toggleLinkInput}
+              className=" text-blue-500 font-ubuntu text-base"
+            >
+              {showLinkInput ? "- Remove Link" : "+ Add Link"}
+            </button>
+
+            {/* Conditional Link Input */}
+            {showLinkInput && (
+              <div className="w-full relative ">
+                <HoverBorderGradient
+                  containerClassName="w-full rounded-xl"
+                  className="w-full flex font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
+                >
+                  <input
+                    type="text"
+                    placeholder="Link (Optional)"
+                    className="w-full bg-transparent font-ubuntu outline-none focus:outline-none"
+                    {...register("link")}
+                  />
+                </HoverBorderGradient>
+                {errors.link && (
+                  <p className="text-red-500 text-sm text-end">
+                    {errors.link.message}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <ShareableSelectButton
+              OnShareable={() =>
+                setValue("isShareable", !getValues("isShareable"))
+              }
+            />
+
+            {/* Submit Button */}
+            <div className="w-full">
+              <HoverBorderGradient
+                containerClassName="w-full rounded-xl"
+                className="w-full py-2 sm:py-1 px-8 font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
+              >
+                <Button
+                  type="submit"
+                  className="flex w-full text-base justify-center dark:bg-black bg-white-800 text-black dark:text-white items-center hover:bg-transparent bg-transparent"
+                  disabled={isSubmitting}
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  {isSubmitting ? (
+                    <span className="w-full loader mr-2 text-black dark:text-white">
+                      ...submitting
+                    </span>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              </HoverBorderGradient>
+            </div>
           </div>
         </motion.div>
       </motion.div>
