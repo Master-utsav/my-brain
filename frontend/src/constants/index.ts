@@ -5,6 +5,7 @@ import { FaBookmark } from "react-icons/fa";
 import { FaHashtag } from "react-icons/fa6";
 import { HiLink } from "react-icons/hi";
 import { BsTwitter } from "react-icons/bs";
+import AllContentLogo from "@/components/ui/AllContentLogo";
 
 export const NavItemsArray = [
   {
@@ -57,6 +58,12 @@ export interface DashboardNavItemProps {
 export const DashBoardNavItems: DashboardNavItemProps[] = [
   {
     theme: "dark",
+    Icon: AllContentLogo,
+    title: "All Content",
+    link: "/user/all-content",
+  },
+  {
+    theme: "dark",
     Icon: FaNoteSticky,
     title: "Notes",
     link: "/user/note-box",
@@ -73,12 +80,12 @@ export const DashBoardNavItems: DashboardNavItemProps[] = [
     title: "Images",
     link: "/user/image-box",
   },
-  {
-    theme: "dark",
-    Icon: FaVideo,
-    title: "Videos",
-    link: "/user/video-box",
-  },
+  // {
+  //   theme: "dark",
+  //   Icon: FaVideo,
+  //   title: "Videos",
+  //   link: "/user/video-box",
+  // },
   {
     theme: "dark",
     Icon: FaHashtag,
@@ -118,12 +125,12 @@ export const ChooseCategoryItemsItems = [
     title: "Images",
     link: "/user/add-content/image",
   },
-  {
-    theme: "dark",
-    Icon: FaVideo,
-    title: "Videos",
-    link: "/user/add-content/video",
-  },
+  // {
+  //   theme: "dark",
+  //   Icon: FaVideo,
+  //   title: "Videos",
+  //   link: "/user/add-content/video",
+  // },
   {
     theme: "dark",
     Icon: FaHashtag,
@@ -159,10 +166,16 @@ export const routeHeaders: {
       "Store, organize, and access all your images effortlessly. Create a digital library of your visual content for quick and easy retrieval anytime.",
     isBtnShow: true,
   },
-  "/user/video-box": {
-    title: "Video Box",
+  // "/user/video-box": {
+  //   title: "Video Box",
+  //   description:
+  //     "Manage your video library with ease. From organizing content to watching your favorites, our platform ensures your videos are always at your fingertips.",
+  //   isBtnShow: true,
+  // },
+  "/user/all-content": {
+    title: "All Content",
     description:
-      "Manage your video library with ease. From organizing content to watching your favorites, our platform ensures your videos are always at your fingertips.",
+      "Explore and manage all your content in one place. Organize, discover, and enjoy seamless access to your favorite videos anytime.",
     isBtnShow: true,
   },
   "/user/bookmark-box": {
@@ -207,12 +220,12 @@ export const routeHeaders: {
       "Store, organize, and access all your images effortlessly. Create a digital library of your visual content for quick and easy retrieval anytime.",
     isBtnShow: true,
   },
-  "/user/add-content/video": {
-    title: "Video Box",
-    description:
-      "Manage your video library with ease. From organizing content to watching your favorites, our platform ensures your videos are always at your fingertips.",
-    isBtnShow: true,
-  },
+  // "/user/add-content/video": {
+  //   title: "Video Box",
+  //   description:
+  //     "Manage your video library with ease. From organizing content to watching your favorites, our platform ensures your videos are always at your fingertips.",
+  //   isBtnShow: true,
+  // },
   "/user/add-content/tag": {
     title: "Hash-Tags",
     description:
@@ -239,129 +252,151 @@ interface BaseInterface {
   link?: string | string[];
   tags?: string[];
   isShareable: boolean;
+  type: "image" |"tweet" | "tag" | "link" | "note";
   AddedOn: Date;
 }
 
 export interface TweetInterface extends BaseInterface {
   description: string;
+  type: "tweet";
+  link?: string;
 }
 
 export interface TagsInterface extends BaseInterface {
+  type: "tag";
   tags: string[];
+  link?: string;
 }
 
 export interface NoteInterface extends BaseInterface {
+  type: "note";
   list: string[];
+  link?: string;
 }
 
 export interface LinkInterface extends BaseInterface {
+  type: "link";
   link: string[];
 }
 
 export interface ImageInterface extends BaseInterface {
+  type: "image";
   image: string | File;
+  link?: string;
 }
 
-export interface VideoInterface extends BaseInterface {
-  video: string | File;
-}
+export type AllContentInterface =
+  | TweetInterface
+  | TagsInterface
+  | NoteInterface
+  | LinkInterface
+  | ImageInterface;
 
-// Dummy objects for TweetInterface
-// Dummy objects for TweetInterface
+// export interface VideoInterface extends BaseInterface {
+//   video: string | File;
+// }
+
 export const tweetData: TweetInterface[] = [
   {
     cardId: "1",
+    type: "tweet",
     createdById: "user123",
-    title: "My First Tweet",
+    title: "Exploring JavaScript",
     description:
-      "This is an example tweet that demonstrates how to use interfaces in TypeScript for organizing data effectively.",
-    link: "https://example.com",
-    tags: ["example", "tweet"],
+      "Discover the power of JavaScript, the most popular programming language for building web applications.",
+    link: "https://example.com/js",
+    tags: ["JavaScript", "programming", "web"],
     isShareable: true,
-    AddedOn: new Date("2024-11-19T12:00:00Z"),
+    AddedOn: new Date("2024-11-21T08:45:30.000+00:00"),
   },
   {
     cardId: "2",
+    type: "tweet",
     createdById: "user456",
-    title: "Another Tweet",
+    title: "Learning TypeScript",
     description:
-      "Here is another example of a tweet with a description that is longer than fifty characters to meet the requirements.",
-    tags: ["hashtag"],
+      "Enhance your JavaScript skills with TypeScript, a typed superset for scalable and reliable code.",
+    tags: ["TypeScript", "JavaScript", "coding"],
     isShareable: false,
-    AddedOn: new Date("2024-11-18T09:30:00Z"),
+    AddedOn: new Date("2024-11-16T09:15:45.000+00:00"),
   },
   {
     cardId: "3",
-    createdById: "user123",
-    title: "My First Tweet",
+    type: "tweet",
+    createdById: "user789",
+    title: "CSS for Beginners",
     description:
-      "This is an example tweet that demonstrates how to use interfaces in TypeScript for organizing data effectively.",
-    link: "https://example.com",
-    tags: ["example", "tweet"],
+      "Master the art of styling websites with CSS, from layouts to animations and beyond.",
+    link: "https://example.com/css",
+    tags: ["CSS", "design", "frontend"],
     isShareable: true,
-    AddedOn: new Date("2024-11-19T12:00:00Z"),
+    AddedOn: new Date("2024-11-16T10:05:12.000+00:00"),
   },
   {
     cardId: "4",
-    createdById: "user456",
-    title: "Another Tweet",
+    createdById: "user321",
+    type: "tweet",
+    title: "React State Management",
     description:
-      "Here is another example of a tweet with a description that is longer than fifty characters to meet the requirements.",
-    tags: ["hashtag"],
+      "An in-depth guide to managing state in React applications using hooks and context.",
+    tags: ["React", "state", "frontend"],
     isShareable: false,
-    AddedOn: new Date("2024-11-18T09:30:00Z"),
+    AddedOn: new Date("2024-11-17T12:30:45.000+00:00"),
   },
   {
     cardId: "5",
-    createdById: "user123",
-    title: "My First Tweet",
+    type: "tweet",
+    createdById: "user654",
+    title: "Backend APIs with Node.js",
     description:
-      "This is an example tweet that demonstrates how to use interfaces in TypeScript for organizing data effectively.",
-    link: "https://example.com",
-    tags: ["example", "tweet"],
+      "Learn how to build robust backend APIs using Node.js, Express, and MongoDB.",
+    link: "https://example.com/node",
+    tags: ["Node.js", "backend", "API"],
     isShareable: true,
-    AddedOn: new Date("2024-11-19T12:00:00Z"),
+    AddedOn: new Date("2024-11-17T14:45:00.000+00:00"),
   },
   {
     cardId: "6",
-    createdById: "user456",
-    title: "Another Tweet",
+    type: "tweet",
+    createdById: "user987",
+    title: "Debugging Techniques",
     description:
-      "Here is another example of a tweet with a description that is longer than fifty characters to meet the requirements.",
-    tags: ["hashtag"],
+      "Discover effective debugging techniques for modern JavaScript and TypeScript projects.",
+    tags: ["debugging", "JavaScript", "tools"],
     isShareable: false,
-    AddedOn: new Date("2024-11-18T09:30:00Z"),
+    AddedOn: new Date("2024-11-15T08:00:00.000+00:00"),
   },
 ];
 
-// Dummy objects for TagsInterface
 export const tagsData: TagsInterface[] = [
   {
-    cardId: "3",
+    cardId: "7",
+    type: "tag",
     createdById: "user789",
     title: "Programming Languages",
     description:
       "A comprehensive list of programming languages commonly used in software development, including their unique features and benefits.",
-    tags: ["JavaScript", "TypeScript", "Python"],
+    tags: ["JavaScript", "TypeScript", "Python" , "CPP", "Rust", "Go"],
     isShareable: true,
-    AddedOn: new Date("2024-11-17T14:45:00Z"),
+    AddedOn: new Date("2024-11-20T10:30:00.000+00:00"),
   },
   {
-    cardId: "4",
+    cardId: "8",
+    type: "tag",
     createdById: "user321",
     title: "Web Development",
     description:
       "Key technologies and tools for web development, including HTML, CSS, and JavaScript frameworks like React and Angular.",
     tags: ["HTML", "CSS", "React"],
     isShareable: false,
-    AddedOn: new Date("2024-11-16T10:00:00Z"),
+    AddedOn: new Date("2024-11-16T11:15:45.000+00:00"),
   },
 ];
 
-// Dummy objects for NoteInterface
 export const noteData: NoteInterface[] = [
   {
-    cardId: "5",
+    cardId: "9",
+    type: "note",
     createdById: "user654",
     title: "Grocery List",
     description:
@@ -369,24 +404,25 @@ export const noteData: NoteInterface[] = [
     list: ["Milk", "Eggs", "Bread"],
     tags: ["shopping", "list"],
     isShareable: true,
-    AddedOn: new Date("2024-11-15T08:00:00Z"),
+    AddedOn: new Date("2024-11-20T14:00:00.000+00:00"),
   },
   {
-    cardId: "6",
+    cardId: "10",
+    type: "note",
     createdById: "user987",
     title: "Meeting Notes",
     description:
       "These notes summarize key points from the team meeting, such as the agenda, action items, and upcoming deadlines.",
     list: ["Agenda", "Action Items", "Deadlines"],
     isShareable: false,
-    AddedOn: new Date("2024-11-14T15:30:00Z"),
+    AddedOn: new Date("2024-11-17T09:45:30.000+00:00"),
   },
 ];
 
-// Dummy objects for LinkInterface
 export const linkData: LinkInterface[] = [
   {
-    cardId: "7",
+    cardId: "11",
+    type: "link",
     createdById: "user135",
     title: "Favorite Websites",
     description:
@@ -394,24 +430,25 @@ export const linkData: LinkInterface[] = [
     link: ["https://google.com", "https://github.com"],
     tags: ["favorites", "web"],
     isShareable: true,
-    AddedOn: new Date("2024-11-13T11:15:00Z"),
+    AddedOn: new Date("2024-11-19T08:20:10.000+00:00"),
   },
   {
-    cardId: "8",
+    cardId: "12",
+    type: "link",
     createdById: "user246",
     title: "Documentation Links",
     description:
       "Links to official documentation for various technologies like React and TypeScript, helpful for developers of all levels.",
     link: ["https://reactjs.org", "https://typescriptlang.org"],
     isShareable: false,
-    AddedOn: new Date("2024-11-12T07:00:00Z"),
+    AddedOn: new Date("2024-11-17T13:10:05.000+00:00"),
   },
 ];
 
-// Dummy objects for ImageInterface
 export const imageData: ImageInterface[] = [
   {
-    cardId: "9",
+    cardId: "13",
+    type: "image",
     createdById: "user369",
     title: "Beautiful Landscape",
     description:
@@ -419,10 +456,11 @@ export const imageData: ImageInterface[] = [
     image: "/landscape.jpg",
     tags: ["nature", "scenery"],
     isShareable: true,
-    AddedOn: new Date("2024-11-11T13:30:00Z"),
+    AddedOn: new Date("2024-11-18T07:50:00.000+00:00"),
   },
   {
-    cardId: "10",
+    cardId: "14",
+    type: "image",
     createdById: "user852",
     title: "Abstract Art",
     description:
@@ -431,36 +469,36 @@ export const imageData: ImageInterface[] = [
     link: "https://example.com/art",
     tags: ["art", "design"],
     isShareable: false,
-    AddedOn: new Date("2024-11-10T16:00:00Z"),
+    AddedOn: new Date("2024-11-18T10:15:20.000+00:00"),
   },
 ];
 
 // Dummy objects for VideoInterface
-export const videoData: VideoInterface[] = [
-  {
-    cardId: "11",
-    createdById: "user963",
-    title: "Introduction to TypeScript",
-    description:
-      "A comprehensive video tutorial introducing the basics of TypeScript, including its key features and advantages.",
-    video: "https://youtu.be/jzv-VC9kcXA",
-    tags: ["typescript", "tutorial"],
-    isShareable: true,
-    AddedOn: new Date("2024-11-09T18:30:00Z"),
-  },
-  {
-    cardId: "12",
-    createdById: "user147",
-    title: "React Hooks Explained",
-    description:
-      "This video provides an in-depth explanation of React hooks, covering useState, useEffect, and other advanced concepts.",
-    video: "react-hooks.mp4",
-    link: "https://www.youtube.com/shorts/G6JqC6WrpWY",
-    tags: ["react", "hooks"],
-    isShareable: false,
-    AddedOn: new Date("2024-11-08T20:15:00Z"),
-  },
-];
+// export const videoData: VideoInterface[] = [
+//   {
+//     cardId: "11",
+//     createdById: "user963",
+//     title: "Introduction to TypeScript",
+//     description:
+//       "A comprehensive video tutorial introducing the basics of TypeScript, including its key features and advantages.",
+//     video: "https://youtu.be/jzv-VC9kcXA",
+//     tags: ["typescript", "tutorial"],
+//     isShareable: true,
+//     AddedOn: new Date("2024-11-17T11:42:54.118+00:00"),
+//   },
+//   {
+//     cardId: "12",
+//     createdById: "user147",
+//     title: "React Hooks Explained",
+//     description:
+//       "This video provides an in-depth explanation of React hooks, covering useState, useEffect, and other advanced concepts.",
+//     video: "react-hooks.mp4",
+//     link: "https://www.youtube.com/shorts/G6JqC6WrpWY",
+//     tags: ["react", "hooks"],
+//     isShareable: false,
+//     AddedOn: new Date("2024-11-17T11:42:54.118+00:00"),
+//   },
+// ];
 
 export const defaultUserData = {
   firstName: "Unknown",

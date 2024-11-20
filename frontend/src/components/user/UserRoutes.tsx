@@ -9,7 +9,7 @@ import PageNotFound from "../PageNotFound";
 // Modal Components
 import ChooseCategoryModal from "../modal/ChooseCategoryModal";
 import TweetFormModal from "../modal/TweetFormModal";
-import VideoFormModal from "../modal/VideoFormModal";
+// import VideoFormModal from "../modal/VideoFormModal";
 import ImageFormModal from "../modal/ImageFormModal";
 import LinkFormModal from "../modal/LinkFormModal";
 import NoteFormModal from "../modal/NoteFormModal";
@@ -22,10 +22,11 @@ import EditProfileSection from "@/sections/EditProfileSection";
 import ImageSection from "@/sections/ImageSection";
 import LinkSection from "@/sections/LinkSection";
 import TagSection from "@/sections/TagSection";
-import VideoSection from "@/sections/VideoSection";
+// import VideoSection from "@/sections/VideoSection";
 import TweetSection from "@/sections/TweetSection";
 
 import { routeHeaders } from "@/constants";
+import AllContentSection from "@/sections/AllContentSection";
 
 const UserRoutes = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
@@ -75,10 +76,11 @@ const UserRoutes = () => {
         <section className="h-full mt-32 lg:mt-16 scrollbar-custom">
           <Routes location={location}>
             {/* Section of user*/}
+            <Route path="/all-content" element={<AllContentSection />} />
             <Route path="/note-box" element={<NoteSection />} />
             <Route path="/tweet-box" element={<TweetSection />} />
             <Route path="/image-box" element={<ImageSection />} />
-            <Route path="/video-box" element={<VideoSection />} />
+            {/* <Route path="/video-box" element={<VideoSection />} /> */}
             <Route path="/bookmark-box" element={<BookmarkSection />} />
             <Route path="/tag-box" element={<TagSection />} />
             <Route path="/link-box" element={<LinkSection />} />
@@ -86,7 +88,7 @@ const UserRoutes = () => {
 
             {/* Modal Routes when user select a category */}
             <Route path="/add-content/tweet" element={<TweetFormModal />} />
-            <Route path="/add-content/video" element={<VideoFormModal />} />
+            {/* <Route path="/add-content/video" element={<VideoFormModal />} /> */}
             <Route path="/add-content/image" element={<ImageFormModal />} />
             <Route path="/add-content/link" element={<LinkFormModal />} />
             <Route path="/add-content/note" element={<NoteFormModal />} />
