@@ -11,7 +11,7 @@ const TagFormModal: React.FC = () => {
 
   const onClose = () => {
     setIsOpen((prev) => !prev);
-    navigate("/user/tag-box")
+    navigate("/user/tag-box");
   };
 
   return (
