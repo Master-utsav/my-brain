@@ -20,6 +20,7 @@
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "emblor": "^1.4.6",
     "framer-motion": "^11.11.17",
     "gsap": "^3.12.5",
     "js-cookie": "^3.0.5",

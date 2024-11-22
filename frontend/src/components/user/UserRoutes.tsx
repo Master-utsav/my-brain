@@ -88,7 +88,6 @@ const UserRoutes = () => {
 
             {/* Modal Routes when user select a category */}
             <Route path="/add-content/tweet" element={<TweetFormModal />} />
-            {/* <Route path="/add-content/video" element={<VideoFormModal />} /> */}
             <Route path="/add-content/image" element={<ImageFormModal />} />
             <Route path="/add-content/link" element={<LinkFormModal />} />
             <Route path="/add-content/note" element={<NoteFormModal />} />

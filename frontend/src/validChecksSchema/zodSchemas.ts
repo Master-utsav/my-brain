@@ -44,24 +44,67 @@ export const signupSchema = z
     path: ["confirmPassword"],
   });
 
-  export const loginSchema = z.object({
-    identity: z
-      .string()
-      .min(3, { message: "Identity must be at least 3 characters long" })
-      .max(50, { message: "Identity can't exceed 50 characters" })
-      .refine(
-        (value) => userNameRegex.test(value) || emailRegex.test(value),
-        {
-          message: "Identity must be a valid username or email",
-        }
-      ),
-    
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long" })
-      .regex(passwordRegex, {
-        message:
-          "Password must contain at least one uppercase, one lowercase, one digit, and one special character",
-      }),
-  });
+export const loginSchema = z.object({
+  identity: z
+    .string()
+    .min(3, { message: "Identity must be at least 3 characters long" })
+    .max(50, { message: "Identity can't exceed 50 characters" })
+    .refine((value) => userNameRegex.test(value) || emailRegex.test(value), {
+      message: "Identity must be a valid username or email",
+    }),
 
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .regex(passwordRegex, {
+      message:
+        "Password must contain at least one uppercase, one lowercase, one digit, and one special character",
+    }),
+});
+
+const BaseInterfaceSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  link: z.union([z.string(), z.array(z.string())]).optional(),
+  tags: z.array(z.string()).optional(),
+  isShareable: z.boolean(),
+  type: z.enum(["image", "tweet", "tag", "link", "note"]),
+});
+
+// NoteInterface schema
+export const NoteInterfaceSchema = BaseInterfaceSchema.extend({
+  type: z.literal("note"),
+  list: z
+    .array(z.string().nonempty("List item cannot be empty"))
+    .min(1, "At least one item is required"),
+  link: z.string().optional(),
+});
+
+// TweetInterface schema
+export const TweetInterfaceSchema = BaseInterfaceSchema.extend({
+  type: z.literal("tweet"),
+  description: z.string().min(50 , "min 10 characters required"),
+  link: z.string().optional(),
+});
+
+// TagsInterface schema
+export const TagsInterfaceSchema = BaseInterfaceSchema.extend({
+  type: z.literal("tag"),
+  tags: z.array(z.string().nonempty("input - tag item cannot be empty"))
+  .min(1, "At least one item is required"),
+  link: z.string().optional(),
+});
+
+// LinkInterface schema
+export const LinkInterfaceSchema = BaseInterfaceSchema.extend({
+  type: z.literal("link"),
+  link: z.array(z.string().nonempty("List item cannot be empty"))
+  .min(1, "At least one item is required"),
+});
+
+// ImageInterface schema
+export const ImageInterfaceSchema = BaseInterfaceSchema.extend({
+  type: z.literal("image"),
+  image: z.union([z.string(), z.instanceof(File)]),
+  link: z.string().optional(),
+});

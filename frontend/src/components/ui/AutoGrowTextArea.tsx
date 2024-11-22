@@ -53,7 +53,7 @@ export default function AutoGrowTextArea({
         value={textAreaValue}
         onChange={handleInput}
         rows={defaultRows}
-        className="min-h-[none] rounded-lg resize-none hide-scrollbar focus-visible:ring-0 focus-visible:ring-offset-0"
+        className="min-h-[none] dark:bg-black bg-white-800 text-black dark:text-white text-sm  rounded-lg resize-none hide-scrollbar focus-visible:ring-0 focus-visible:ring-offset-0"
       />
     </div>
   );
