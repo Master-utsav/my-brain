@@ -69,7 +69,7 @@ const TagFormModal: React.FC = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className={`flex w-full justify-center min-h-screen overflow-y-auto items-center bg-white dark:bg-black-200 bg-opacity-50 backdrop-blur-lg z-50 transition-opacity duration-300 py-10`}
+        className={`flex w-full justify-center min-h-screen overflow-y-auto items-center bg-white dark:bg-black-200 bg-opacity-50 backdrop-blur-lg z-50 transition-opacity duration-300 py-10 px-2`}
       >
         <motion.div
           initial={{ scale: 0.9, y: -100 }}

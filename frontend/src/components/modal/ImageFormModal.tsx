@@ -84,7 +84,7 @@ const ImageFormModal: React.FC = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className={`flex w-full justify-center min-h-screen overflow-y-auto items-center bg-white dark:bg-black-200 bg-opacity-50 backdrop-blur-lg z-50 transition-opacity duration-300 py-10`}
+        className={`flex w-full justify-center min-h-screen overflow-y-auto items-center bg-white dark:bg-black-200 bg-opacity-50 backdrop-blur-lg z-50 transition-opacity duration-300 py-10 px-2`}
       >
         <motion.div
           initial={{ scale: 0.9, y: -100 }}
@@ -94,6 +94,7 @@ const ImageFormModal: React.FC = () => {
           className="relative bg-white space-y-2 overflow-hidden dark:bg-black rounded-lg w-full sm:max-w-xl mx-auto p-6 shadow-lg dark:shadow-md dark:shadow-white-500/40 "
           onClick={(e) => e.stopPropagation()}
         >
+          
           <div className="top-1 right-1 absolute">
             <CloseButton onClickBtn={onClose} />
           </div>
