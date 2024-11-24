@@ -83,7 +83,7 @@ export const NoteInterfaceSchema = BaseInterfaceSchema.extend({
 // TweetInterface schema
 export const TweetInterfaceSchema = BaseInterfaceSchema.extend({
   type: z.literal("tweet"),
-  description: z.string().min(50 , "min 10 characters required"),
+  description: z.string().min(10 , "min 10 characters required"),
   link: z.string().optional(),
 });
 

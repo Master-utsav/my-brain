@@ -54,7 +54,7 @@ export default function ListWithAutoGrowTextArea({
           <HoverBorderGradient
             key={index}
             isAnimation={false}
-            containerClassName="w-full rounded-xl mb-1"
+            containerClassName="w-full rounded-lg mb-1"
             className="w-full flex p-0 font-ubuntu justify-center items-center text-black dark:text-white bg-white dark:bg-black"
           >
             <AutoGrowTextArea
@@ -74,7 +74,8 @@ export default function ListWithAutoGrowTextArea({
         <HoverBorderGradient
           isAnimation={false}
           onClick={handleAddItem}
-          className="text-blue-500 font-ubuntu text-sm dark:bg-black bg-white-800"
+          containerClassName="w-full rounded-lg"
+          className="text-blue-500 w-full font-ubuntu text-sm dark:bg-black bg-white-800"
         >
           Add list
         </HoverBorderGradient>

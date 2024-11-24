@@ -42,15 +42,18 @@ const TagFormModal: React.FC = () => {
 
   const onSubmit = (data: TagInterface) => {
     console.log("submitting");
-    console.log("Form Submitted", data);
+    const formData = new FormData();
+    
+    formData.append("type", data.type);
+    formData.append("title", data.title);
+    formData.append("description", data.description??"");
+    formData.append("link" , JSON.stringify(data.link))
+    formData.append("tags", JSON.stringify(data.tags));
+    formData.append("isShareable", data.isShareable ? "true" : "false");
+
+    console.log(Array.from((formData.entries())));
   };
 
-  console.log(getValues("description"));
-  console.log(getValues("tags"));
-  console.log(getValues("isShareable"));
-  console.log(getValues("link"));
-  console.log(getValues("title"));
-  console.log(getValues("type"));
 
   const toggleLinkInput = () => {
     setShowLinkInput(!showLinkInput);
@@ -98,7 +101,7 @@ const TagFormModal: React.FC = () => {
             <div className="w-full relative">
               <HoverBorderGradient
                 isAnimation={false}
-                containerClassName="w-full rounded-xl"
+                containerClassName="w-full rounded-lg"
                 className="w-full flex p-0 font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
               >
                 <AutoGrowTextArea
@@ -118,7 +121,7 @@ const TagFormModal: React.FC = () => {
             <div className="w-full relative">
               <HoverBorderGradient
                 isAnimation={false}
-                containerClassName="w-full rounded-xl"
+                containerClassName="w-full rounded-lg"
                 className="w-full flex p-0 font-ubuntu  text-black dark:text-white"
               >
                 <AutoGrowTextArea
@@ -136,23 +139,14 @@ const TagFormModal: React.FC = () => {
             </div>
 
             <div className="w-full flex justify-end items-end gap-1 flex-col">
-              {/* Add Link Button */}
-              <HoverBorderGradient
-                isAnimation={false}
-                onClick={toggleLinkInput}
-                className={`${
-                  showLinkInput ? "text-red-400" : "text-blue-500"
-                } font-ubuntu text-sm dark:bg-black bg-white-800`}
-              >
-                {showLinkInput ? "Remove Link" : "Add Link"}
-              </HoverBorderGradient>
+              
 
               {/* Conditional Link Input */}
               {showLinkInput && (
                 <div className="w-full relative ">
                   <HoverBorderGradient
                     isAnimation={false}
-                    containerClassName="w-full rounded-xl"
+                    containerClassName="w-full rounded-lg"
                     className="w-full flex font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
                   >
                     <input
@@ -169,6 +163,18 @@ const TagFormModal: React.FC = () => {
                   )}
                 </div>
               )}
+
+              {/* Add Link Button */}
+              <HoverBorderGradient
+                isAnimation={false}
+                onClick={toggleLinkInput}
+                containerClassName="w-full rounded-lg"
+                className={`${
+                  showLinkInput ? "text-red-400" : "text-blue-500"
+                } font-ubuntu w-full text-sm dark:bg-black bg-white-800`}
+              >
+                {showLinkInput ? "Remove Link" : "Add Link"}
+              </HoverBorderGradient>
 
               {/* Tag Input */}
               <div className="w-full relative ">

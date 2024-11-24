@@ -12,13 +12,12 @@ export default function AutoGrowTextArea({
 }) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const defaultRows = 1;
-  const maxRows = undefined; // Allow unlimited rows
+  const maxRows = undefined; 
 
   const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = e.target;
-    textarea.style.height = "auto"; // Reset the height
-    console.log(textarea.value)
-    OnTextArea(textarea.value); // Trigger the callback to update the value
+    textarea.style.height = "auto"; 
+    OnTextArea(textarea.value); 
   };
 
   useEffect(() => {

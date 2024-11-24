@@ -35,6 +35,7 @@ const ImageFormModal: React.FC = () => {
 
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
+  const [upload, setUpload] = useState<"LINK" | "FILE">("LINK");
 
   const navigate = useNavigate();
 
@@ -44,15 +45,17 @@ const ImageFormModal: React.FC = () => {
 
   const onSubmit = (data: LinkInterface) => {
     console.log("submitting");
-    console.log("Form Submitted", data);
-  };
+    const formData = new FormData();
+    formData.append("type", data.type);
+    formData.append("title", data.title);
+    formData.append("description", data.description ?? "");
+    formData.append("image", data.image);
+    formData.append("link", data.link ?? "");
+    formData.append("tags", JSON.stringify(data.tags));
+    formData.append("isShareable", data.isShareable ? "true" : "false");
 
-  console.log(getValues("description"));
-  console.log(getValues("tags"));
-  console.log(getValues("isShareable"));
-  console.log(getValues("link"));
-  console.log(getValues("title"));
-  console.log(getValues("type"));
+    console.log(Array.from(formData.entries()));
+  };
 
   const toggleTagInput = () => {
     setShowTagInput(!showLTagInput);
@@ -67,6 +70,12 @@ const ImageFormModal: React.FC = () => {
       setValue("link", "");
     }
   };
+
+  function handleFileSubmit(file: File | null) {
+    setValue("image", "");
+    if (!file) return;
+    setValue("image", file);
+  }
 
   return (
     <AnimatePresence>
@@ -107,7 +116,7 @@ const ImageFormModal: React.FC = () => {
             <div className="w-full relative">
               <HoverBorderGradient
                 isAnimation={false}
-                containerClassName="w-full rounded-xl"
+                containerClassName="w-full rounded-lg"
                 className="w-full flex p-0 font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
               >
                 <AutoGrowTextArea
@@ -126,7 +135,7 @@ const ImageFormModal: React.FC = () => {
             {/* Description Input */}
             <HoverBorderGradient
               isAnimation={false}
-              containerClassName="w-full rounded-xl"
+              containerClassName="w-full rounded-lg"
               className="w-full flex p-0 font-ubuntu  text-black dark:text-white"
             >
               <AutoGrowTextArea
@@ -141,26 +150,60 @@ const ImageFormModal: React.FC = () => {
               )}
             </HoverBorderGradient>
 
-            <FileInputField/>
-
-            <div className="w-full flex justify-end items-end gap-1 flex-col">
+            <div className="w-full flex justify-center items-center gap-3 flex-row">
               {/* Add Link Button */}
               <HoverBorderGradient
                 isAnimation={false}
-                onClick={toggleLinkInput}
-                className={`${
-                  showLinkInput ? "text-red-400" : "text-blue-500"
-                } font-ubuntu text-sm dark:bg-black bg-white-800`}
+                onClick={() => setUpload("LINK")}
+                containerClassName="w-full rounded-lg"
+                className={`text-blue-500 font-ubuntu w-full text-sm dark:bg-black bg-white-800`}
               >
-                {showLinkInput ? "Remove Link" : "Add Link"}
+                Paste image link below
               </HoverBorderGradient>
+              <span className="font-noto-sans text-lg font-medium dark:text-white-800 text-black-300">
+                or
+              </span>
+              <HoverBorderGradient
+                isAnimation={false}
+                onClick={() => setUpload("FILE")}
+                containerClassName="w-full rounded-lg"
+                className={`text-blue-500 font-ubuntu w-full text-sm dark:bg-black bg-white-800`}
+              >
+                Upload an image file
+              </HoverBorderGradient>
+            </div>
 
+            {upload === "FILE" ? (
+              <FileInputField OnFileSubmit={handleFileSubmit} />
+            ) : (
+              <div className="w-full relative ">
+                <HoverBorderGradient
+                  isAnimation={false}
+                  containerClassName="w-full rounded-lg"
+                  className="w-full flex font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
+                >
+                  <input
+                    type="text"
+                    placeholder="paste your image link"
+                    className="w-full bg-transparent text-sm font-ubuntu outline-none focus:outline-none"
+                    {...register("image")}
+                  />
+                </HoverBorderGradient>
+                {errors.image && (
+                  <p className="text-red-500 text-sm text-end">
+                    {errors.image.message}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div className="w-full flex justify-end items-end gap-1 flex-col">
               {/* Conditional Link Input */}
               {showLinkInput && (
                 <div className="w-full relative ">
                   <HoverBorderGradient
                     isAnimation={false}
-                    containerClassName="w-full rounded-xl"
+                    containerClassName="w-full rounded-lg"
                     className="w-full flex font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
                   >
                     <input
@@ -177,15 +220,16 @@ const ImageFormModal: React.FC = () => {
                   )}
                 </div>
               )}
-              {/* Add Tag Button */}
+              {/* Add Link Button */}
               <HoverBorderGradient
                 isAnimation={false}
-                onClick={toggleTagInput}
+                onClick={toggleLinkInput}
+                containerClassName="w-full rounded-lg"
                 className={`${
-                  showLTagInput ? "text-red-400" : "text-blue-500"
-                } font-ubuntu text-sm dark:bg-black bg-white-800`}
+                  showLinkInput ? "text-red-400" : "text-blue-500"
+                } font-ubuntu w-full text-sm dark:bg-black bg-white-800`}
               >
-                {showLTagInput ? "Remove tags" : "Add tags"}
+                {showLinkInput ? "Remove Link" : "Add Link"}
               </HoverBorderGradient>
 
               {/* Conditional Tag Input */}
@@ -205,6 +249,18 @@ const ImageFormModal: React.FC = () => {
                   }}
                 />
               )}
+
+              {/* Add Tag Button */}
+              <HoverBorderGradient
+                isAnimation={false}
+                onClick={toggleTagInput}
+                containerClassName="w-full rounded-lg"
+                className={`${
+                  showLTagInput ? "text-red-400" : "text-blue-500"
+                } font-ubuntu  w-full text-sm dark:bg-black bg-white-800`}
+              >
+                {showLTagInput ? "Remove tags" : "Add tags"}
+              </HoverBorderGradient>
             </div>
 
             <div className="flex w-full gap-1 relative justify-between items-center">

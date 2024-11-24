@@ -1,5 +1,5 @@
 import { FaNoteSticky } from "react-icons/fa6";
-import { FaVideo } from "react-icons/fa";
+// import { FaVideo } from "react-icons/fa";
 import { FaImage } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa";
 import { FaHashtag } from "react-icons/fa6";
@@ -203,39 +203,39 @@ export const routeHeaders: {
     isBtnShow: true,
   },
   "/user/add-content/note": {
-    title: "All Notes",
+    title: "New Note",
     description:
-      "Organize, categorize, and access your notes with ease. Keep track of important ideas and reminders in one central place to boost your productivity.",
+      "Create a new note to organize your thoughts and reminders. Categorize and save your ideas for easy reference anytime.",
     isBtnShow: true,
   },
   "/user/add-content/tweet": {
-    title: "Your Tweets",
+    title: "New Tweet",
     description:
-      "Manage and analyze your tweets like never before. Track your engagement, organize your thoughts, and optimize your social presence all in one place.",
+      "Draft and save your latest tweets. Manage your social media presence by composing and organizing tweets effortlessly.",
     isBtnShow: true,
   },
   "/user/add-content/image": {
-    title: "Image Box",
+    title: "New Image",
     description:
-      "Store, organize, and access all your images effortlessly. Create a digital library of your visual content for quick and easy retrieval anytime.",
+      "Upload and save a new image to your library. Organize your visual content for easy access and retrieval.",
     isBtnShow: true,
   },
   // "/user/add-content/video": {
-  //   title: "Video Box",
+  //   title: "New Video",
   //   description:
-  //     "Manage your video library with ease. From organizing content to watching your favorites, our platform ensures your videos are always at your fingertips.",
+  //     "Upload and organize a new video. Keep your video content easily accessible for viewing anytime.",
   //   isBtnShow: true,
   // },
   "/user/add-content/tag": {
-    title: "Hash-Tags",
+    title: "New Tag",
     description:
-      "Categorize your content with tags to make organization and search effortless. Streamline your workflow and quickly find what you need with custom tags.",
+      "Create and manage new tags to categorize your content. Streamline organization and improve searchability.",
     isBtnShow: true,
   },
   "/user/add-content/link": {
-    title: "All Links",
+    title: "New Link",
     description:
-      "Organize, manage, and access your web links in an intuitive way. Keep track of your important URLs and resources for a seamless browsing experience.",
+      "Save a new web link to your collection. Organize and manage important URLs for seamless access.",
     isBtnShow: true,
   },
 };
@@ -252,7 +252,7 @@ interface BaseInterface {
   link?: string | string[];
   tags?: string[];
   isShareable: boolean;
-  type: "image" |"tweet" | "tag" | "link" | "note";
+  type: "image" | "tweet" | "tag" | "link" | "note";
   AddedOn: Date;
 }
 
@@ -376,7 +376,7 @@ export const tagsData: TagsInterface[] = [
     title: "Programming Languages",
     description:
       "A comprehensive list of programming languages commonly used in software development, including their unique features and benefits.",
-    tags: ["JavaScript", "TypeScript", "Python" , "CPP", "Rust", "Go"],
+    tags: ["JavaScript", "TypeScript", "Python", "CPP", "Rust", "Go"],
     isShareable: true,
     AddedOn: new Date("2024-11-20T10:30:00.000+00:00"),
   },

@@ -16,7 +16,7 @@ export default function HashTagInputForm({
     <div className="w-full space-y-2">
       <HoverBorderGradient
         isAnimation={false}
-        containerClassName="w-full rounded-xl mb-1"
+        containerClassName="w-full rounded-lg "
         className="w-full flex p-0 font-ubuntu justify-center dark:bg-black bg-white-800 items-center text-black dark:text-white"
       >
         <TagInput

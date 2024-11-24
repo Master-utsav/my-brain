@@ -44,16 +44,18 @@ const NoteFormModal: React.FC = () => {
 
   const onSubmit = (data: NoteInterface) => {
     console.log("submitting");
-    console.log("Form Submitted", data);
+    const formData = new FormData();
+    formData.append("type", data.type);
+    formData.append("title", data.title);
+    formData.append("description", data.description??"");
+    formData.append("list" , JSON.stringify(data.list));
+    formData.append("link" , JSON.stringify(data.link))
+    formData.append("tags", JSON.stringify(data.tags));
+    formData.append("isShareable", data.isShareable ? "true" : "false");
+
+    console.log(Array.from((formData.entries())));
   };
 
-  console.log(getValues("description"));
-  console.log(getValues("tags"));
-  console.log(getValues("isShareable"));
-  console.log(getValues("link"));
-  console.log(getValues("title"));
-  console.log(getValues("list"));
-  console.log(getValues("type"));
 
   const toggleLinkInput = () => {
     setShowLinkInput(!showLinkInput);
@@ -108,7 +110,7 @@ const NoteFormModal: React.FC = () => {
             <div className="w-full relative">
               <HoverBorderGradient
                 isAnimation={false}
-                containerClassName="w-full rounded-xl"
+                containerClassName="w-full rounded-lg"
                 className="w-full flex p-0 font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
               >
                 <AutoGrowTextArea
@@ -127,7 +129,7 @@ const NoteFormModal: React.FC = () => {
             {/* Description Input */}
             <HoverBorderGradient
               isAnimation={false}
-              containerClassName="w-full rounded-xl"
+              containerClassName="w-full rounded-lg"
               className="w-full flex p-0 font-ubuntu  text-black dark:text-white"
             >
               <AutoGrowTextArea
@@ -154,23 +156,14 @@ const NoteFormModal: React.FC = () => {
             )} */}
 
             <div className="w-full flex justify-end items-end gap-1 flex-col">
-              {/* Add Link Button */}
-              <HoverBorderGradient
-                isAnimation={false}
-                onClick={toggleLinkInput}
-                className={`${
-                  showLinkInput ? "text-red-400" : "text-blue-500"
-                } font-ubuntu text-sm dark:bg-black bg-white-800`}
-              >
-                {showLinkInput ? "Remove Link" : "Add Link"}
-              </HoverBorderGradient>
+              
 
               {/* Conditional Link Input */}
               {showLinkInput && (
                 <div className="w-full relative ">
                   <HoverBorderGradient
                     isAnimation={false}
-                    containerClassName="w-full rounded-xl"
+                    containerClassName="w-full rounded-lg"
                     className="w-full flex font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
                   >
                     <input
@@ -187,15 +180,17 @@ const NoteFormModal: React.FC = () => {
                   )}
                 </div>
               )}
-              {/* Add Tag Button */}
+
+              {/* Add Link Button */}
               <HoverBorderGradient
                 isAnimation={false}
-                onClick={toggleTagInput}
+                onClick={toggleLinkInput}
+                containerClassName="w-full rounded-lg"
                 className={`${
-                  showLTagInput ? "text-red-400" : "text-blue-500"
-                } font-ubuntu text-sm dark:bg-black bg-white-800`}
+                  showLinkInput ? "text-red-400" : "text-blue-500"
+                } font-ubuntu w-full text-sm dark:bg-black bg-white-800`}
               >
-                {showLTagInput ? "Remove tags" : "Add tags"}
+                {showLinkInput ? "Remove Link" : "Add Link"}
               </HoverBorderGradient>
 
               {/* Conditional Tag Input */}
@@ -215,6 +210,18 @@ const NoteFormModal: React.FC = () => {
                   }}
                 />
               )}
+
+              {/* Add Tag Button */}
+              <HoverBorderGradient
+                isAnimation={false}
+                onClick={toggleTagInput}
+                containerClassName="w-full rounded-lg"
+                className={`${
+                  showLTagInput ? "text-red-400" : "text-blue-500"
+                } font-ubuntu w-full text-sm dark:bg-black bg-white-800`}
+              >
+                {showLTagInput ? "Remove tags" : "Add tags"}
+              </HoverBorderGradient>
             </div>
 
             <div className="flex w-full gap-1 relative justify-between items-center">
