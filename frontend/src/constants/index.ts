@@ -253,7 +253,7 @@ interface BaseInterface {
   tags?: string[];
   isShareable: boolean;
   type: "image" | "tweet" | "tag" | "link" | "note";
-  addedOn: Date;
+  addedOn: string;
 }
 
 export interface TweetInterface extends BaseInterface {
@@ -501,22 +501,24 @@ export const imageData: ImageInterface[] = [
 // ];
 
 export const defaultUserData = {
-  firstName: "Unknown",
-  lastName: "User",
-  fullName: "Unknown User",
-  email: "unknown@gmail.com",
-  userName: "unknown_user",
-  profileImageUrl: "",
-  emailVerificationStatus: false,
+  id: "12345",
+  firstName: "John",
+  lastName: "Doe",
+  fullName: "John Doe",
+  email: "john.doe@example.com",
+  userName: "john_doe",
+  profileImageUrl: "https://example.com/profile.jpg",
+  emailVerificationStatus: true,
   phoneNumber: {
-    code: "",
-    number: "",
+    code: "+1",
+    number: "1234567890"
   },
-  address: "",
-  phoneNumberVerificationStatus: false,
-  userDob: "",
-  bio: "",
-  role: "STUDENT",
-  avatarFallbackText: "U" + "K",
-  id: "",
-};
+  phoneNumberVerificationStatus: true,
+  address: "123 Main St, City, Country",
+  bio: "Hello, I'm John!",
+  userDob: "1990-01-01",
+  avatarFallbackText: "JD",
+  uploadedContent: ["content1", "content2"],
+  bookmarks: ["content1"]
+}
+

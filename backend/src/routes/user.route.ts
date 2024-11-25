@@ -32,6 +32,7 @@ import {
   userUpdateRateLimiter,
 } from "../validchecks/rateLimiters";
 import multer from "multer";
+import { handleGetUserDataFunction } from "../controllers/user/getUserData.controllers";
 
 const userRoute = express.Router();
 
@@ -39,7 +40,7 @@ const storage = multer.memoryStorage();
 export const upload = multer({ storage: storage });
 
 // User Data Get
-// userRoute.get("/get-user", authenticateToken, handleGetUserDataFunction);
+userRoute.get("/get-user", authenticateToken, handleGetUserDataFunction);
 
 // User Bookmarked Videos
 // userRoute.post(

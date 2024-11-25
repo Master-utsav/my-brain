@@ -1,42 +1,27 @@
-import { CONTENT_API } from '@/lib/env';
-import { useState } from 'react';
+import { useState } from "react";
+import axios from "axios";
+import { CONTENT_API } from "@/lib/env";
 
 const useAddContent = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [responseData, setResponseData] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [responseData, setResponseData] = useState<any>(null);
 
-  const addContent = async (fields: { [x: string]: string | Blob; }, token: any) => {
+  const addContent = async (formData: FormData, token: string) => {
     setLoading(true);
     setError(null);
 
     try {
-      // Create a new FormData object
-      const formData = new FormData();
-      
-      // Append fields to the FormData object
-      for (const key in fields) {
-        if (fields[key] !== undefined) {
-          formData.append(key, fields[key]);
-        }
-      }
-
-      const response = await fetch(`${CONTENT_API}/add-content`, {
-        method: 'POST',
+      const response = await axios.post(`${CONTENT_API}/add-content`, formData, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
-        body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to add content');
-      }
-
-      const data = await response.json();
-      setResponseData(data);
-    } catch (err : any) {
-      setError(err.message);
+      setResponseData(response.data);
+    } catch (err: any) {
+      setError(err.response?.data?.message || "An error occurred while adding content");
     } finally {
       setLoading(false);
     }

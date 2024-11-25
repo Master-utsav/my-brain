@@ -25,7 +25,8 @@ function App() {
         setIsUserRoute(false)
     }
   }, [isLoggedIn, location.pathname]);
-
+  
+  console.log(isLoggedIn)
   return (
     <>
       {!isLoggedIn ? (

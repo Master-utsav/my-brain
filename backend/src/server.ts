@@ -17,7 +17,7 @@ app.use(cors({
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-    res.send("Welcome to Course-Yuga");
+    res.send("Welcome to my-brain");
 });
 
 app.use("/api/v1/user", userRoute);

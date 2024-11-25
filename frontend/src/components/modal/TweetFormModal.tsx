@@ -11,6 +11,9 @@ import AutoGrowTextArea from "../ui/AutoGrowTextArea";
 import ShareableSelectButton from "../ui/ShareableSelectButton";
 import HashTagInputForm from "../ui/HashTagInputForm";
 import { TweetInterfaceSchema } from "@/validChecksSchema/zodSchemas";
+import { getVerifiedToken } from "@/lib/cookieService";
+import useAddContent from "@/hooks/addContent";
+import { useContentContext } from "@/context/ContentContext";
 
 type TweetInterface = z.infer<typeof TweetInterfaceSchema>;
 
@@ -35,12 +38,14 @@ const TweetFormModal: React.FC = () => {
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { addContent, error, responseData } = useAddContent();
+  const {setContentData} = useContentContext();
 
   const onClose = () => {
     navigate("/user/tweet-box");
   };
 
-  const onSubmit = (data: TweetInterface) => {
+  const onSubmit = async (data: TweetInterface) => {
     console.log("submitting");
     const formData = new FormData();
 
@@ -52,6 +57,19 @@ const TweetFormModal: React.FC = () => {
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
     console.log(Array.from(formData.entries()));
+
+    const token = getVerifiedToken();
+
+    if (token) {
+      addContent(formData, token);
+    }
+    if(responseData.success && responseData.data){
+      setContentData(responseData.data);
+    }
+    if(error){
+      console.log(error);
+    }
+
   };
 
   const toggleLinkInput = () => {

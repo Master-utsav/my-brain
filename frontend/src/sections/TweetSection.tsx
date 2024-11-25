@@ -1,9 +1,16 @@
 import TweetCard from "@/components/card/TweetCard";
-import { tweetData } from "@/constants";
+import { TweetInterface } from "@/constants";
+// import { tweetData } from "@/constants";
 import React from "react";
 import { motion } from "framer-motion";
+import { useContentContext } from "@/context/ContentContext";
 
 const TweetSection: React.FC = () => {
+  const { contentData } = useContentContext();
+  const tweetData: TweetInterface[] = Array.isArray(contentData)
+    ? contentData.filter((item) => item.type === "tweet")
+    : [];
+
   return (
     <section className="w-full min-h-[200vh] dark:bg-black bg-white p-5 px-8">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4">

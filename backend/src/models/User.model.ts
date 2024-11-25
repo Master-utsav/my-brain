@@ -2,6 +2,8 @@ import mongoose, { Document } from "mongoose";
 
 export interface IUser extends Document {
   uniqueId: string;
+  firstName?:string;
+  lastName?:string;
   userName: string;
   password: string;
   email: string;
@@ -27,15 +29,15 @@ export interface IUser extends Document {
   phoneNumberVerificationStatus?: boolean;
   uploadedContent?: string[];
   bookmarks?: {
-    course?: string[];
-    video?: string[];
-    test?: string[];
+    content: string[];
   };
 }
 
 const userSchema = new mongoose.Schema<IUser>(
   {
     uniqueId: { type: String, required: true, unique: true },
+    firstName: { type: String },
+    lastName: { type: String },
     userName: { type: String, required: [true, "Username is required"] },
     password: { type: String, required: [true, "Password is required"] },
     email: { type: String, required: [true, "Email is required"] },
@@ -66,9 +68,7 @@ const userSchema = new mongoose.Schema<IUser>(
     uploadedContent: [{ type: String, ref: "Content" }],
 
     bookmarks: {
-      course: [{ type: String, ref: "Course" }],
-      video: [{ type: String, ref: "Video" }],
-      test: [{ type: String, ref: "Test" }],
+      course: [{ type: String, ref: "Content" }],
     },
   },
   {

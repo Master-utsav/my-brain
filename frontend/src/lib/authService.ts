@@ -20,39 +20,37 @@ export const getUserData = async (): Promise<UserDataProps | null> => {
       const responseData = response.data.data;
 
       const userData: UserDataProps = {
-        firstName: responseData.firstName || "Unknown",
-        lastName: responseData.lastName || "User",
-        fullName: (responseData.firstName?.trim() + " " + responseData.lastName?.trim()) || "Unknown User",
-        email: responseData.email || "unknown@gmail.com",
         userName: responseData.userName || "unknown_user",
+        email: responseData.email || "unknown@gmail.com",
         profileImageUrl: responseData.profileImageUrl || "",
         emailVerificationStatus: responseData.emailVerificationStatus || false,
         phoneNumber: {
           code: responseData.phoneNumber?.code || "",
           number: responseData.phoneNumber?.number || "",
         },
-        address: responseData.address?.country
-          ? `${responseData.address.city}, ${responseData.address.state}, ${responseData.address.country}`
-          : "",
+        address: responseData.address
+          ? `${responseData.address.city || "Unknown City"}, ${responseData.address.state || "Unknown State"}, ${responseData.address.country || "Unknown Country"}`
+          : "Address Not Provided",
         phoneNumberVerificationStatus: responseData.phoneNumberVerificationStatus || false,
-        bio: responseData.bio || "",
-        role: responseData.role || "STUDENT",
+        bio: responseData.bio || "Welcome to my app, utilize your resources carefully.",
         userDob: responseData.userDob || "",
-        avatarFallbackText: `${responseData.firstName?.[0]?.toUpperCase() || "U"}${responseData.lastName?.[0]?.toUpperCase() || "G"}`,
-        id: responseData.uniqueId,
-        enrolledIn: responseData.enrolledIn,
-        bookmarks : responseData.bookmarks,
-        progress : responseData.progress,
-        history : responseData.history,
+        avatarFallbackText: `${responseData.userName?.[0]?.toUpperCase() || "U"}${responseData.userName?.[1]?.toUpperCase() || "S"}`,
+        id: responseData.uniqueId || "",
+        uploadedContent: responseData.uploadedContent || [],
+        bookmarks: responseData.bookmarks || [],  // Fixed: Use responseData.bookmarks instead of bookmarks.content
+        firstName: responseData.firstName || "",  // Added firstName and lastName fallback
+        lastName: responseData.lastName || "",
+        fullName: `${responseData.firstName || ""} ${responseData.lastName || ""}`.trim(), // Concatenated fullName
       };
 
       return userData;
     } else {
-    //   ErrorToast("User Data not found");
+      // Handle case where data is not found
+      // ErrorToast("User Data not found");
       return null;
     }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    // Log or display error message for debugging
     // ErrorToast(error.response?.data?.message || "Something went wrong");
     return null;
   }
