@@ -307,7 +307,7 @@ export const tweetData: TweetInterface[] = [
     link: "https://example.com/js",
     tags: ["JavaScript", "programming", "web"],
     isShareable: true,
-    addedOn: new Date("2024-11-21T08:45:30.000+00:00"),
+    addedOn: "2024-11-21T08:45:30.000+00:00",
   },
   {
     cardId: "2",
@@ -318,7 +318,7 @@ export const tweetData: TweetInterface[] = [
       "Enhance your JavaScript skills with TypeScript, a typed superset for scalable and reliable code.",
     tags: ["TypeScript", "JavaScript", "coding"],
     isShareable: false,
-    addedOn: new Date("2024-11-16T09:15:45.000+00:00"),
+    addedOn: "2024-11-16T09:15:45.000+00:00",
   },
   {
     cardId: "3",
@@ -330,7 +330,7 @@ export const tweetData: TweetInterface[] = [
     link: "https://example.com/css",
     tags: ["CSS", "design", "frontend"],
     isShareable: true,
-    addedOn: new Date("2024-11-16T10:05:12.000+00:00"),
+    addedOn: "2024-11-16T10:05:12.000+00:00",
   },
   {
     cardId: "4",
@@ -341,7 +341,7 @@ export const tweetData: TweetInterface[] = [
       "An in-depth guide to managing state in React applications using hooks and context.",
     tags: ["React", "state", "frontend"],
     isShareable: false,
-    addedOn: new Date("2024-11-17T12:30:45.000+00:00"),
+    addedOn: "2024-11-17T12:30:45.000+00:00",
   },
   {
     cardId: "5",
@@ -353,7 +353,7 @@ export const tweetData: TweetInterface[] = [
     link: "https://example.com/node",
     tags: ["Node.js", "backend", "API"],
     isShareable: true,
-    addedOn: new Date("2024-11-17T14:45:00.000+00:00"),
+    addedOn: "2024-11-17T14:45:00.000+00:00",
   },
   {
     cardId: "6",
@@ -364,7 +364,7 @@ export const tweetData: TweetInterface[] = [
       "Discover effective debugging techniques for modern JavaScript and TypeScript projects.",
     tags: ["debugging", "JavaScript", "tools"],
     isShareable: false,
-    addedOn: new Date("2024-11-15T08:00:00.000+00:00"),
+    addedOn: "2024-11-15T08:00:00.000+00:00",
   },
 ];
 
@@ -378,7 +378,7 @@ export const tagsData: TagsInterface[] = [
       "A comprehensive list of programming languages commonly used in software development, including their unique features and benefits.",
     tags: ["JavaScript", "TypeScript", "Python", "CPP", "Rust", "Go"],
     isShareable: true,
-    addedOn: new Date("2024-11-20T10:30:00.000+00:00"),
+    addedOn: "2024-11-20T10:30:00.000+00:00",
   },
   {
     cardId: "8",
@@ -389,7 +389,7 @@ export const tagsData: TagsInterface[] = [
       "Key technologies and tools for web development, including HTML, CSS, and JavaScript frameworks like React and Angular.",
     tags: ["HTML", "CSS", "React"],
     isShareable: false,
-    addedOn: new Date("2024-11-16T11:15:45.000+00:00"),
+    addedOn: "2024-11-16T11:15:45.000+00:00",
   },
 ];
 
@@ -404,7 +404,7 @@ export const noteData: NoteInterface[] = [
     list: ["Milk", "Eggs", "Bread"],
     tags: ["shopping", "list"],
     isShareable: true,
-    addedOn: new Date("2024-11-20T14:00:00.000+00:00"),
+    addedOn: "2024-11-20T14:00:00.000+00:00",
   },
   {
     cardId: "10",
@@ -415,7 +415,7 @@ export const noteData: NoteInterface[] = [
       "These notes summarize key points from the team meeting, such as the agenda, action items, and upcoming deadlines.",
     list: ["Agenda", "Action Items", "Deadlines"],
     isShareable: false,
-    addedOn: new Date("2024-11-17T09:45:30.000+00:00"),
+    addedOn: "2024-11-17T09:45:30.000+00:00",
   },
 ];
 
@@ -430,7 +430,7 @@ export const linkData: LinkInterface[] = [
     link: ["https://google.com", "https://github.com"],
     tags: ["favorites", "web"],
     isShareable: true,
-    addedOn: new Date("2024-11-19T08:20:10.000+00:00"),
+    addedOn: "2024-11-19T08:20:10.000+00:00",
   },
   {
     cardId: "12",
@@ -441,7 +441,7 @@ export const linkData: LinkInterface[] = [
       "Links to official documentation for various technologies like React and TypeScript, helpful for developers of all levels.",
     link: ["https://reactjs.org", "https://typescriptlang.org"],
     isShareable: false,
-    addedOn: new Date("2024-11-17T13:10:05.000+00:00"),
+    addedOn: "2024-11-17T13:10:05.000+00:00",
   },
 ];
 
@@ -456,7 +456,7 @@ export const imageData: ImageInterface[] = [
     image: "/landscape.jpg",
     tags: ["nature", "scenery"],
     isShareable: true,
-    addedOn: new Date("2024-11-18T07:50:00.000+00:00"),
+    addedOn: "2024-11-18T07:50:00.000+00:00",
   },
   {
     cardId: "14",
@@ -469,7 +469,7 @@ export const imageData: ImageInterface[] = [
     link: "https://example.com/art",
     tags: ["art", "design"],
     isShareable: false,
-    addedOn: new Date("2024-11-18T10:15:20.000+00:00"),
+    addedOn: "2024-11-18T10:15:20.000+00:00",
   },
 ];
 
@@ -484,7 +484,7 @@ export const imageData: ImageInterface[] = [
 //     video: "https://youtu.be/jzv-VC9kcXA",
 //     tags: ["typescript", "tutorial"],
 //     isShareable: true,
-//     addedOn: new Date("2024-11-17T11:42:54.118+00:00"),
+//     addedOn: "2024-11-17T11:42:54.118+00:00",
 //   },
 //   {
 //     cardId: "12",
@@ -496,7 +496,7 @@ export const imageData: ImageInterface[] = [
 //     link: "https://www.youtube.com/shorts/G6JqC6WrpWY",
 //     tags: ["react", "hooks"],
 //     isShareable: false,
-//     addedOn: new Date("2024-11-17T11:42:54.118+00:00"),
+//     addedOn: "2024-11-17T11:42:54.118+00:00",
 //   },
 // ];
 
