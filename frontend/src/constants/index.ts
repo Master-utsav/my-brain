@@ -478,7 +478,7 @@ export const imageData: ImageInterface[] = [
 //   {
 //     cardId: "11",
 //     createdById: "user963",
-//     title: "Introduction to TypeScript",
+//     title: "Introduction to TypeScript",s
 //     description:
 //       "A comprehensive video tutorial introducing the basics of TypeScript, including its key features and advantages.",
 //     video: "https://youtu.be/jzv-VC9kcXA",
