@@ -72,7 +72,7 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
         </div>
       )}
 
-      <AddedOnChip date={cardDetails.AddedOn} />
+      <AddedOnChip date={cardDetails.addedOn} />
 
       {/* Popup Menu */}
       {isOpen && (

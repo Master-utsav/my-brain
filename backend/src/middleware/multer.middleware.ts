@@ -20,8 +20,8 @@ const storage = multer.diskStorage({
 
 const storageVideo = multer.diskStorage({
   destination: function (req, file, cb) {
-    // cb(null, path.join(__dirname, '../cloud/videos')); // Video directory
-    cb(null, process.env.CLOUDINARY_VIDEO_PATH!); // Video directory
+    // cb(null, path.join(__dirname, '../cloud/videos')); 
+    cb(null, process.env.CLOUDINARY_VIDEO_PATH!);
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
@@ -29,7 +29,7 @@ const storageVideo = multer.diskStorage({
   },
 });
 
-// Video file filter to allow only MP4 files
+
 const videoFileFilter = (
   req: Request,
   file: Express.Multer.File,
@@ -38,13 +38,13 @@ const videoFileFilter = (
   const ext = path.extname(file.originalname).toLowerCase();
 
   if (ext === '.mp4' && file.mimetype === 'video/mp4') {
-    cb(null, true); // Accept the file
+    cb(null, true); 
   } else {
-    cb(new Error('Only MP4 videos are allowed!')); // Reject other files
+    cb(new Error('Only MP4 videos are allowed!')); 
   }
 };
 
-// Export the video upload middleware
+
 export const uploadVideo = multer({
   storage: storageVideo,
   fileFilter: videoFileFilter,

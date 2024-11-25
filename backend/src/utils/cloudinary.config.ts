@@ -256,6 +256,11 @@ export async function cloudinaryUploadCourseImageFiles(fileBuffer: Buffer) {
   return uploadToCloudinaryStream(fileBuffer, "courseImages", "image");
 }
 
+export async function cloudinaryUploadContentImageFiles(fileBuffer: Buffer) {
+  return uploadToCloudinaryStream(fileBuffer, "image", "image");
+  
+}
+
 export async function cloudinaryUploadVideoImageFiles(fileBuffer: Buffer) {
   return uploadToCloudinaryStream(fileBuffer, "videoImages", "image");
 }

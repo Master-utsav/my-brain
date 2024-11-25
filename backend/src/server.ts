@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./utils/db.config";
 import userRoute from "./routes/user.route";
+import contentRoute from "./routes/content.route";
 
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/content", contentRoute);
 
 async function startServer() {
     try {

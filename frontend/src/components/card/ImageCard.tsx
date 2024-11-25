@@ -84,7 +84,7 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
         </div>
       )}
 
-      <AddedOnChip date={cardDetails.AddedOn} />
+      <AddedOnChip date={cardDetails.addedOn} />
 
       {/* Popup Menu */}
       {isOpen && (

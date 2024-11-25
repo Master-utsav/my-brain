@@ -75,7 +75,7 @@ const TagCard = ({ cardDetails }: { cardDetails: TagsInterface }) => {
         <LinkReadInput link={cardDetails.link ?? ""} />
       )}
 
-      <AddedOnChip date={cardDetails.AddedOn} />
+      <AddedOnChip date={cardDetails.addedOn} />
 
       {/* Popup Menu */}
       {isOpen && (

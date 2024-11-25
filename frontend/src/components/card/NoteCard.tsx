@@ -83,7 +83,7 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
         </div>
       )}
 
-      <AddedOnChip date={cardDetails.AddedOn} />
+      <AddedOnChip date={cardDetails.addedOn} />
 
       {/* Popup Menu */}
       {isOpen && (
