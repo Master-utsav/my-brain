@@ -47,17 +47,21 @@ export async function handleAddContentRequestFunction(
       }
     }
 
-    let linkArray: string[] = [];
+    let linkArray: string[];
 
-    if (link && link !== "undefined") {
+    if (link && typeof link === "string") {
       try {
-        linkArray = JSON.parse(link);
-        if (!Array.isArray(linkArray)) {
-          throw new Error("Not an array");
+        const parsed = JSON.parse(link);
+        if (Array.isArray(parsed)) {
+          linkArray = parsed;
+        } else {
+          linkArray = [link];
         }
       } catch {
         linkArray = [link];
       }
+    } else {
+      linkArray = [];
     }
 
     let imageFile = "";
