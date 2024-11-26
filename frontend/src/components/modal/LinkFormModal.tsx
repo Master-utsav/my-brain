@@ -20,7 +20,7 @@ type LinkInterface = z.infer<typeof LinkInterfaceSchema>;
 const LinkFormModal: React.FC = () => {
   const {
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setValue,
     getValues,
     watch,
@@ -37,13 +37,13 @@ const LinkFormModal: React.FC = () => {
 
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { addContent } = useAddContent();
+  const { addContent, loading } = useAddContent();
 
   const onClose = () => {
     navigate("/user/note-box");
   };
 
-  const onSubmit = (data: LinkInterface) => {
+  const onSubmit = async (data: LinkInterface) => {
     const formData = new FormData();
 
     formData.append("type", data.type);
@@ -56,7 +56,7 @@ const LinkFormModal: React.FC = () => {
     const token = getVerifiedToken();
 
     if (token) {
-      addContent(formData, token);
+      await addContent(formData, token);
     }
   };
 
@@ -202,10 +202,10 @@ const LinkFormModal: React.FC = () => {
                 <Button
                   type="submit"
                   className="flex w-full text-base justify-center dark:bg-black bg-white-800 text-black dark:text-white items-center hover:bg-transparent bg-transparent"
-                  disabled={isSubmitting}
+                  disabled={loading}
                   onClick={handleSubmit(onSubmit)}
                 >
-                  {isSubmitting ? (
+                  {loading ? (
                     <span className="w-full loader mr-2 text-black dark:text-white">
                       ...submitting
                     </span>

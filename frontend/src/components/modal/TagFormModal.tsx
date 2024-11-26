@@ -20,7 +20,7 @@ const TagFormModal: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setValue,
     getValues,
     watch,
@@ -36,13 +36,13 @@ const TagFormModal: React.FC = () => {
 
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { addContent } = useAddContent();
+  const { addContent, loading } = useAddContent();
 
   const onClose = () => {
     navigate("/user/tag-box");
   };
 
-  const onSubmit = (data: TagInterface) => {
+  const onSubmit = async(data: TagInterface) => {
     const formData = new FormData();
 
     formData.append("type", data.type);
@@ -55,7 +55,7 @@ const TagFormModal: React.FC = () => {
     const token = getVerifiedToken();
 
     if (token) {
-      addContent(formData, token);
+      await addContent(formData, token);
     }
   };
 
@@ -222,10 +222,10 @@ const TagFormModal: React.FC = () => {
                 <Button
                   type="submit"
                   className="flex w-full text-base justify-center dark:bg-black bg-white-800 text-black dark:text-white items-center hover:bg-transparent bg-transparent"
-                  disabled={isSubmitting}
+                  disabled={loading}
                   onClick={handleSubmit(onSubmit)}
                 >
-                  {isSubmitting ? (
+                  {loading ? (
                     <span className="w-full loader mr-2 text-black dark:text-white">
                       ...submitting
                     </span>

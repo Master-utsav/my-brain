@@ -52,18 +52,18 @@ export const sendEmailVerification = async (
 <body>
   <div class="container">
     <div class="header">
-      <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/dark-mode-logo.png" alt="Master's Brain Logo" class="logo" />
+      <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/dark-mode-logo.png" alt="My Brain Logo" class="logo" />
       <h1>Email Verification</h1>
     </div>
     <div class="content">
       <h2>Hello,</h2>
-      <p>Thanks for registering with Master's Brain! Please verify your email address using the 6-digit OTP below:</p>
+      <p>Thanks for registering with My Brain! Please verify your email address using the 6-digit OTP below:</p>
       <div class="otp">${emailVerificationOTP}</div>
       <p>If you did not sign up for this account, please ignore this email.</p>
       <a href="${verificationLink}?email=${email}" class="cta-button">Verify Email</a>
     </div>
     <div class="footer">
-      <p>© 2024 Master's Brain. All rights reserved.</p>
+      <p>© 2024 My Brain. All rights reserved.</p>
       <p>Need help? <a href="${process.env.PUBLIC_FRONTEND_DOMAIN}/contact" style="color: #76c7c0;">Contact Support</a></p>
     </div>
   </div>
@@ -72,7 +72,7 @@ export const sendEmailVerification = async (
 `;
 
     const mailOptions = {
-      from: `"Master's Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
+      from: `"My Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
       to: email,
       subject: "Email Verification OTP",
       html: htmlContent,
@@ -131,7 +131,7 @@ export const sendResetPasswordVerification = async (
 <body>
   <div class="container">
     <div class="header">
-      <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/dark-mode-logo.png" alt="Master's Brain Logo" class="logo" />
+      <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/dark-mode-logo.png" alt="My Brain Logo" class="logo" />
       <h1>Password Reset</h1>
     </div>
     <div class="content">
@@ -142,7 +142,7 @@ export const sendResetPasswordVerification = async (
       <a href="${process.env.PUBLIC_FRONTEND_DOMAIN}/reset-password" class="cta-button">Reset Password</a>
     </div>
     <div class="footer">
-      <p>© 2024 Master's Brain. All rights reserved.</p>
+      <p>© 2024 My Brain. All rights reserved.</p>
       <p>Need help? <a href="${process.env.PUBLIC_FRONTEND_DOMAIN}/contact" style="color: #ff6f61;">Contact Support</a></p>
     </div>
   </div>
@@ -151,7 +151,7 @@ export const sendResetPasswordVerification = async (
 `;
 
     const mailOptions = {
-      from: `"Master's Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
+      from: `"My Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
       to: email,
       subject: "Password Reset OTP",
       html: htmlContent,
@@ -258,14 +258,14 @@ export const emailVerificationAlert = async (email: string) => {
   <div class="container">
     <!-- Header with Logo -->
     <div class="header">
-      <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/dark-mode-logo.png" alt="Master's Brain Logo" class="logo" />
+      <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/dark-mode-logo.png" alt="My Brain Logo" class="logo" />
       <h1>Email Verification</h1>
     </div>
 
     <!-- Email Content -->
     <div class="content">
       <h2>Hello,</h2>
-      <p>Thank you for signing up for Master's Brain! To complete your registration, please verify your email address by clicking the button below:</p>
+      <p>Thank you for signing up for My Brain! To complete your registration, please verify your email address by clicking the button below:</p>
       
       <!-- Verification Button -->
       <a href="${verificationLink}?email=${email}" target="_blank" class="button">Verify Email</a>
@@ -275,7 +275,7 @@ export const emailVerificationAlert = async (email: string) => {
 
     <!-- Footer -->
     <div class="footer">
-      <p>© 2024 Master's Brain. All rights reserved.</p>
+      <p>© 2024 My Brain. All rights reserved.</p>
       <p>Need help? <a href="${process.env.PUBLIC_FRONTEND_DOMAIN}/contact">Contact Support</a></p>
     </div>
   </div>
@@ -284,7 +284,7 @@ export const emailVerificationAlert = async (email: string) => {
 `;
 
     const mailOptions = {
-      from: `"Master's Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
+      from: `"My Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
       to: email,
       subject: "Email Verification Alert",
       html: htmlContent,
@@ -400,8 +400,8 @@ export const sendGoogleAuthPasswordMail = async (
     <div class="container">
         <!-- Header with Logo -->
         <div class="header">
-            <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/dark-mode-logo.png" alt="Master's Brain Logo" class="logo" />
-            <h1>Welcome to Master's Brain with Google</h1>
+            <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/dark-mode-logo.png" alt="My Brain Logo" class="logo" />
+            <h1>Welcome to My Brain with Google</h1>
         </div>
 
         <!-- Email Content -->
@@ -420,7 +420,7 @@ export const sendGoogleAuthPasswordMail = async (
 
         <!-- Footer -->
         <div class="footer">
-            <p>© 2024 Master's Brain. All rights reserved.</p>
+            <p>© 2024 My Brain. All rights reserved.</p>
             <p>Need help? <a href="${process.env.PUBLIC_FRONTEND_DOMAIN}/contact">Contact Support</a></p>
         </div>
     </div>
@@ -429,7 +429,7 @@ export const sendGoogleAuthPasswordMail = async (
 `;
 
     const mailOptions = {
-      from: `"Master's Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
+      from: `"My Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
       to: email,
       subject: "Google Authentication Successful",
       html: htmlContent,
@@ -545,8 +545,8 @@ export const sendGithubAuthPasswordMail = async (
     <div class="container">
         <!-- Header with Logo -->
         <div class="header">
-            <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/images/masters-brain-logo-light-mode.png" alt="Master's Brain Logo" class="logo" />
-            <h1>Welcome to Master's Brain with GitHub</h1>
+            <img src="${process.env.PUBLIC_FRONTEND_DOMAIN}/images/masters-brain-logo-light-mode.png" alt="My Brain Logo" class="logo" />
+            <h1>Welcome to My Brain with GitHub</h1>
         </div>
 
         <!-- Email Content -->
@@ -566,7 +566,7 @@ export const sendGithubAuthPasswordMail = async (
         <!-- Footer -->
         <div class="footer">
 
-            <p>© 2024 Master's Brain. All rights reserved.</p>
+            <p>© 2024 My Brain. All rights reserved.</p>
             <p>Need assistance? <a href="${process.env.PUBLIC_FRONTEND_DOMAIN}/contact">Contact Support</a></p>
         </div>
     </div>
@@ -576,7 +576,7 @@ export const sendGithubAuthPasswordMail = async (
     `;
 
     const mailOptions = {
-      from: `"Master's Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
+      from: `"My Brain" <${process.env.PUBLIC_GMAIL}>`, // sender address
       to: email,
       subject: "GitHub Authentication Successful",
       html: htmlContent,

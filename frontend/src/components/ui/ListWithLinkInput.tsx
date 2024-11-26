@@ -76,7 +76,7 @@ export default function ListWithLinkInput({
               placeholder={`Add your link ${index + 1}`}
               value={item}
               onChange={(e) => handleInputChange(index, e.target.value)}
-              className="flex-1 p-2 text-black dark:text-white bg-transparent outline-none"
+              className="flex-1 p-2 text-sm text-black dark:text-white bg-transparent outline-none"
             />
             {index > 0 && (
               <CloseButton

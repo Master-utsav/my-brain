@@ -1,10 +1,19 @@
 import { Input } from "@/components/ui/input";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { Check, Copy } from "lucide-react";
 import { useRef, useState } from "react";
 
-export default function LinkReadInput({link = "https://masterutsav.in"} : {link : string}) {
+export default function LinkReadInput({
+  link = "https://masterutsav.in",
+}: {
+  link: string;
+}) {
   const [copied, setCopied] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -22,8 +31,8 @@ export default function LinkReadInput({link = "https://masterutsav.in"} : {link 
         <Input
           ref={inputRef}
           id="input-53"
+          type="url"
           className=" px-2 focus-visible:ring-1 focus-visible:ring-offset-0 sm:text-base text-sm"
-          type="text"
           defaultValue={link}
           readOnly
         />
@@ -39,7 +48,7 @@ export default function LinkReadInput({link = "https://masterutsav.in"} : {link 
                 <div
                   className={cn(
                     "transition-all",
-                    copied ? "scale-100 opacity-100" : "scale-0 opacity-0",
+                    copied ? "scale-100 opacity-100" : "scale-0 opacity-0"
                   )}
                 >
                   <Check
@@ -52,7 +61,7 @@ export default function LinkReadInput({link = "https://masterutsav.in"} : {link 
                 <div
                   className={cn(
                     "absolute transition-all",
-                    copied ? "scale-0 opacity-0" : "scale-100 opacity-100",
+                    copied ? "scale-0 opacity-0" : "scale-100 opacity-100"
                   )}
                 >
                   <Copy size={16} strokeWidth={2} aria-hidden="true" />
