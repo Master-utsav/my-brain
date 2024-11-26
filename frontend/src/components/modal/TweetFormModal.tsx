@@ -39,7 +39,7 @@ const TweetFormModal: React.FC = () => {
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const navigate = useNavigate();
   const { addContent, error, responseData } = useAddContent();
-  const {setContentData} = useContentContext();
+  const {setContentData , loadContentData} = useContentContext();
 
   const onClose = () => {
     navigate("/user/tweet-box");
@@ -65,6 +65,8 @@ const TweetFormModal: React.FC = () => {
     }
     if(responseData.success && responseData.data){
       setContentData(responseData.data);
+      loadContentData();
+      navigate("/user/all-content")
     }
     if(error){
       console.log(error);

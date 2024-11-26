@@ -12,6 +12,9 @@ import ListWithAutoGrowTextArea from "../ui/ListWithAutoGrowTextArea";
 import ShareableSelectButton from "../ui/ShareableSelectButton";
 import HashTagInputForm from "../ui/HashTagInputForm";
 import { NoteInterfaceSchema } from "@/validChecksSchema/zodSchemas";
+import { getVerifiedToken } from "@/lib/cookieService";
+import useAddContent from "@/hooks/addContent";
+import { useContentContext } from "@/context/ContentContext";
 
 type NoteInterface = z.infer<typeof NoteInterfaceSchema>;
 
@@ -37,6 +40,8 @@ const NoteFormModal: React.FC = () => {
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { addContent, error, responseData } = useAddContent();
+  const {setContentData , loadContentData} = useContentContext();
 
   const onClose = () => {
     navigate("/user/note-box");
@@ -54,6 +59,21 @@ const NoteFormModal: React.FC = () => {
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
     console.log(Array.from((formData.entries())));
+
+    const token = getVerifiedToken();
+
+    if (token) {
+      addContent(formData, token);
+    }
+    if(responseData.success && responseData.data){
+      setContentData(responseData.data);
+      loadContentData();
+      navigate("/user/all-content")
+    }
+    if(error){
+      console.log(error);
+    }
+    
   };
 
 

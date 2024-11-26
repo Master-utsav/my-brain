@@ -206,6 +206,7 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
   api_key: process.env.CLOUDINARY_API_KEY!,
   api_secret: process.env.CLOUDINARY_API_SECRET!,
+  timeout: 120000
 });
 
 export function getPublicIdFromPath(cloudinaryPath: string): string {
@@ -222,19 +223,26 @@ export const getSignedVideoUrl = (publicId: string): string => {
   });
 };
 
-// Common upload function for streams
-async function uploadToCloudinaryStream(fileBuffer: Buffer, folder: string, resourceType: "image" | "video") {
+async function uploadToCloudinaryStream(
+  fileBuffer: Buffer,
+  folder: string,
+  resourceType: "image" | "video"
+) {
   if (!fileBuffer) {
     throw new Error("No file buffer provided for upload.");
   }
 
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
-      { resource_type: resourceType, folder: folder },
+      { resource_type: resourceType, folder },
       (error, result) => {
         if (error) {
-          console.error("Cloudinary upload error:", error.message);
-          return reject(new Error("Failed to upload to Cloudinary. Please check the logs for more details."));
+          console.error("Cloudinary upload error:", error);
+          return reject(
+            new Error(
+              `Failed to upload to Cloudinary: ${error.message || "Unknown error"}`
+            )
+          );
         }
         resolve({
           url: result?.secure_url,
@@ -243,8 +251,12 @@ async function uploadToCloudinaryStream(fileBuffer: Buffer, folder: string, reso
       }
     );
 
-    // Create a stream from the uploaded file buffer and pipe it to Cloudinary
-    streamifier.createReadStream(fileBuffer).pipe(stream);
+    try {
+      streamifier.createReadStream(fileBuffer).pipe(stream);
+    } catch (err) {
+      console.error("Stream error:", err);
+      reject(new Error("Failed to create a stream for Cloudinary upload."));
+    }
   });
 }
 
@@ -257,8 +269,7 @@ export async function cloudinaryUploadCourseImageFiles(fileBuffer: Buffer) {
 }
 
 export async function cloudinaryUploadContentImageFiles(fileBuffer: Buffer) {
-  return uploadToCloudinaryStream(fileBuffer, "image", "image");
-  
+  return uploadToCloudinaryStream(fileBuffer, "myBrain-image", "image");
 }
 
 export async function cloudinaryUploadVideoImageFiles(fileBuffer: Buffer) {

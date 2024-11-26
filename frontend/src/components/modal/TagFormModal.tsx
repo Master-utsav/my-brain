@@ -11,6 +11,9 @@ import AutoGrowTextArea from "../ui/AutoGrowTextArea";
 import ShareableSelectButton from "../ui/ShareableSelectButton";
 import HashTagInputForm from "../ui/HashTagInputForm";
 import { TagsInterfaceSchema } from "@/validChecksSchema/zodSchemas";
+import { useContentContext } from "@/context/ContentContext";
+import useAddContent from "@/hooks/addContent";
+import { getVerifiedToken } from "@/lib/cookieService";
 
 type TagInterface = z.infer<typeof TagsInterfaceSchema>;
 
@@ -33,8 +36,9 @@ const TagFormModal: React.FC = () => {
   });
 
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
-
   const navigate = useNavigate();
+  const { addContent, error, responseData } = useAddContent();
+  const {setContentData , loadContentData} = useContentContext();
 
   const onClose = () => {
     navigate("/user/tag-box");
@@ -52,6 +56,20 @@ const TagFormModal: React.FC = () => {
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
     console.log(Array.from((formData.entries())));
+    
+    const token = getVerifiedToken();
+
+    if (token) {
+      addContent(formData, token);
+    }
+    if(responseData.success && responseData.data){
+      setContentData(responseData.data);
+      loadContentData();
+      navigate("/user/all-content")
+    }
+    if(error){
+      console.log(error);
+    }
   };
 
 

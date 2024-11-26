@@ -12,6 +12,9 @@ import ShareableSelectButton from "../ui/ShareableSelectButton";
 import HashTagInputForm from "../ui/HashTagInputForm";
 import { ImageInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import FileInputField from "../ui/FileInputField";
+import { getVerifiedToken } from "@/lib/cookieService";
+import useAddContent from "@/hooks/addContent";
+import { useContentContext } from "@/context/ContentContext";
 
 type LinkInterface = z.infer<typeof ImageInterfaceSchema>;
 
@@ -36,6 +39,8 @@ const ImageFormModal: React.FC = () => {
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [upload, setUpload] = useState<"LINK" | "FILE">("LINK");
+  const { addContent, error, responseData } = useAddContent();
+  const {setContentData , loadContentData} = useContentContext();
 
   const navigate = useNavigate();
 
@@ -55,6 +60,21 @@ const ImageFormModal: React.FC = () => {
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
     console.log(Array.from(formData.entries()));
+
+    const token = getVerifiedToken();
+
+    if (token) {
+      addContent(formData, token);
+    }
+    if(responseData.success && responseData.data){
+      setContentData(responseData.data);
+      loadContentData();
+      navigate("/user/all-content")
+    }
+    if(error){
+      console.log(error);
+    }
+    
   };
 
   const toggleTagInput = () => {
