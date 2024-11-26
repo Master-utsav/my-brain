@@ -17,6 +17,7 @@ export async function handleAddContentRequestFunction(
       link,
       tags,
       type,
+      list,
       isShareable,
       image,
     } = req.body;
@@ -47,9 +48,23 @@ export async function handleAddContentRequestFunction(
       }
     }
 
-    let linkArray: string[];
+    let listsArray: string[] = [];
+    if (tags) {
+      try {
+        listsArray = JSON.parse(list);
+      } catch {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid list format. Must be a JSON array.",
+        });
+      }
+    }
+
+    let linkArray: string[] = [];
 
     if (link && typeof link === "string") {
+      linkArray = [link];
+    } else {
       try {
         const parsed = JSON.parse(link);
         if (Array.isArray(parsed)) {
@@ -60,8 +75,6 @@ export async function handleAddContentRequestFunction(
       } catch {
         linkArray = [link];
       }
-    } else {
-      linkArray = [];
     }
 
     let imageFile = "";
@@ -90,6 +103,7 @@ export async function handleAddContentRequestFunction(
       tags: tagsArray,
       type,
       image: imageFile,
+      list : listsArray,
       cardId: nanoid(),
       isShareable: isShareable ?? false,
       createdById: userUniqueId,
@@ -117,6 +131,7 @@ export async function handleAddContentRequestFunction(
       tags: newContent.tags,
       image: newContent.image,
       type: newContent.type,
+      list: newContent.list,
       cardId: newContent.cardId,
       isShareable: newContent.isShareable,
       createdById: newContent.createdById,
