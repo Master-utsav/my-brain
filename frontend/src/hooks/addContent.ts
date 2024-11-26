@@ -27,8 +27,8 @@ const useAddContent = () => {
       );
 
       setResponseData(response.data);
-      if (responseData.success) {
-        setContentData(responseData.data);
+      if (response.data.success) {
+        setContentData(response.data.data);
         await loadContentData();
         navigate("/user/all-content");
       } else {
