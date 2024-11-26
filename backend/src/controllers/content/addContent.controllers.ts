@@ -49,7 +49,7 @@ export async function handleAddContentRequestFunction(
     }
 
     let listsArray: string[] = [];
-    if (tags) {
+    if (list) {
       try {
         listsArray = JSON.parse(list);
       } catch {
@@ -61,19 +61,14 @@ export async function handleAddContentRequestFunction(
     }
 
     let linkArray: string[] = [];
-
-    if (link && typeof link === "string") {
-      linkArray = [link];
-    } else {
+    if (link) {
       try {
-        const parsed = JSON.parse(link);
-        if (Array.isArray(parsed)) {
-          linkArray = parsed;
-        } else {
-          linkArray = [link];
-        }
+        linkArray = JSON.parse(list);
       } catch {
-        linkArray = [link];
+        return res.status(400).json({
+          success: false,
+          message: "Invalid link format. Must be a JSON array.",
+        });
       }
     }
 
