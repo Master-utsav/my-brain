@@ -62,7 +62,7 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
       {typeof cardDetails.image === "string" ? (
         <Image
           isBlurred
-          className="w-full object-cover rounded-lg"
+          className="w-full aspect-video object-cover rounded-lg"
           alt={cardDetails.title}
           src={cardDetails.image}
         />
@@ -74,7 +74,7 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
         {cardDetails.description}
       </p>
 
-      {cardDetails.link && <LinkReadInput link={cardDetails.link ?? ""} />}
+      {(cardDetails.link && cardDetails.link.length !== 0) && <LinkReadInput link={cardDetails.link} />}
 
       {cardDetails.tags && (
         <div className="flex justify-start items-start flex-wrap gap-1 mt-2">

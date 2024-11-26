@@ -71,9 +71,8 @@ const TagCard = ({ cardDetails }: { cardDetails: TagsInterface }) => {
       )}
       </div>
 
-      {cardDetails.link && (
-        <LinkReadInput link={cardDetails.link ?? ""} />
-      )}
+      {(cardDetails.link && cardDetails.link.length !== 0) && <LinkReadInput link={cardDetails.link} />}
+
 
       <AddedOnChip date={cardDetails.addedOn} />
 

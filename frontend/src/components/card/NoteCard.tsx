@@ -71,9 +71,8 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
         ))}
       </ul>
 
-      {cardDetails.link && (
-        <LinkReadInput link={cardDetails.link ?? ""} />
-      )}
+      {(cardDetails.link && cardDetails.link.length !== 0) && <LinkReadInput link={cardDetails.link} />}
+
 
       {cardDetails.tags && (
         <div className="flex justify-start items-start flex-wrap gap-1 mt-2">

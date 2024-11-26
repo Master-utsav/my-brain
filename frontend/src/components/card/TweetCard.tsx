@@ -60,9 +60,9 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
       <p className="mt-2 text-sm font-noto-sans dark:text-white-600 text-black-500/80 group-hover:dark:text-white-800 group-hover:text-black-300">
         {cardDetails.description}
       </p>
-      {cardDetails.link && (
-        <LinkReadInput link={cardDetails.link ?? ""} />
-      )}
+      
+      {(cardDetails.link && cardDetails.link.length !== 0) && <LinkReadInput link={cardDetails.link} />}
+
 
       {cardDetails.tags && (
         <div className="flex justify-start items-start flex-wrap gap-1 mt-2">
