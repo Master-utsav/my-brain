@@ -48,23 +48,17 @@ export async function handleAddContentRequestFunction(
     }
 
     let linkArray: string[] = [];
-if (link && link !== 'undefined') {
-  try {
-    linkArray = JSON.parse(link);
-    if (!Array.isArray(linkArray)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid link format. Must be a JSON array.",
-      });
-    }
-  } catch {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid link format. Must be a valid JSON array.",
-    });
-  }
-}
 
+    if (link && link !== "undefined") {
+      try {
+        linkArray = JSON.parse(link);
+        if (!Array.isArray(linkArray)) {
+          throw new Error("Not an array");
+        }
+      } catch {
+        linkArray = [link];
+      }
+    }
 
     let imageFile = "";
     if (type === "image") {
