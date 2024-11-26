@@ -47,7 +47,8 @@ export async function handleAddContentRequestFunction(
         });
       }
     }
-
+    
+    console.log(list)
     let listsArray: string[] = [];
     if (list) {
       try {
@@ -98,7 +99,7 @@ export async function handleAddContentRequestFunction(
       tags: tagsArray,
       type,
       image: imageFile,
-      list : listsArray,
+      list: listsArray,
       cardId: nanoid(),
       isShareable: isShareable ?? false,
       createdById: userUniqueId,
