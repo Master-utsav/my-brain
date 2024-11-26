@@ -15,6 +15,7 @@ export interface IContent extends Document {
   description?: string;
   link?: string | string[];
   tags?: string[];
+  image?: string;
   isShareable: boolean;
   createdById: string;
   addedOn: Date;
@@ -29,6 +30,7 @@ const contentSchema = new Schema<IContent>(
       enum: Object.values(ContentType),
       required: true,
     },
+    image: {type: String},
     description: { type: String, trim: true },
     link: { type: Schema.Types.Mixed }, 
     tags: [{ type: String, trim: true }],

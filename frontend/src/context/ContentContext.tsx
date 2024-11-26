@@ -51,8 +51,9 @@ export const ContentContextProvider: React.FC<{ children: ReactNode }> = ({
           },
         }
       );
-
+      
       setContentData(response.data.data);
+     
     } catch (error) {
       console.error("Error loading content data:", error);
       setContentData([]);

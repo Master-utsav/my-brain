@@ -14,7 +14,6 @@ import { ImageInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import FileInputField from "../ui/FileInputField";
 import { getVerifiedToken } from "@/lib/cookieService";
 import useAddContent from "@/hooks/addContent";
-import { useContentContext } from "@/context/ContentContext";
 
 type LinkInterface = z.infer<typeof ImageInterfaceSchema>;
 
@@ -39,8 +38,7 @@ const ImageFormModal: React.FC = () => {
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [upload, setUpload] = useState<"LINK" | "FILE">("LINK");
-  const { addContent, error, responseData } = useAddContent();
-  const {setContentData , loadContentData} = useContentContext();
+  const { addContent } = useAddContent();
 
   const navigate = useNavigate();
 
@@ -49,8 +47,8 @@ const ImageFormModal: React.FC = () => {
   };
 
   const onSubmit = (data: LinkInterface) => {
-    console.log("submitting");
     const formData = new FormData();
+
     formData.append("type", data.type);
     formData.append("title", data.title);
     formData.append("description", data.description ?? "");
@@ -59,22 +57,11 @@ const ImageFormModal: React.FC = () => {
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
-    console.log(Array.from(formData.entries()));
-
     const token = getVerifiedToken();
 
     if (token) {
       addContent(formData, token);
     }
-    if(responseData.success && responseData.data){
-      setContentData(responseData.data);
-      loadContentData();
-      navigate("/user/all-content")
-    }
-    if(error){
-      console.log(error);
-    }
-    
   };
 
   const toggleTagInput = () => {
@@ -114,7 +101,6 @@ const ImageFormModal: React.FC = () => {
           className="relative bg-white space-y-2 overflow-hidden dark:bg-black rounded-lg w-full sm:max-w-xl mx-auto p-6 shadow-lg dark:shadow-md dark:shadow-white-500/40 "
           onClick={(e) => e.stopPropagation()}
         >
-          
           <div className="top-1 right-1 absolute">
             <CloseButton onClickBtn={onClose} />
           </div>

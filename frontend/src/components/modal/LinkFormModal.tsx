@@ -14,7 +14,6 @@ import { LinkInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import ListWithLinkInput from "../ui/ListWithLinkInput";
 import { getVerifiedToken } from "@/lib/cookieService";
 import useAddContent from "@/hooks/addContent";
-import { useContentContext } from "@/context/ContentContext";
 
 type LinkInterface = z.infer<typeof LinkInterfaceSchema>;
 
@@ -38,40 +37,28 @@ const LinkFormModal: React.FC = () => {
 
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { addContent, error, responseData } = useAddContent();
-  const {setContentData , loadContentData} = useContentContext();
-
+  const { addContent } = useAddContent();
 
   const onClose = () => {
     navigate("/user/note-box");
   };
 
   const onSubmit = (data: LinkInterface) => {
-    console.log("submitting");
     const formData = new FormData();
+
     formData.append("type", data.type);
     formData.append("title", data.title);
-    formData.append("description", data.description??"");
-    formData.append("link" , JSON.stringify(data.link))
+    formData.append("description", data.description ?? "");
+    formData.append("link", JSON.stringify(data.link));
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
-    console.log(Array.from((formData.entries())));
     const token = getVerifiedToken();
 
     if (token) {
       addContent(formData, token);
     }
-    if(responseData.success && responseData.data){
-      setContentData(responseData.data);
-      loadContentData();
-      navigate("/user/all-content")
-    }
-    if(error){
-      console.log(error);
-    }
   };
-
 
   const toggleTagInput = () => {
     setShowTagInput(!showLTagInput);
@@ -152,13 +139,13 @@ const LinkFormModal: React.FC = () => {
                 </p>
               )}
             </HoverBorderGradient>
-             
+
             <div className="w-full relative">
-            <ListWithLinkInput
-              onListItem={(data: string[]) => setValue("link", data)}
-              listItem={getValues("link")}
-            />
-            {/* {errors.link && (
+              <ListWithLinkInput
+                onListItem={(data: string[]) => setValue("link", data)}
+                listItem={getValues("link")}
+              />
+              {/* {errors.link && (
               <p className="text-red-500 text-sm text-end">
                 {errors.link.message}
               </p>
@@ -236,5 +223,3 @@ const LinkFormModal: React.FC = () => {
 };
 
 export default LinkFormModal;
-
-

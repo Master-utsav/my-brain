@@ -14,7 +14,6 @@ import HashTagInputForm from "../ui/HashTagInputForm";
 import { NoteInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import { getVerifiedToken } from "@/lib/cookieService";
 import useAddContent from "@/hooks/addContent";
-import { useContentContext } from "@/context/ContentContext";
 
 type NoteInterface = z.infer<typeof NoteInterfaceSchema>;
 
@@ -40,42 +39,29 @@ const NoteFormModal: React.FC = () => {
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const navigate = useNavigate();
-  const { addContent, error, responseData } = useAddContent();
-  const {setContentData , loadContentData} = useContentContext();
+  const { addContent } = useAddContent();
 
   const onClose = () => {
     navigate("/user/note-box");
   };
 
   const onSubmit = (data: NoteInterface) => {
-    console.log("submitting");
     const formData = new FormData();
+
     formData.append("type", data.type);
     formData.append("title", data.title);
-    formData.append("description", data.description??"");
-    formData.append("list" , JSON.stringify(data.list));
-    formData.append("link" , JSON.stringify(data.link))
+    formData.append("description", data.description ?? "");
+    formData.append("list", JSON.stringify(data.list));
+    formData.append("link", JSON.stringify(data.link));
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("isShareable", data.isShareable ? "true" : "false");
-
-    console.log(Array.from((formData.entries())));
 
     const token = getVerifiedToken();
 
     if (token) {
       addContent(formData, token);
     }
-    if(responseData.success && responseData.data){
-      setContentData(responseData.data);
-      loadContentData();
-      navigate("/user/all-content")
-    }
-    if(error){
-      console.log(error);
-    }
-    
   };
-
 
   const toggleLinkInput = () => {
     setShowLinkInput(!showLinkInput);
@@ -176,8 +162,6 @@ const NoteFormModal: React.FC = () => {
             )} */}
 
             <div className="w-full flex justify-end items-end gap-1 flex-col">
-              
-
               {/* Conditional Link Input */}
               {showLinkInput && (
                 <div className="w-full relative ">

@@ -23,6 +23,7 @@ export async function handleGetAllContentOfUserFunction(
       link: item.link,
       tags: item.tags,
       type: item.type,
+      image: item.image,
       cardId: item.cardId,
       isShareable: item.isShareable,
       createdById: item.createdById,
