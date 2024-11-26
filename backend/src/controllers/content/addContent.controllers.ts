@@ -48,7 +48,6 @@ export async function handleAddContentRequestFunction(
       }
     }
     
-    console.log(list)
     let listsArray: string[] = [];
     if (list) {
       try {
@@ -64,7 +63,7 @@ export async function handleAddContentRequestFunction(
     let linkArray: string[] = [];
     if (link) {
       try {
-        linkArray = JSON.parse(list);
+        linkArray = JSON.parse(link);
       } catch {
         return res.status(400).json({
           success: false,
