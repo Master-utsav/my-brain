@@ -3,17 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { ModeToggle } from "@/components/ui/ThemeBtn";
 import { useTheme } from "@/context/ThemeProvider";
 import Logo from "@/components/Logo";
-import { HoverBorderGradient } from "@/components/ui/HoverBorderGradient";
+import { useAuthContext } from "@/context/AuthContext";
+import UserButton from "./ui/DashBoardButton";
 
 const Navbar: React.FC = () => {
   const { theme } = useTheme();
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuthContext();
 
   const handleSignupClick = () => {
     navigate("/signup");
   };
   const handleLoginClick = () => {
     navigate("/login");
+  };
+
+  const handleDashBoardClick = () => {
+    navigate("/user/all-content");
   };
 
   return (
@@ -26,20 +32,16 @@ const Navbar: React.FC = () => {
           >
             <Logo theme={theme} className="" />
           </Link>
-  
+
           <div className="flex sm:gap-4 gap-2 justify-center items-center">
-            <HoverBorderGradient
-              className="w-full py-2 px-6 font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
-              onClick={handleSignupClick}
-            >
-              Signup
-            </HoverBorderGradient>
-            <HoverBorderGradient
-              className="w-full py-2 px-6 font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
-              onClick={handleLoginClick}
-            >
-              Login
-            </HoverBorderGradient>
+            {!isLoggedIn ? (
+              <>
+                <UserButton ButtonName="Signup" onClickBtn={handleSignupClick} />
+                <UserButton ButtonName="Login" onClickBtn={handleLoginClick} />
+              </>
+            ) : (
+              <UserButton ButtonName="Dashboard" onClickBtn={handleDashBoardClick} />
+            )}
 
             <div className="h-full w-full justify-center items-center rounded-3xl font-semibold shadow-md transition-all ">
               <ModeToggle />

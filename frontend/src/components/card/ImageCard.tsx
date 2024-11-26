@@ -60,21 +60,26 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
       </div>
 
       {typeof cardDetails.image === "string" ? (
-        <Image
-          isBlurred
-          className="w-full aspect-auto justify-center items-center place-content-center mx-auto object-cover rounded-lg"
-          alt={cardDetails.title}
-          src={cardDetails.image}
-        />
+        <div className="w-24 mx-auto relative">
+          <Image
+            isBlurred
+            className="w-full aspect-square mx-auto object-cover rounded-lg"
+            alt={cardDetails.title}
+            src={cardDetails.image}
+          />
+        </div>
       ) : (
         <></>
       )}
-      
+
       <p className="mt-2 text-sm font-noto-sans dark:text-white-600 text-black-500/80 group-hover:dark:text-white-800 group-hover:text-black-300">
         {cardDetails.description}
       </p>
 
-      {(cardDetails.link && cardDetails.link.length !== 0) && <LinkReadInput link={cardDetails.link} />}
+      {Array.isArray(cardDetails.link) &&
+        cardDetails.link.some((link) => link) && (
+          <LinkReadInput link={cardDetails.link} />
+      )}
 
       {cardDetails.tags && (
         <div className="flex justify-start items-start flex-wrap gap-1 mt-2">

@@ -71,7 +71,10 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
         ))}
       </ul>
 
-      {(cardDetails.link && cardDetails.link.length !== 0) && <LinkReadInput link={cardDetails.link} />}
+      {Array.isArray(cardDetails.link) &&
+        cardDetails.link.some((link) => link) && (
+          <LinkReadInput link={cardDetails.link} />
+      )}
 
 
       {cardDetails.tags && (

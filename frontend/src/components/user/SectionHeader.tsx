@@ -17,7 +17,7 @@ const SectionHeader = ({
 }) => {
   return (
     <nav
-      className={`fixed top-0 left-0 flex lg:flex-row flex-col items-center justify-between py-1 px-2 sm:px-3 lg:px-6 dark:bg-black-200 bg-white-800 border-b border-gray-300 mx-auto dark:border-gray-700 z-20 backdrop-blur-xl ${
+      className={`fixed top-0 left-0 flex lg:flex-row  max-md:gap-3 flex-col items-center justify-between py-3 px-2 sm:px-3 lg:px-6 dark:bg-black-200 bg-white-800 border-b border-gray-300 mx-auto dark:border-gray-700 z-20 backdrop-blur-xl ${
         isSideBarOpen
           ? "sm:ml-[15rem] min-w-[calc(100%-15rem)]"
           : "ml-[5rem] min-w-[calc(100%-5rem)]"
@@ -29,12 +29,12 @@ const SectionHeader = ({
         animate={{ x: 0 }}
         exit={{ x: -50 , opacity : 0}}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="md:text-4xl text-3xl text-center text-transparent bg-clip-text font-medium font-
+        className="md:text-4xl text-3xl  text-center text-transparent bg-clip-text font-medium font-
         font-kalnia bg-gradient-to-r from-gray-400 via-gray-600 to-gray-800 dark:from-gray-100 dark:via-gray-300 dark:to-gray-500"
       >
         {title}
       </motion.h1>
-      <p className="text-base font-noto-sans xl:line-clamp-none line-clamp-1 text-gray-500 dark:text-gray-400 xl:max-w-2xl max-w-md text-center">
+      <p className="text-base max-md:hidden font-noto-sans xl:line-clamp-none line-clamp-1 text-gray-500 dark:text-gray-400 xl:max-w-2xl max-w-md text-center">
         {description.split(" ").map((val, idx) => (
           <motion.span
             key={idx}

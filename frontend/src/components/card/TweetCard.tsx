@@ -44,7 +44,7 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
 
   return (
     <div className="w-full h-full relative flex flex-col rounded-lg justify-start shadow-md items-start p-3 gap-2 dark:bg-[#121212]/80 bg-[#f5f5f5]/80 dark:text-white text-black border-[1px] transition-all ease-soft-spring delay-75 dark:border-[#121212] border-[#f5f5f5] hover:dark:bg-black hover:bg-white hover:border-black/40 hover:dark:border-white/40 group">
-      <div className="w-full header gap-2 flex justify-between items-start">
+      <div className="w-full relative header gap-2 flex justify-between items-start">
         <div className="w-full flex justify-start items-start flex-col gap-1">
           <h1 className="w-full md:text-xl text-lg font-ubuntu dark:text-white-800 text-black-300 group-hover:dark:text-white group-hover:text-black">
             {cardDetails.title}
@@ -60,9 +60,11 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
       <p className="mt-2 text-sm font-noto-sans dark:text-white-600 text-black-500/80 group-hover:dark:text-white-800 group-hover:text-black-300">
         {cardDetails.description}
       </p>
-      
-      {(cardDetails.link && cardDetails.link.length !== 0) && <LinkReadInput link={cardDetails.link} />}
 
+      {Array.isArray(cardDetails.link) &&
+        cardDetails.link.some((link) => link) && (
+          <LinkReadInput link={cardDetails.link} />
+      )}
 
       {cardDetails.tags && (
         <div className="flex justify-start items-start flex-wrap gap-1 mt-2">

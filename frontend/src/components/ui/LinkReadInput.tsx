@@ -32,7 +32,7 @@ export default function LinkReadInput({
           ref={inputRef}
           id="input-53"
           type="url"
-          className=" px-2 focus-visible:ring-1 focus-visible:ring-offset-0 sm:text-base text-sm"
+          className="px-2 w-[90%] focus-visible:ring-1 focus-visible:ring-offset-0 sm:text-base text-sm"
           defaultValue={link}
           readOnly
         />
