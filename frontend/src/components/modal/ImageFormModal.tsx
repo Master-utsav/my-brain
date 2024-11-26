@@ -53,7 +53,7 @@ const ImageFormModal: React.FC = () => {
     formData.append("title", data.title);
     formData.append("description", data.description ?? "");
     formData.append("image", data.image);
-    formData.append("link", data.link ?? "");
+    formData.append("link", JSON.stringify([data.link]));
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("isShareable", data.isShareable ? "true" : "false");
 

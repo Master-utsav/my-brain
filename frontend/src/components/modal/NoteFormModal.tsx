@@ -52,10 +52,11 @@ const NoteFormModal: React.FC = () => {
     formData.append("title", data.title);
     formData.append("description", data.description ?? "");
     formData.append("list", JSON.stringify(data.list));
-    formData.append("link", JSON.stringify(data.link));
+    formData.append("link", JSON.stringify([data.link]));
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("isShareable", data.isShareable ? "true" : "false");
-
+    
+    console.log(Array.from(formData.entries()))
     const token = getVerifiedToken();
 
     if (token) {

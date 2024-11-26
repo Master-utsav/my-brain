@@ -49,7 +49,7 @@ const TweetFormModal: React.FC = () => {
     formData.append("type", data.type);
     formData.append("title", data.title);
     formData.append("description", data.description ?? "");
-    formData.append("link", JSON.stringify(data.link));
+    formData.append("link", JSON.stringify([data.link]));
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
