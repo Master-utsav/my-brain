@@ -62,7 +62,7 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
       {typeof cardDetails.image === "string" ? (
         <Image
           isBlurred
-          className="w-full aspect-video object-cover rounded-lg"
+          className="w-full aspect-auto justify-center items-center place-content-center mx-auto object-cover rounded-lg"
           alt={cardDetails.title}
           src={cardDetails.image}
         />
