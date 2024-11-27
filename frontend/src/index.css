@@ -8,27 +8,27 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Kalnia';
-    src: url('https://fonts.googleapis.com/css2?family=Kalnia:ital,wght@0,100..900;1,100..900&display=swap');
-    font-display: swap;
+  font-family: 'Kalnia';
+  src: url('https://fonts.googleapis.com/css2?family=Kalnia:ital,wght@0,100..900;1,100..900&display=swap');
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Noto Sans';
-    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-    font-display: swap;
+  font-family: 'Noto Sans';
+  src: url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Ubuntu';
-    src: url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-    font-display: swap;
+  font-family: 'Ubuntu';
+  src: url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+  font-display: swap;
 }
 
 @font-face {
-    font-family: "Libre";
-    src: url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
-    font-display: swap;
+  font-family: 'Libre';
+  src: url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+  font-display: swap;
 }
 
 @layer base {
@@ -57,7 +57,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -83,7 +83,7 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 @layer base {
@@ -95,13 +95,13 @@
   }
 }
 
-@layer utilities{
+@layer utilities {
   .scrollbar-none {
     -ms-overflow-style: none;
     scrollbar-width: none;
-}
+  }
 
-.hide-scrollbar {
+  .hide-scrollbar {
     @apply overflow-auto; /* To enable scrolling */
     &::-webkit-scrollbar {
       display: none; /* Hide scrollbar in WebKit browsers */
@@ -111,90 +111,144 @@
   }
 }
 
-.scrollbar-custom {
+/* .scrollbar-custom {
   height: 100vh;
   overflow-y: auto;
   z-index: 999;
-}
+} */
 
-.scrollbar-custom::-webkit-scrollbar {
+/* .scrollbar-custom::-webkit-scrollbar {
   width: 8px;
   height: 100%;
-}
+} */
 
-.scrollbar-custom::-webkit-scrollbar-track {
-  background: linear-gradient(to right, #f7fafc, #e2e8f0); /* Light gray shades */
+/* .scrollbar-custom::-webkit-scrollbar-track {
+  background: linear-gradient(to right, #f7fafc, #e2e8f0); 
   border-radius: 10px;
-}
+} */
 
-.scrollbar-custom::-webkit-scrollbar-thumb {
+/* .scrollbar-custom::-webkit-scrollbar-thumb {
   width: 6px;
-  background: linear-gradient(90deg, #4a5568, #2d3748); /* Darker gray shades */
+  background: linear-gradient(90deg, #4a5568, #2d3748); 
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.2); /* Subtle border */
-  /* box-shadow: 0 0 8px 4px rgba(74, 85, 104, 0.5), 0 0 15px 6px rgba(45, 55, 72, 0.5); */
+  border: 1px solid rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 0 8px 4px rgba(74, 85, 104, 0.5), 0 0 15px 6px rgba(45, 55, 72, 0.5);
   transition: box-shadow 0.3s ease, width 0.3s ease, background 0.3s ease;
-}
+} */
 
-.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+/* .scrollbar-custom::-webkit-scrollbar-thumb:hover {
   width: 8px;
-  background: linear-gradient(90deg, #2d3748, #1a202c); /* Darker hover shade */
-  /* box-shadow: 0 0 15px 8px rgba(45, 55, 72, 0.8), 0 0 25px 12px rgba(26, 32, 44, 0.8); */
-}
+  background: linear-gradient(90deg, #2d3748, #1a202c); 
+  box-shadow: 0 0 15px 8px rgba(45, 55, 72, 0.8), 0 0 25px 12px rgba(26, 32, 44, 0.8); 
+} */
 
-.scrollbar-custom::-webkit-scrollbar-thumb {
+/* .scrollbar-custom::-webkit-scrollbar-thumb {
   animation: pulseGlow 2s infinite alternate ease-in-out;
-}
+} */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   .scrollbar-custom::-webkit-scrollbar-track {
-    background: linear-gradient(to right, #2d3748, #1a202c); /* Dark gray shades */
+    background: linear-gradient(to right, #2d3748, #1a202c); 
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #e2e8f0, #f7fafc); /* White shades */
-    /* box-shadow: 0 0 8px 4px rgba(226, 232, 240, 0.5), 0 0 15px 6px rgba(247, 250, 252, 0.5); */
+    background: linear-gradient(90deg, #e2e8f0, #f7fafc); 
+    box-shadow: 0 0 8px 4px rgba(226, 232, 240, 0.5), 0 0 15px 6px rgba(247, 250, 252, 0.5);
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(90deg, #edf2f7, #e2e8f0); /* Lighter hover shade */
-    /* box-shadow: 0 0 15px 8px rgba(226, 232, 240, 0.8), 0 0 25px 12px rgba(247, 250, 252, 0.8); */
+    background: linear-gradient(90deg, #edf2f7, #e2e8f0); 
+    box-shadow: 0 0 15px 8px rgba(226, 232, 240, 0.8), 0 0 25px 12px rgba(247, 250, 252, 0.8);
   }
 }
 
 @media (prefers-color-scheme: light) {
   .scrollbar-custom::-webkit-scrollbar-track {
-    background: linear-gradient(to right, #f7fafc, #e2e8f0); /* Light gray shades */
+    background: linear-gradient(to right, #f7fafc, #e2e8f0); 
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, #4a5568, #2d3748); /* Blackish shades */
-    /* box-shadow: 0 0 8px 4px rgba(74, 85, 104, 0.5), 0 0 15px 6px rgba(45, 55, 72, 0.5); */
+    background: linear-gradient(90deg, #4a5568, #2d3748); 
+    box-shadow: 0 0 8px 4px rgba(74, 85, 104, 0.5), 0 0 15px 6px rgba(45, 55, 72, 0.5);
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(90deg, #2d3748, #1a202c); /* Darker hover shade */
-    /* box-shadow: 0 0 15px 8px rgba(45, 55, 72, 0.8), 0 0 25px 12px rgba(26, 32, 44, 0.8); */
+    background: linear-gradient(90deg, #2d3748, #1a202c); 
+    box-shadow: 0 0 15px 8px rgba(45, 55, 72, 0.8), 0 0 25px 12px rgba(26, 32, 44, 0.8);
+  }
+} */
+
+.scrollbar-meteor {
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+.scrollbar-meteor::-webkit-scrollbar {
+  width: 6px;
+  height: 100%;
+}
+
+.scrollbar-meteor::-webkit-scrollbar-track {
+  background: linear-gradient(to bottom, #f7fafc, #e2e8f0); /* Light trail */
+  border-radius: 10%;
+}
+
+.scrollbar-meteor::-webkit-scrollbar-thumb {
+  background: conic-gradient(
+    from 0deg at 60% 100%,
+    #e2e8f0 0%,
+    #4a5568 50%,
+    #2d3748 100%
+  );
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+  animation: meteorTrail 1.5s ease infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .scrollbar-meteor::-webkit-scrollbar-track {
+    background: linear-gradient(to bottom, #2d3748, #1a202c); /* Dark trail */
+  }
+
+  .scrollbar-meteor::-webkit-scrollbar-thumb {
+    background: conic-gradient(
+      from 0deg at 60% 100%,
+      #edf2f7 0%,
+      #2d3748 50%,
+      #1a202c 100%
+    ); /* Meteor thumb for dark mode */
+  }
+}
+
+@keyframes meteorTrail {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
   }
 }
 
 /* Disable autofill background color */
 input:-webkit-autofill {
-  background-color: transparent !important;  /* Chrome/Safari */
-  box-shadow: 0 0 0 30px transparent inset !important;  /* Prevent shadow */
+  background-color: transparent !important; /* Chrome/Safari */
+  box-shadow: 0 0 0 30px transparent inset !important; /* Prevent shadow */
 }
 
 input:-webkit-autofill:focus {
-  background-color: transparent !important;  /* Focus state for autofill */
+  background-color: transparent !important; /* Focus state for autofill */
 }
 
 input:-webkit-autofill::first-line {
-  color: inherit !important;  /* Autofill color */
+  color: inherit !important; /* Autofill color */
 }
 
 /* Firefox and other browsers */
 input:-moz-autofill {
-  background-color: transparent !important;  /* Firefox */
+  background-color: transparent !important; /* Firefox */
   box-shadow: 0 0 0 30px transparent inset !important;
 }
 
@@ -207,7 +261,6 @@ input:-ms-input-placeholder {
   background-color: transparent !important;
 }
 
-
 .my-logo-text path {
   fill: transparent;
   stroke: #f5f5f5;
@@ -216,7 +269,7 @@ input:-ms-input-placeholder {
   stroke-dashoffset: 50;
   filter: drop-shadow(0 0 3px #f5f5f5);
   animation: nameTextAnimate 2s ease-in-out infinite forwards,
-             waveFloat 2s ease-in-out 1s infinite alternate; 
+    waveFloat 2s ease-in-out 1s infinite alternate;
 }
 
 @keyframes nameTextAnimate {
@@ -239,7 +292,7 @@ input:-ms-input-placeholder {
 
 @keyframes waveFloat {
   0% {
-    transform: translateY(0); 
+    transform: translateY(0);
   }
   25% {
     transform: translateY(-5px);

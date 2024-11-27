@@ -74,7 +74,7 @@ const UserRoutes = () => {
         </AnimatePresence>
 
         {/* all Routes start from /user */}
-        <section className="h-full mt-32 lg:mt-16 scrollbar-custom">
+        <section className="h-full mt-32 lg:mt-16 scrollbar-meteor">
           <Routes location={location}>
             {/* Section of user*/}
             <Route path="/all-content" element={<AllContentSection />} />

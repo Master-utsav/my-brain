@@ -30,7 +30,7 @@ function App() {
   return (
     <>
       {!isLoggedIn ? (
-        <main className="w-full justify-center items-center dark:bg-[#121212] bg-[#f5f5f5] scrollbar-custom overflow-x-hidden">
+        <main className="w-full justify-center items-center dark:bg-[#121212] bg-[#f5f5f5] scrollbar-meteor overflow-x-hidden">
           <Navbar />
           <Routes location={location}>
             <Route path="/" element={<HeroSection />} />
@@ -42,7 +42,7 @@ function App() {
           </Routes>
         </main>
       ) : (
-        <main className="w-full flex dark:bg-[#121212] bg-[#f5f5f5] relative min-h-screen scrollbar-custom overflow-x-hidden">
+        <main className="w-full flex dark:bg-[#121212] bg-[#f5f5f5] relative min-h-screen scrollbar-meteor overflow-x-hidden">
           {isUserRoute ? "" : <Navbar />}
           <Routes location={location}>
             <Route path="/" element={<HeroSection />} />
