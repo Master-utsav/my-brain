@@ -4,34 +4,29 @@ import { CONTENT_API } from "@/lib/env";
 import { useContentContext } from "@/context/ContentContext";
 import { useNavigate } from "react-router-dom";
 
-const useAddContent = () => {
+const useCardHandler = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [responseData, setResponseData] = useState<any>(null);
-  const { setContentData, loadContentData } = useContentContext();
+  const { loadContentData } = useContentContext();
+
   const navigate = useNavigate();
-  const addContent = async (formData: FormData, token: string) => {
+  const cardHandler = async (apiEndpoint: string , token: string) => {
+    if(!token){
+        setError('No token provided');
+    }
     setLoading(true);
     setError(null);
 
-    if (!token) {
-      setError("No token provided");
-    }
     try {
-      const response = await axios.post(
-        `${CONTENT_API}/add-content`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${CONTENT_API}/${apiEndpoint}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setResponseData(response.data);
       if (response.data.success) {
-        setContentData(response.data.data);
         await loadContentData();
         navigate("/user/all-content");
       } else {
@@ -46,7 +41,7 @@ const useAddContent = () => {
     }
   };
 
-  return { addContent, loading, error, responseData };
+  return { cardHandler, loading, error, responseData };
 };
 
-export default useAddContent;
+export default useCardHandler;

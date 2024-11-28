@@ -12,15 +12,26 @@ import HashTagChips from "../ui/HashTagChips";
 import AddedOnChip from "../ui/AddedOnChip";
 import { FaImage } from "react-icons/fa6";
 import { Image } from "@nextui-org/react";
+import useCardHandler from "@/hooks/cardHandler";
+import { getVerifiedToken } from "@/lib/cookieService";
 
 const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const { cardHandler } = useCardHandler();
+  const token = getVerifiedToken();
 
   function handleBurgerButton() {
     setActiveCardId(
       activeCardId === cardDetails.cardId ? null : cardDetails.cardId
     );
+  }
+
+  function deleteBtnhandler() {
+    if (!token) {
+      return;
+    }
+    cardHandler(`delete/${cardDetails.cardId}`, token);
   }
 
   useEffect(() => {
@@ -79,7 +90,7 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
       {Array.isArray(cardDetails.link) &&
         cardDetails.link.some((link) => link) && (
           <LinkReadInput link={cardDetails.link} />
-      )}
+        )}
 
       {cardDetails.tags && (
         <div className="flex justify-start items-start flex-wrap gap-1 mt-2">
@@ -101,7 +112,7 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
           <ShareButton isAnimation={false} />
           <ExpandButton />
           <BookmarkButton />
-          <DeleteButton />
+          <DeleteButton onClickBtn={deleteBtnhandler} />
         </div>
       )}
     </div>
