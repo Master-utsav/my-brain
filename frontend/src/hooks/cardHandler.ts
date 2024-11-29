@@ -19,7 +19,7 @@ const useCardHandler = () => {
     setError(null);
 
     try {
-      const response = await axios.post(`${CONTENT_API}/${apiEndpoint}`, {
+      const response = await axios.post(`${CONTENT_API}/${apiEndpoint}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
