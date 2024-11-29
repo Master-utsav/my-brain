@@ -11,15 +11,26 @@ import BookmarkButton from "../ui/BookmarkButton";
 import LinkReadInput from "../ui/LinkReadInput";
 import HashTagChips from "../ui/HashTagChips";
 import AddedOnChip from "../ui/AddedOnChip";
+import useCardHandler from "@/hooks/cardHandler";
+import { getVerifiedToken } from "@/lib/cookieService";
 
 const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const { cardHandler } = useCardHandler();
+  const token = getVerifiedToken();
 
   function handleBurgerButton() {
     setActiveCardId(
       activeCardId === cardDetails.cardId ? null : cardDetails.cardId
     );
+  }
+
+  function deleteBtnhandler() {
+    if (!token) {
+      return;
+    }
+    cardHandler(`delete/${cardDetails.cardId}`, token);
   }
 
   useEffect(() => {
@@ -86,7 +97,7 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
           <ShareButton isAnimation={false} />
           <ExpandButton />
           <BookmarkButton />
-          <DeleteButton />
+          <DeleteButton onClickBtn={deleteBtnhandler}/>
         </div>
       )}
     </div>

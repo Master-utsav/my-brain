@@ -26,7 +26,7 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
       activeCardId === cardDetails.cardId ? null : cardDetails.cardId
     );
   }
-
+  
   function deleteBtnhandler() {
     if (!token) {
       return;

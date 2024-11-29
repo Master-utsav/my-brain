@@ -11,15 +11,26 @@ import LinkReadInput from "../ui/LinkReadInput";
 import HashTagChips from "../ui/HashTagChips";
 import AddedOnChip from "../ui/AddedOnChip";
 import { FaHashtag } from "react-icons/fa6";
+import { getVerifiedToken } from "@/lib/cookieService";
+import useCardHandler from "@/hooks/cardHandler";
 
 const TagCard = ({ cardDetails }: { cardDetails: TagsInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const { cardHandler } = useCardHandler();
+  const token = getVerifiedToken();
 
   function handleBurgerButton() {
     setActiveCardId(
       activeCardId === cardDetails.cardId ? null : cardDetails.cardId
     );
+  }
+   
+  function deleteBtnhandler() {
+    if (!token) {
+      return;
+    }
+    cardHandler(`delete/${cardDetails.cardId}`, token);
   }
 
   useEffect(() => {
@@ -89,7 +100,7 @@ const TagCard = ({ cardDetails }: { cardDetails: TagsInterface }) => {
           <ShareButton isAnimation={false} />
           <ExpandButton />
           <BookmarkButton />
-          <DeleteButton />
+          <DeleteButton onClickBtn={deleteBtnhandler}/>
         </div>
       )}
     </div>
