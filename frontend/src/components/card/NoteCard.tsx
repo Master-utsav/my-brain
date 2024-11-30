@@ -34,6 +34,13 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
     cardHandler(`delete/${cardDetails.cardId}`, token);
   }
 
+  function bookmarkBtnhandler() {
+    if (!token) {
+      return;
+    }
+    cardHandler(`bookmark/${cardDetails.cardId}`, token);
+  }
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -107,7 +114,7 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
           <EditButton />
           <ShareButton isAnimation={false} />
           <ExpandButton />
-          <BookmarkButton />
+          <BookmarkButton onClickBtn={bookmarkBtnhandler}/>
           <DeleteButton onClickBtn={deleteBtnhandler}/>
         </div>
       )}

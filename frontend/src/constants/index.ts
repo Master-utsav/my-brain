@@ -253,6 +253,7 @@ interface BaseInterface {
   tags?: string[];
   isShareable: boolean;
   type: "image" | "tweet" | "tag" | "link" | "note";
+  isBookmarked?: boolean;
   addedOn: string;
 }
 

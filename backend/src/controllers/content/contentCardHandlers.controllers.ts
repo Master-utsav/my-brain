@@ -35,3 +35,48 @@ export async function handleDeleteCardFunction(
     });
   }
 }
+
+export async function handleBookmarkCardFunction(
+  req: AuthenticatedRequest,
+  res: Response
+) {
+  const userUniqueId = req.userUniqueId;
+  const cardId = req.params.cardId;
+
+  if (!userUniqueId) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+
+  if (!cardId) {
+    return res.status(400).json({ success: false, message: "CardId is required" });
+  }
+
+  try {
+    const card = await ContentModel.findOne({ cardId });
+
+    if (!card) {
+      return res.status(404).json({ success: false, message: "Card not found" });
+    }
+
+    if (typeof card.isBookmarked === "undefined") {
+      card.isBookmarked = false;
+    }
+
+    card.isBookmarked = !card.isBookmarked;
+
+    await card.save();
+
+    return res.status(200).json({
+      success: true,
+      message: `Card ${card.isBookmarked ? "bookmarked" : "un-bookmarked"} successfully`,
+      card,
+    });
+  } catch (error: any) {
+    console.error("Error handling bookmark card:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+}

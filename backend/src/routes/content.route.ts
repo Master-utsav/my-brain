@@ -3,7 +3,7 @@ import { authenticateToken } from "../middleware/auth.middleware";
 import { handleAddContentRequestFunction } from "../controllers/content/addContent.controllers";
 import multer from "multer";
 import { handleGetAllContentOfUserFunction } from "../controllers/content/getContent.controllers";
-import { handleDeleteCardFunction } from "../controllers/content/contentCardHandlers.controllers";
+import { handleBookmarkCardFunction, handleDeleteCardFunction } from "../controllers/content/contentCardHandlers.controllers";
 
 const storage = multer.memoryStorage();
 export const upload = multer({ storage: storage });
@@ -14,5 +14,6 @@ contentRoute.post("/add-content" , authenticateToken , upload.single("image") , 
 contentRoute.get("/get-content" , authenticateToken , handleGetAllContentOfUserFunction)
 
 contentRoute.post("/delete/:cardId" , authenticateToken , handleDeleteCardFunction)
+contentRoute.post("/bookmark/:cardId" , authenticateToken , handleBookmarkCardFunction)
 
 export default contentRoute;

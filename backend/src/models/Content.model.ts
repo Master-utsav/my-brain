@@ -17,6 +17,7 @@ export interface IContent extends Document {
   tags?: string[];
   list?: string[];
   image?: string;
+  isBookmarked?:boolean;
   isShareable: boolean;
   createdById: string;
   addedOn: Date;
@@ -37,6 +38,7 @@ const contentSchema = new Schema<IContent>(
     link: [{ type: Schema.Types.Mixed }], 
     tags: [{ type: String, trim: true }],
     isShareable: { type: Boolean, default: true },
+    isBookmarked: { type: Boolean, default: false },
     createdById: { type: String, required: true, ref: "User" },
     addedOn: { type: Date, default: Date.now },
   },

@@ -9,8 +9,9 @@
     "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts",
     "vercel-build": "tsc"
   },
+  
   "keywords": [],
-  "author": "",
+  "author": "master-utsav",
   "license": "ISC",
   "dependencies": {
     "@vercel/node": "^3.2.23",

@@ -29,6 +29,7 @@ export async function handleGetAllContentOfUserFunction(
       isShareable: item.isShareable,
       createdById: item.createdById,
       addedOn: item.addedOn,
+      isBookmarked: item.isBookmarked
     }));
 
     return res.status(200).json({

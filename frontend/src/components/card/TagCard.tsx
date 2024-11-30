@@ -33,6 +33,13 @@ const TagCard = ({ cardDetails }: { cardDetails: TagsInterface }) => {
     cardHandler(`delete/${cardDetails.cardId}`, token);
   }
 
+  function bookmarkBtnhandler() {
+    if (!token) {
+      return;
+    }
+    cardHandler(`bookmark/${cardDetails.cardId}`, token);
+  }
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -50,7 +57,7 @@ const TagCard = ({ cardDetails }: { cardDetails: TagsInterface }) => {
       );
     };
   }, [setActiveCardId]);
-
+  
   const isOpen = activeCardId === cardDetails.cardId;
 
   return (
@@ -99,7 +106,7 @@ const TagCard = ({ cardDetails }: { cardDetails: TagsInterface }) => {
           <EditButton />
           <ShareButton isAnimation={false} />
           <ExpandButton />
-          <BookmarkButton />
+          <BookmarkButton onClickBtn={bookmarkBtnhandler}/>
           <DeleteButton onClickBtn={deleteBtnhandler}/>
         </div>
       )}
