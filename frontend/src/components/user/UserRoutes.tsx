@@ -24,10 +24,9 @@ import LinkSection from "@/sections/LinkSection";
 import TagSection from "@/sections/TagSection";
 // import VideoSection from "@/sections/VideoSection";
 import TweetSection from "@/sections/TweetSection";
-
 import { routeHeaders } from "@/constants";
 import AllContentSection from "@/sections/AllContentSection";
-import { ContentContextProvider } from "@/context/ContentContext";
+
 
 const UserRoutes = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
@@ -45,7 +44,7 @@ const UserRoutes = () => {
   const toggleModal = () => setIsModalOpen((prev) => !prev);
 
   return (
-    <ContentContextProvider>
+    <>
       {/* Sidebar of dashboard*/}
       <Sidebar
         className={`fixed left-0 top-0 h-full transition-all duration-300 ${
@@ -104,7 +103,7 @@ const UserRoutes = () => {
           )}
         </section>
       </div>
-    </ContentContextProvider>
+    </>
   );
 };
 

@@ -13,12 +13,16 @@ import HashTagChips from "../ui/HashTagChips";
 import AddedOnChip from "../ui/AddedOnChip";
 import useCardHandler from "@/hooks/cardHandler";
 import { getVerifiedToken } from "@/lib/cookieService";
+import { useAuthContext } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const { cardHandler } = useCardHandler();
+  const { userData } = useAuthContext();
   const token = getVerifiedToken();
+  const navigate = useNavigate();
 
   function handleBurgerButton() {
     setActiveCardId(
@@ -72,7 +76,7 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
 
         <div className="flex justify-center items-center flex-col sm:flex-row gap-1">
           <CardTypeButton Icon={BsTwitter} />
-          <BurgerButton onClickBtn={handleBurgerButton} />
+          {cardDetails.createdById === userData.id ? <BurgerButton onClickBtn={handleBurgerButton} /> : <CardTypeButton Icon={BsTwitter} />}
         </div>
       </div>
       <p className="mt-2 text-sm font-noto-sans dark:text-white-600 text-black-500/80 group-hover:dark:text-white-800 group-hover:text-black-300">
@@ -95,16 +99,19 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
       <AddedOnChip date={cardDetails.addedOn} />
 
       {/* Popup Menu */}
-      {isOpen && (
+      {isOpen && cardDetails.createdById === userData.id && (
         <div
           ref={popupRef}
           className="absolute sm:right-1 top-14 p-2 rounded-xl z-50 backdrop-blur-xl flex justify-start items-start sm:flex-col flex-row gap-2 shadow-md dark:bg-[#f5f5f5]/5 bg-[#121212]/5 dark:text-white text-black transition-all ease-soft-spring delay-75"
         >
           <EditButton />
-          <ShareButton isAnimation={false} />
+          <ShareButton
+            isAnimation={false}
+            onClickBtn={() => navigate(`/view/${cardDetails.cardId}`)}
+          />
           <ExpandButton />
-          <BookmarkButton onClickBtn={bookmarkBtnhandler}/>
-          <DeleteButton onClickBtn={deleteBtnhandler}/>
+          <BookmarkButton onClickBtn={bookmarkBtnhandler} />
+          <DeleteButton onClickBtn={deleteBtnhandler} />
         </div>
       )}
     </div>

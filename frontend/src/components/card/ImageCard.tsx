@@ -14,12 +14,16 @@ import { FaImage } from "react-icons/fa6";
 import { Image } from "@nextui-org/react";
 import useCardHandler from "@/hooks/cardHandler";
 import { getVerifiedToken } from "@/lib/cookieService";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "@/context/AuthContext";
 
 const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const { cardHandler } = useCardHandler();
+  const {userData} = useAuthContext();
   const token = getVerifiedToken();
+  const navigate = useNavigate();
 
   function handleBurgerButton() {
     setActiveCardId(
@@ -73,7 +77,7 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
 
         <div className="flex justify-center items-center flex-col sm:flex-row gap-1">
           <CardTypeButton Icon={FaImage} />
-          <BurgerButton onClickBtn={handleBurgerButton} />
+          {cardDetails.createdById === userData.id ? <BurgerButton onClickBtn={handleBurgerButton} /> : <CardTypeButton Icon={FaImage} />}
         </div>
       </div>
 
@@ -110,18 +114,20 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
       <AddedOnChip date={cardDetails.addedOn} />
 
       {/* Popup Menu */}
-      {isOpen && (
+      {isOpen && cardDetails.createdById === userData.id && (
         <div
           ref={popupRef}
           className="absolute sm:right-1 top-14 p-2 rounded-xl z-50 backdrop-blur-xl flex justify-start items-start sm:flex-col flex-row gap-2 shadow-md dark:bg-[#f5f5f5]/5 bg-[#121212]/5 dark:text-white text-black transition-all ease-soft-spring delay-75"
         >
           <EditButton />
-          <ShareButton isAnimation={false} />
+          <ShareButton isAnimation={false} onClickBtn={() => navigate(`/view/${cardDetails.cardId}`)}/>
           <ExpandButton />
           <BookmarkButton onClickBtn={bookmarkBtnhandler}/>
           <DeleteButton onClickBtn={deleteBtnhandler} />
         </div>
       )}
+
+    
     </div>
   );
 };
