@@ -5,39 +5,32 @@ import WarningIcon from "@/Icons/WarningIcon";
 import { useAuthContext } from "@/context/AuthContext";
 import UserButton from "../ui/DashBoardButton";
 import { HoverBorderGradient } from "../ui/HoverBorderGradient";
+import { useToast } from "@/hooks/use-toast";
+
 
 const LogoutModal = () => {
   const navigate = useNavigate();
   const { setIsLoggedIn } = useAuthContext();
+  const {toast} = useToast();
 
   const handleConfirmLogout = () => {
     userLogout();
     setIsLoggedIn(false);
     navigate("/");
-    // SuccessToast("Logout Successful");
+    toast({
+      title: "logout successfully",
+    })
   };
 
   const handleCancelLogout = () => {
     navigate("/");
   };
 
-  //   const modalVariants = {
-  //     hidden: { opacity: 0.3, scale: 0.8 },
-  //     visible: { opacity: 1, scale: 1 },
-  //     exit: { opacity: 0, scale: 0.8 }
-  //   };
-
   return (
     <section className="w-full h-screen fixed inset-0 flex items-center justify-center bg-white dark:bg-black  backdrop-blur-lg transition-opacity duration-300">
       <HoverBorderGradient
         containerClassName="rounded-lg mb-1"
-        className="w-full flex p-4 font-ubuntu justify-center flex-col items-center text-black dark:text-white bg-white dark:bg-black"
-        //   variants={modalVariants}
-        //   initial="hidden"
-        //   animate="visible"
-        //   exit="exit"
-        //   transition={{ duration: 0.3 }}
-      >
+        className="w-full flex p-4 font-ubuntu justify-center flex-col items-center text-black dark:text-white bg-white dark:bg-black">
         <div className="flex items-center mb-4">
           <WarningIcon fillColor="rgb(202 138 4)" />
           <h2 className="text-lg font-bold">Warning</h2>

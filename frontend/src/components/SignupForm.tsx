@@ -16,6 +16,7 @@ import { USER_API } from "@/lib/env";
 import SignUpOTPModal from "@/components/SignUpOTPModal";
 import { HoverBorderGradient } from "@/components/ui/HoverBorderGradient";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 type SignupFormData = z.infer<typeof signupSchema>;
 
@@ -25,6 +26,7 @@ const SignupModal: React.FC = () => {
   const [showOTPComponent, setShowOTPComponent] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const {toast} = useToast();
 
   const closeSignup = () => {
     navigate("/");
@@ -48,11 +50,17 @@ const SignupModal: React.FC = () => {
 
       if (responseData.success) {
         setShowOTPComponent(true);
+        toast({
+          title: responseData.message,
+        })
       } else {
         throw new Error(responseData.message);
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (error: any) {
+      toast({
+        title: error.response.data.message,
+        variant: "destructive"
+      })
     }
   };
 

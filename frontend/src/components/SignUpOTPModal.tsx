@@ -13,6 +13,7 @@ import { HoverBorderGradient } from "./ui/HoverBorderGradient";
 import { useTheme } from "@/context/ThemeProvider";
 import { Button } from "./ui/button";
 import { USER_API } from "@/lib/env";
+import { useToast } from "@/hooks/use-toast";
 
 interface OTPComponentProps {
   userEmail: string;
@@ -24,7 +25,7 @@ const SignUpOTPModal: React.FC<OTPComponentProps> = ({ userEmail }) => {
   const [inputValue, setInputValue] = useState<string[]>(Array(6).fill(""));
   const [isResendEnabled, setIsResendEnabled] = useState(true);
   const { theme } = useTheme();
-
+  const {toast} = useToast();
   const navigate = useNavigate();
 
   const closeSignup = () => {
@@ -48,11 +49,17 @@ const SignUpOTPModal: React.FC<OTPComponentProps> = ({ userEmail }) => {
         const { success, message } = response.data;
         if (success) {
           navigate("/login");
+          toast({
+            title: message,
+          })
         } else {
           throw new Error(message);
         }
-      } catch {
-        // Handle errors
+      } catch(error: any) {
+        toast({
+          title: error.response.data.message,
+          variant: "destructive"
+        })
       } finally {
         setDisable(false);
       }

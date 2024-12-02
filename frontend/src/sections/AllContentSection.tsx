@@ -11,7 +11,7 @@ const AllContentSection = () => {
         return dateB - dateA;
       })
     : contentData;
-
+  
   return (
     <section className="w-full min-h-[200vh] dark:bg-black bg-white p-5 px-8">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ">

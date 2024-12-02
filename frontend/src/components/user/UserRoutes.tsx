@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
@@ -26,11 +26,13 @@ import TagSection from "@/sections/TagSection";
 import TweetSection from "@/sections/TweetSection";
 import { routeHeaders } from "@/constants";
 import AllContentSection from "@/sections/AllContentSection";
+import { useContentContext } from "@/context/ContentContext";
 
 
 const UserRoutes = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const {loadContentData} = useContentContext();
   const location = useLocation();
 
   const currentPath = location.pathname;
@@ -40,9 +42,14 @@ const UserRoutes = () => {
     isBtnShow: false,
   };
 
+  useEffect(() => {
+    loadContentData();
+  }, [])
+
+
   const toggleSidebar = (val: boolean) => setIsSideBarOpen(val);
   const toggleModal = () => setIsModalOpen((prev) => !prev);
-
+  
   return (
     <>
       {/* Sidebar of dashboard*/}

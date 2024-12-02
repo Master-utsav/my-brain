@@ -10,6 +10,7 @@ import React from "react";
 import UnauthenticatedPage from "./components/UnauthenticatedPage";
 import PageNotFound from "./components/PageNotFound";
 import ViewSection from "./sections/ViewSection";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   const location = useLocation();
@@ -27,7 +28,6 @@ function App() {
     }
   }, [isLoggedIn, location.pathname]);
   
-  console.log(isLoggedIn)
   return (
     <>
       {!isLoggedIn ? (
@@ -42,6 +42,7 @@ function App() {
             <Route path="/user/*" element={<UnauthenticatedPage />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
+          <Toaster/>
         </main>
       ) : (
         <main className="w-full flex dark:bg-[#121212] bg-[#f5f5f5] relative min-h-screen scrollbar-meteor overflow-x-hidden">
@@ -53,8 +54,10 @@ function App() {
             <Route path="/user/*" element={<UserRoutes />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
+          <Toaster/>
         </main>
       )}
+    
     </>
   );
 }

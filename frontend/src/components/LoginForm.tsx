@@ -17,6 +17,7 @@ import { HoverBorderGradient } from "@/components/ui/HoverBorderGradient";
 import { Button } from "@/components/ui/button";
 import { setTokenCookie } from "@/lib/cookieService";
 import { useAuthContext } from "@/context/AuthContext";
+import {useToast} from "@/hooks/use-toast"
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -25,6 +26,7 @@ const LoginForm: React.FC = () => {
   const { theme } = useTheme();
   const {setIsLoggedIn} = useAuthContext();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const {toast} = useToast();
 
   const closeSignup = () => {
     navigate("/");
@@ -43,17 +45,21 @@ const LoginForm: React.FC = () => {
     try {
       const response = await axios.post(`${USER_API}/login`, data);
       const responseData: { success: boolean; message: string; token: string } = response.data;
-
       if (responseData.success) {
+        toast({
+          title: responseData.message
+        })
         setTokenCookie(responseData.token);
-        // SuccessToast(responseData.message )
         setIsLoggedIn(true);
         navigate("/")
       } else {
         throw new Error(responseData.message);
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (error: any) {
+      toast({
+        title: error.response.data.message,
+        variant: "destructive"
+      })
     }
   };
 
