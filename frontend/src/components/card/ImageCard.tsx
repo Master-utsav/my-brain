@@ -14,16 +14,16 @@ import { FaImage } from "react-icons/fa6";
 import { Image } from "@nextui-org/react";
 import useCardHandler from "@/hooks/cardHandler";
 import { getVerifiedToken } from "@/lib/cookieService";
-import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@/context/AuthContext";
+import ShareCardModal from "../modal/shareCardModal";
 
 const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const [isModalOpen , setIsModalOpen] = useState<boolean>(false);
   const { cardHandler } = useCardHandler();
   const {userData} = useAuthContext();
   const token = getVerifiedToken();
-  const navigate = useNavigate();
 
   function handleBurgerButton() {
     setActiveCardId(
@@ -43,6 +43,10 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
       return;
     }
     cardHandler(`bookmark/${cardDetails.cardId}`, token);
+  }
+
+  function handleShareModal () {
+    setIsModalOpen(!isModalOpen)
   }
 
   useEffect(() => {
@@ -120,15 +124,16 @@ const ImageCard = ({ cardDetails }: { cardDetails: ImageInterface }) => {
           className="absolute sm:right-1 top-14 p-2 rounded-xl z-50 backdrop-blur-xl flex justify-start items-start sm:flex-col flex-row gap-2 shadow-md dark:bg-[#f5f5f5]/5 bg-[#121212]/5 dark:text-white text-black transition-all ease-soft-spring delay-75"
         >
           <EditButton />
-          <ShareButton isAnimation={false} onClickBtn={() => navigate(`/view/${cardDetails.cardId}`)}/>
+          <ShareButton isAnimation={false} onClickBtn={handleShareModal}/>
           <ExpandButton />
           <BookmarkButton onClickBtn={bookmarkBtnhandler}/>
           <DeleteButton onClickBtn={deleteBtnhandler} />
         </div>
       )}
-
-    
+      {isModalOpen && <ShareCardModal cardId={cardDetails.cardId} isOpen={isModalOpen} isShareable={cardDetails.isShareable} onClose={handleShareModal}/>}
     </div>
+
+
   );
 };
 

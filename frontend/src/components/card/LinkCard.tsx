@@ -14,15 +14,15 @@ import { HiLink } from "react-icons/hi";
 import useCardHandler from "@/hooks/cardHandler";
 import { getVerifiedToken } from "@/lib/cookieService";
 import { useAuthContext } from "@/context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import ShareCardModal from "../modal/shareCardModal";
 
 const LinkCard = ({ cardDetails }: { cardDetails: LinkInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const [isModalOpen , setIsModalOpen] = useState<boolean>(false);
   const { cardHandler } = useCardHandler();
   const { userData } = useAuthContext();
   const token = getVerifiedToken();
-  const navigate = useNavigate();
 
   function handleBurgerButton() {
     setActiveCardId(
@@ -42,6 +42,11 @@ const LinkCard = ({ cardDetails }: { cardDetails: LinkInterface }) => {
     }
     cardHandler(`bookmark/${cardDetails.cardId}`, token);
   }
+
+  function handleShareModal () {
+    setIsModalOpen(!isModalOpen)
+  }
+
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -107,13 +112,14 @@ const LinkCard = ({ cardDetails }: { cardDetails: LinkInterface }) => {
           <EditButton />
           <ShareButton
             isAnimation={false}
-            onClickBtn={() => navigate(`/view/${cardDetails.cardId}`)}
+            onClickBtn={handleShareModal}
           />
           <ExpandButton />
           <BookmarkButton onClickBtn={bookmarkBtnhandler} />
           <DeleteButton onClickBtn={deleteBtnhandler} />
         </div>
       )}
+            {isModalOpen && <ShareCardModal cardId={cardDetails.cardId} isOpen={isModalOpen} isShareable={cardDetails.isShareable} onClose={handleShareModal}/>}
     </div>
   );
 };

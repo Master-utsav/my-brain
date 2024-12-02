@@ -14,15 +14,15 @@ import AddedOnChip from "../ui/AddedOnChip";
 import useCardHandler from "@/hooks/cardHandler";
 import { getVerifiedToken } from "@/lib/cookieService";
 import { useAuthContext } from "@/context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import ShareCardModal from "../modal/shareCardModal";
 
 const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { cardHandler } = useCardHandler();
   const { userData } = useAuthContext();
   const token = getVerifiedToken();
-  const navigate = useNavigate();
 
   function handleBurgerButton() {
     setActiveCardId(
@@ -42,6 +42,10 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
       return;
     }
     cardHandler(`bookmark/${cardDetails.cardId}`, token);
+  }
+
+  function handleShareModal() {
+    setIsModalOpen(!isModalOpen);
   }
 
   useEffect(() => {
@@ -76,7 +80,11 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
 
         <div className="flex justify-center items-center flex-col sm:flex-row gap-1">
           <CardTypeButton Icon={BsTwitter} />
-          {cardDetails.createdById === userData.id ? <BurgerButton onClickBtn={handleBurgerButton} /> : <CardTypeButton Icon={BsTwitter} />}
+          {cardDetails.createdById === userData.id ? (
+            <BurgerButton onClickBtn={handleBurgerButton} />
+          ) : (
+            <CardTypeButton Icon={BsTwitter} />
+          )}
         </div>
       </div>
       <p className="mt-2 text-sm font-noto-sans dark:text-white-600 text-black-500/80 group-hover:dark:text-white-800 group-hover:text-black-300">
@@ -86,7 +94,7 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
       {Array.isArray(cardDetails.link) &&
         cardDetails.link.some((link) => link) && (
           <LinkReadInput link={cardDetails.link} />
-      )}
+        )}
 
       {cardDetails.tags && (
         <div className="flex justify-start items-start flex-wrap gap-1 mt-2">
@@ -105,14 +113,19 @@ const TweetCard = ({ cardDetails }: { cardDetails: TweetInterface }) => {
           className="absolute sm:right-1 top-14 p-2 rounded-xl z-50 backdrop-blur-xl flex justify-start items-start sm:flex-col flex-row gap-2 shadow-md dark:bg-[#f5f5f5]/5 bg-[#121212]/5 dark:text-white text-black transition-all ease-soft-spring delay-75"
         >
           <EditButton />
-          <ShareButton
-            isAnimation={false}
-            onClickBtn={() => navigate(`/view/${cardDetails.cardId}`)}
-          />
+          <ShareButton isAnimation={false} onClickBtn={handleShareModal} />
           <ExpandButton />
           <BookmarkButton onClickBtn={bookmarkBtnhandler} />
           <DeleteButton onClickBtn={deleteBtnhandler} />
         </div>
+      )}
+      {isModalOpen && (
+        <ShareCardModal
+          cardId={cardDetails.cardId}
+          isOpen={isModalOpen}
+          isShareable={cardDetails.isShareable}
+          onClose={handleShareModal}
+        />
       )}
     </div>
   );

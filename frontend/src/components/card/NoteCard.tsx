@@ -14,16 +14,16 @@ import AddedOnChip from "../ui/AddedOnChip";
 import { FaNoteSticky } from "react-icons/fa6";
 import useCardHandler from "@/hooks/cardHandler";
 import { getVerifiedToken } from "@/lib/cookieService";
-import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@/context/AuthContext";
+import ShareCardModal from "../modal/shareCardModal";
 
 const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { cardHandler } = useCardHandler();
   const { userData } = useAuthContext();
   const token = getVerifiedToken();
-  const navigate = useNavigate();
 
   function handleBurgerButton() {
     setActiveCardId(
@@ -43,6 +43,10 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
       return;
     }
     cardHandler(`bookmark/${cardDetails.cardId}`, token);
+  }
+
+  function handleShareModal() {
+    setIsModalOpen(!isModalOpen);
   }
 
   useEffect(() => {
@@ -77,7 +81,11 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
 
         <div className="flex justify-center items-center flex-col sm:flex-row gap-1">
           <CardTypeButton Icon={FaNoteSticky} />
-          {cardDetails.createdById === userData.id ? <BurgerButton onClickBtn={handleBurgerButton} /> : <CardTypeButton Icon={FaNoteSticky} />}
+          {cardDetails.createdById === userData.id ? (
+            <BurgerButton onClickBtn={handleBurgerButton} />
+          ) : (
+            <CardTypeButton Icon={FaNoteSticky} />
+          )}
         </div>
       </div>
       <p className="mt-2 text-sm font-noto-sans dark:text-white-600 text-black-500/80 group-hover:dark:text-white-800 group-hover:text-black-300">
@@ -86,18 +94,20 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
 
       <ul className="w-full dark:bg-black-300/40 bg-white-800/40 p-1 rounded-lg dark:shadow-white-500/10 shadow-md ">
         {cardDetails.list.map((item, idx) => (
-            <li key={idx} className="w-full flex justify-start items-center gap-1 text-sm font-noto-sans dark:text-blue-100 text-blue-900">
-                <RxDot className="size-5 dark:text-blue-200 text-blue-900"/>
-                {item}
-            </li>
+          <li
+            key={idx}
+            className="w-full flex justify-start items-center gap-1 text-sm font-noto-sans dark:text-blue-100 text-blue-900"
+          >
+            <RxDot className="size-5 dark:text-blue-200 text-blue-900" />
+            {item}
+          </li>
         ))}
       </ul>
 
       {Array.isArray(cardDetails.link) &&
         cardDetails.link.some((link) => link) && (
           <LinkReadInput link={cardDetails.link} />
-      )}
-
+        )}
 
       {cardDetails.tags && (
         <div className="flex justify-start items-start flex-wrap gap-1 mt-2">
@@ -116,19 +126,22 @@ const NoteCard = ({ cardDetails }: { cardDetails: NoteInterface }) => {
           className="absolute sm:right-1 top-14 p-2 rounded-xl z-50 backdrop-blur-xl flex justify-start items-start sm:flex-col flex-row gap-2 shadow-md dark:bg-[#f5f5f5]/5 bg-[#121212]/5 dark:text-white text-black transition-all ease-soft-spring delay-75"
         >
           <EditButton />
-          <ShareButton
-            isAnimation={false}
-            onClickBtn={() => navigate(`/view/${cardDetails.cardId}`)}
-          />
+          <ShareButton isAnimation={false} onClickBtn={handleShareModal} />
           <ExpandButton />
           <BookmarkButton onClickBtn={bookmarkBtnhandler} />
           <DeleteButton onClickBtn={deleteBtnhandler} />
         </div>
+      )}
+      {isModalOpen && (
+        <ShareCardModal
+          cardId={cardDetails.cardId}
+          isOpen={isModalOpen}
+          isShareable={cardDetails.isShareable}
+          onClose={handleShareModal}
+        />
       )}
     </div>
   );
 };
 
 export default NoteCard;
-
-

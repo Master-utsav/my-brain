@@ -38,7 +38,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/contact" element={<SignupForm />} />
-            <Route path="/view/:cardId" element={<ViewSection />} />
+            <Route path="/view-card/:cardId" element={<ViewSection />} />
             <Route path="/user/*" element={<UnauthenticatedPage />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
@@ -49,7 +49,7 @@ function App() {
           <Routes location={location}>
             <Route path="/" element={<HeroSection />} />
             <Route path="/contact" element={<SignupForm />} />
-            <Route path="/view/:cardId" element={<ViewSection />} />
+            <Route path="/view-card/:cardId" element={<ViewSection />} />
             <Route path="/user/*" element={<UserRoutes />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
