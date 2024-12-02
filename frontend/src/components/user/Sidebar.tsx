@@ -27,6 +27,12 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
   const locName = location.pathname.split("/")[2];
   const navigate = useNavigate();
 
+  React.useEffect(() => {
+    if(locName === location.pathname.split("/")[2]){
+      OnSideBarOpen(false)
+    }
+  }, [location.pathname])
+
   return (
     <motion.aside
       initial={{x: -56}}

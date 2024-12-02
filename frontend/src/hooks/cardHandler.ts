@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import { CONTENT_API } from "@/lib/env";
 import { useContentContext } from "@/context/ContentContext";
-import { useNavigate } from "react-router-dom";
 
 const useCardHandler = () => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +9,6 @@ const useCardHandler = () => {
   const [responseData, setResponseData] = useState<any>(null);
   const { loadContentData } = useContentContext();
 
-  const navigate = useNavigate();
   const cardHandler = async (apiEndpoint: string , token: string) => {
     if(!token){
         setError('No token provided');
@@ -28,7 +26,6 @@ const useCardHandler = () => {
       setResponseData(response.data);
       if (response.data.success) {
         await loadContentData();
-        navigate("/user/all-content");
       } else {
         console.log(error);
       }

@@ -1,4 +1,4 @@
-import TagCard from "@/components/card/TagCard";
+import UniversalCard from "@/components/card/UniversalCard";
 import { TagsInterface } from "@/constants";
 // import { tagsData } from '@/constants'
 import { useContentContext } from "@/context/ContentContext";
@@ -21,7 +21,7 @@ const TagSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
           >
-            <TagCard key={item.cardId} cardDetails={item} />
+            <UniversalCard cardDetails={item} key={item.cardId}/>
           </motion.div>
         ))}
       </div>

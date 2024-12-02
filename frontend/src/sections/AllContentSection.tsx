@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
-import ImageCard from "@/components/card/ImageCard";
-import NoteCard from "@/components/card/NoteCard";
-import TweetCard from "@/components/card/TweetCard";
-import TagCard from "@/components/card/TagCard";
-import LinkCard from "@/components/card/LinkCard";
 import { useContentContext } from "@/context/ContentContext";
+import UniversalCard from "@/components/card/UniversalCard";
 
 const AllContentSection = () => {
   const { contentData } = useContentContext();
@@ -18,7 +14,7 @@ const AllContentSection = () => {
 
   return (
     <section className="w-full min-h-[200vh] dark:bg-black bg-white p-5 px-8">
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ">
         {Array.isArray(sortedContentData) &&
           sortedContentData.map((item, idx) => (
             <motion.div
@@ -27,21 +23,7 @@ const AllContentSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
             >
-              {item.type === "note" && (
-                <NoteCard key={item.cardId} cardDetails={item} />
-              )}
-              {item.type === "tweet" && (
-                <TweetCard key={item.cardId} cardDetails={item} />
-              )}
-              {item.type === "tag" && (
-                <TagCard key={item.cardId} cardDetails={item} />
-              )}
-              {item.type === "link" && (
-                <LinkCard key={item.cardId} cardDetails={item} />
-              )}
-              {item.type === "image" && (
-                <ImageCard key={item.cardId} cardDetails={item} />
-              )}
+              <UniversalCard cardDetails={item} key={item.cardId}/>
             </motion.div>
           ))}
       </div>

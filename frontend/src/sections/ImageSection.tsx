@@ -1,4 +1,4 @@
-import ImageCard from "@/components/card/ImageCard";
+import UniversalCard from "@/components/card/UniversalCard";
 import { ImageInterface } from "@/constants";
 import { useContentContext } from "@/context/ContentContext";
 // import { imageData } from '@/constants'
@@ -21,7 +21,7 @@ const ImageSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
           >
-            <ImageCard key={item.cardId} cardDetails={item} />
+            <UniversalCard cardDetails={item} key={item.cardId}/>
           </motion.div>
         ))}
       </div>

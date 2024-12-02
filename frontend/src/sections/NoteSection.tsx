@@ -2,8 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 // import {noteData} from "@/constants"
 import { NoteInterface } from "@/constants";
-import NoteCard from "@/components/card/NoteCard";
 import { useContentContext } from "@/context/ContentContext";
+import UniversalCard from "@/components/card/UniversalCard";
 
 const NoteSection: React.FC = () => {
   const { contentData } = useContentContext();
@@ -21,7 +21,7 @@ const NoteSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
           >
-            <NoteCard key={item.cardId} cardDetails={item} />
+           <UniversalCard cardDetails={item} key={item.cardId}/>
           </motion.div>
         ))}
       </div>

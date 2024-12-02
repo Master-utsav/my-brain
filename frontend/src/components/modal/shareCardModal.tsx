@@ -112,7 +112,7 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
           :
           <>
           <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
-            here is your modal share link!!!
+            Here is your modal share link!!!
           </p>
 
           <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">

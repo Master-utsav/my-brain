@@ -1,14 +1,10 @@
 import { motion } from "framer-motion";
-import ImageCard from "@/components/card/ImageCard";
-import NoteCard from "@/components/card/NoteCard";
-import TweetCard from "@/components/card/TweetCard";
-import TagCard from "@/components/card/TagCard";
-import LinkCard from "@/components/card/LinkCard";
 import { useParams } from "react-router-dom";
 import React, { useState } from "react";
 import { CONTENT_API } from "@/lib/env";
 import { AllContentInterface } from "@/constants";
 import axios from "axios";
+import UniversalCard from "@/components/card/UniversalCard";
 
 const ViewSection = () => {
   const { cardId } = useParams();
@@ -68,21 +64,7 @@ const ViewSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
             >
-              {item.type === "note" && (
-                <NoteCard key={item.cardId} cardDetails={item} />
-              )}
-              {item.type === "tweet" && (
-                <TweetCard key={item.cardId} cardDetails={item} />
-              )}
-              {item.type === "tag" && (
-                <TagCard key={item.cardId} cardDetails={item} />
-              )}
-              {item.type === "link" && (
-                <LinkCard key={item.cardId} cardDetails={item} />
-              )}
-              {item.type === "image" && (
-                <ImageCard key={item.cardId} cardDetails={item} />
-              )}
+             <UniversalCard cardDetails={item} key={item.cardId}/>
             </motion.div>
           ))}
       </div>
