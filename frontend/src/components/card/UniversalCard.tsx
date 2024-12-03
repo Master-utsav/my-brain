@@ -22,10 +22,17 @@ import { BsTwitter } from "react-icons/bs";
 import { HiLink } from "react-icons/hi";
 import UniversalCardModal from "../modal/UniversalCardModal";
 
+
 const UniversalCard = ({
   cardDetails,
+  onEditClick,
+  setCardDetails,
+  isEditModalOpen
 }: {
-  cardDetails: AllContentInterface;
+  cardDetails: AllContentInterface,
+  onEditClick?: (val : boolean) => void,
+  isEditModalOpen?: boolean,
+  setCardDetails?: (val: AllContentInterface) => void,
 }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
@@ -59,8 +66,16 @@ const UniversalCard = ({
     setIsModalOpen(!isModalOpen);
   }
 
-  function handleExpandModal(){
-    setIsExpandModalOpen(!isExpandModalOpen)
+  function handleExpandModal() {
+    setIsExpandModalOpen(!isExpandModalOpen);
+  }
+
+  function handleEditCardFunction() {
+
+    if(typeof onEditClick === "function" && typeof setCardDetails === "function" && typeof isEditModalOpen === "boolean"){
+        onEditClick(!isEditModalOpen);
+        setCardDetails(cardDetails);
+    }
   }
 
   useEffect(() => {
@@ -177,9 +192,9 @@ const UniversalCard = ({
           ref={popupRef}
           className="absolute sm:right-1 top-14 p-2 rounded-xl z-50 backdrop-blur-xl flex justify-start items-start sm:flex-col flex-row gap-2 shadow-md dark:bg-[#f5f5f5]/5 bg-[#121212]/5 dark:text-white text-black transition-all ease-soft-spring delay-75"
         >
-          <EditButton />
+          <EditButton onClickBtn={handleEditCardFunction} />
           <ShareButton isAnimation={false} onClickBtn={handleShareModal} />
-          <ExpandButton onClickBtn={handleExpandModal}/>
+          <ExpandButton onClickBtn={handleExpandModal} />
           <BookmarkButton onClickBtn={bookmarkBtnhandler} />
           <DeleteButton onClickBtn={deleteBtnhandler} />
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
 import { useNavigate } from "react-router-dom";
@@ -13,10 +13,11 @@ import HashTagInputForm from "../ui/HashTagInputForm";
 import { TagsInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import useAddContent from "@/hooks/addContent";
 import { getVerifiedToken } from "@/lib/cookieService";
+import { AllContentInterface } from "@/constants";
 
 type TagInterface = z.infer<typeof TagsInterfaceSchema>;
 
-const TagFormModal: React.FC = () => {
+const TagFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
   const {
     register,
     handleSubmit,
@@ -33,6 +34,14 @@ const TagFormModal: React.FC = () => {
       description: "",
     },
   });
+
+  if(cardDetails && cardDetails.type === "tag"){
+    setValue("link", cardDetails.link);
+    setValue("tags", cardDetails.tags);
+    setValue("isShareable", cardDetails.isShareable);
+    setValue("title", cardDetails.title);
+    setValue("description", cardDetails.description);
+  }
 
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const navigate = useNavigate();

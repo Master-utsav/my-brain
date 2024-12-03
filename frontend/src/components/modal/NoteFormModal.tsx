@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +14,11 @@ import HashTagInputForm from "../ui/HashTagInputForm";
 import { NoteInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import { getVerifiedToken } from "@/lib/cookieService";
 import useAddContent from "@/hooks/addContent";
+import { AllContentInterface } from "@/constants";
 
 type NoteInterface = z.infer<typeof NoteInterfaceSchema>;
 
-const NoteFormModal: React.FC = () => {
+const NoteFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
   const {
     register,
     handleSubmit,
@@ -35,6 +36,15 @@ const NoteFormModal: React.FC = () => {
       description: "",
     },
   });
+
+  if(cardDetails && cardDetails.type === "note"){
+    setValue("list", cardDetails.list);
+    setValue("link", cardDetails.link);
+    setValue("tags", cardDetails.tags);
+    setValue("isShareable", cardDetails.isShareable);
+    setValue("title", cardDetails.title);
+    setValue("description", cardDetails.description);
+  }
 
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);

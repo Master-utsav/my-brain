@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +14,11 @@ import { LinkInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import ListWithLinkInput from "../ui/ListWithLinkInput";
 import { getVerifiedToken } from "@/lib/cookieService";
 import useAddContent from "@/hooks/addContent";
+import { AllContentInterface } from "@/constants";
 
 type LinkInterface = z.infer<typeof LinkInterfaceSchema>;
 
-const LinkFormModal: React.FC = () => {
+const LinkFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
   const {
     handleSubmit,
     formState: { errors },
@@ -34,6 +35,14 @@ const LinkFormModal: React.FC = () => {
       description: "",
     },
   });
+   
+  if(cardDetails && cardDetails.type === "link"){
+    setValue("link", cardDetails.link);
+    setValue("tags", cardDetails.tags);
+    setValue("isShareable", cardDetails.isShareable);
+    setValue("title", cardDetails.title);
+    setValue("description", cardDetails.description);
+  }
 
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const navigate = useNavigate();

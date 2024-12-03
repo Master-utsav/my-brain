@@ -251,6 +251,7 @@ interface BaseInterface {
   description?: string;
   link?: string | string[];
   tags?: string[];
+  list?:string[];
   isShareable: boolean;
   type: "image" | "tweet" | "tag" | "link" | "note";
   isBookmarked?: boolean;

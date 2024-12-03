@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
 import { useNavigate } from "react-router-dom";
@@ -13,10 +13,11 @@ import HashTagInputForm from "../ui/HashTagInputForm";
 import { TweetInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import { getVerifiedToken } from "@/lib/cookieService";
 import useAddContent from "@/hooks/addContent";
+import { AllContentInterface } from "@/constants";
 
 type TweetInterface = z.infer<typeof TweetInterfaceSchema>;
 
-const TweetFormModal: React.FC = () => {
+const TweetFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
   const {
     register,
     handleSubmit,
@@ -33,6 +34,14 @@ const TweetFormModal: React.FC = () => {
       description: "",
     },
   });
+
+  if(cardDetails && cardDetails.type === "tweet"){
+    setValue("link", cardDetails.link);
+    setValue("tags", cardDetails.tags);
+    setValue("isShareable", cardDetails.isShareable);
+    setValue("title", cardDetails.title);
+    setValue("description", cardDetails.description);
+  }
 
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +14,11 @@ import { ImageInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import FileInputField from "../ui/FileInputField";
 import { getVerifiedToken } from "@/lib/cookieService";
 import useAddContent from "@/hooks/addContent";
+import { AllContentInterface } from "@/constants";
 
 type LinkInterface = z.infer<typeof ImageInterfaceSchema>;
 
-const ImageFormModal: React.FC = () => {
+const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
   const {
     handleSubmit,
     register,
@@ -34,6 +35,15 @@ const ImageFormModal: React.FC = () => {
       description: "",
     },
   });
+
+  if(cardDetails && cardDetails.type === "image"){
+    setValue("image", cardDetails.image);
+    setValue("link", cardDetails.link);
+    setValue("tags", cardDetails.tags);
+    setValue("isShareable", cardDetails.isShareable);
+    setValue("title", cardDetails.title);
+    setValue("description", cardDetails.description);
+  }
 
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
