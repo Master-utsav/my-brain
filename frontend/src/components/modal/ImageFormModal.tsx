@@ -224,7 +224,7 @@ const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
                     className="w-full flex font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
                   >
                     <input
-                      type="text"
+                      type="url"
                       placeholder="Link (Optional)"
                       className="w-full bg-transparent text-sm font-ubuntu outline-none focus:outline-none"
                       {...register("link")}
@@ -237,6 +237,7 @@ const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
                   )}
                 </div>
               )}
+              
               {/* Add Link Button */}
               <HoverBorderGradient
                 isAnimation={false}

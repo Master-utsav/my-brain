@@ -148,7 +148,7 @@ const LinkFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
                 </p>
               )}
             </HoverBorderGradient>
-
+            
             <div className="w-full relative">
               <ListWithLinkInput
                 onListItem={(data: string[]) => setValue("link", data)}

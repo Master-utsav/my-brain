@@ -46,7 +46,7 @@ const BookmarkSection: React.FC = () => {
               <UniversalCard
                 cardDetails={item}
                 key={item.cardId}
-                onEditClick={() => handleEditCardFunction(isEditModalOpen)}
+                onEditClick={() => handleEditCardFunction(!isEditModalOpen)}
                 setCardDetails={() => getCardDetails(item)}
                 isEditModalOpen={isEditModalOpen}
               />
@@ -64,7 +64,7 @@ const BookmarkSection: React.FC = () => {
             className={`fixed min-h-screen flex inset-0 justify-center items-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ${
               isEditModalOpen ? "block" : "hidden"
             }`}
-            onClick={() => handleEditCardFunction(isEditModalOpen)}
+            onClick={() => handleEditCardFunction(!isEditModalOpen)}
           >
             {cardDetails.type === "note" && (
               <NoteFormModal

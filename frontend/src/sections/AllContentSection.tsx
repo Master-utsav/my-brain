@@ -30,7 +30,7 @@ const AllContentSection = () => {
   }
 
   return (
-    <section className="w-full min-h-[200vh] dark:bg-black bg-white p-5 px-8">
+    <section className="w-full min-h-[200vh] dark:bg-black/10 bg-white/10 sm:p-5 sm:px-8 p-2">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ">
         {Array.isArray(sortedContentData) &&
           sortedContentData.map((item, idx) => (
@@ -56,11 +56,8 @@ const AllContentSection = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className={`fixed min-h-screen flex inset-0 justify-center items-center bg-black bg-opacity-50 z-10 transition-opacity duration-300 ${
-              isEditModalOpen ? "block" : "hidden"
-            }`}
+            className={`absolute w-full min-h-screen flex top-20 md:top-0 left-0 justify-center items-center bg-transparent backdrop-blur-lg z-50 transition-opacity duration-300`}
             onClick={() => handleEditCardFunction(!isEditModalOpen)}
           >
             {cardDetails.type === "note" && (

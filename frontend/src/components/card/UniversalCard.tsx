@@ -35,6 +35,7 @@ const UniversalCard = ({
   setCardDetails?: (val: AllContentInterface) => void,
 }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
+  const [isBurgerButton, setIsBurgerButton] = useState<boolean>(false);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isExpandModalOpen, setIsExpandModalOpen] = useState<boolean>(false);
@@ -46,6 +47,7 @@ const UniversalCard = ({
     setActiveCardId(
       activeCardId === cardDetails.cardId ? null : cardDetails.cardId
     );
+    setIsBurgerButton(true);
   }
 
   function deleteBtnhandler() {
@@ -53,6 +55,7 @@ const UniversalCard = ({
       return;
     }
     cardHandler(`delete/${cardDetails.cardId}`, token);
+    setIsBurgerButton(false);
   }
 
   function bookmarkBtnhandler() {
@@ -60,14 +63,17 @@ const UniversalCard = ({
       return;
     }
     cardHandler(`bookmark/${cardDetails.cardId}`, token);
+    setIsBurgerButton(false);
   }
 
   function handleShareModal() {
     setIsModalOpen(!isModalOpen);
+    setIsBurgerButton(false);
   }
 
   function handleExpandModal() {
     setIsExpandModalOpen(!isExpandModalOpen);
+    setIsBurgerButton(false);
   }
 
   function handleEditCardFunction() {
@@ -76,6 +82,7 @@ const UniversalCard = ({
         onEditClick(!isEditModalOpen);
         setCardDetails(cardDetails);
     }
+    setIsBurgerButton(false);
   }
 
   useEffect(() => {
@@ -85,8 +92,11 @@ const UniversalCard = ({
         !popupRef.current.contains(event.target as Node)
       ) {
         setActiveCardId(null);
+        setIsBurgerButton(false)
       }
     }
+    
+    setIsBurgerButton(activeCardId === cardDetails.cardId);
     document.addEventListener("mousedown", handleClickOutside as EventListener);
     return () => {
       document.removeEventListener(
@@ -95,8 +105,6 @@ const UniversalCard = ({
       );
     };
   }, [setActiveCardId]);
-
-  const isOpen = activeCardId === cardDetails.cardId;
 
   return (
     <div className="w-full h-full relative flex flex-col rounded-lg justify-start shadow-md items-start p-3 gap-2 dark:bg-[#121212]/80 bg-[#f5f5f5]/80 dark:text-white text-black border-[1px] transition-all ease-soft-spring delay-75 dark:border-[#121212] border-[#f5f5f5] hover:dark:bg-black hover:bg-white hover:border-black/40 hover:dark:border-white/40 group">
@@ -187,7 +195,7 @@ const UniversalCard = ({
       <AddedOnChip date={cardDetails.addedOn} />
 
       {/* Popup Menu */}
-      {isOpen && cardDetails.createdById === userData.id && (
+      {isBurgerButton && cardDetails.createdById === userData.id && (
         <div
           ref={popupRef}
           className="absolute sm:right-1 top-14 p-2 rounded-xl z-50 backdrop-blur-xl flex justify-start items-start sm:flex-col flex-row gap-2 shadow-md dark:bg-[#f5f5f5]/5 bg-[#121212]/5 dark:text-white text-black transition-all ease-soft-spring delay-75"

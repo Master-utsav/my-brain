@@ -1,9 +1,5 @@
 import UniversalCard from "@/components/card/UniversalCard";
-import ImageFormModal from "@/components/modal/ImageFormModal";
-import LinkFormModal from "@/components/modal/LinkFormModal";
-import NoteFormModal from "@/components/modal/NoteFormModal";
 import TagFormModal from "@/components/modal/TagFormModal";
-import TweetFormModal from "@/components/modal/TweetFormModal";
 import { AllContentInterface, TagsInterface } from "@/constants";
 // import { tagsData } from '@/constants'
 import { useContentContext } from "@/context/ContentContext";
@@ -41,7 +37,7 @@ const TagSection: React.FC = () => {
                 <UniversalCard
                   cardDetails={item}
                   key={item.cardId}
-                  onEditClick={() => handleEditCardFunction(isEditModalOpen)}
+                  onEditClick={() => handleEditCardFunction(!isEditModalOpen)}
                   setCardDetails={() => getCardDetails(item)}
                   isEditModalOpen={isEditModalOpen}
                 />
@@ -59,34 +55,10 @@ const TagSection: React.FC = () => {
               className={`fixed min-h-screen flex inset-0 justify-center items-center bg-black bg-opacity-10 z-50 transition-opacity duration-300 ${
                 isEditModalOpen ? "block" : "hidden"
               }`}
-              onClick={() => handleEditCardFunction(isEditModalOpen)}
+              onClick={() => handleEditCardFunction(!isEditModalOpen)}
             >
-              {cardDetails.type === "note" && (
-                <NoteFormModal
-                  key={cardDetails.cardId}
-                  cardDetails={cardDetails}
-                />
-              )}
-              {cardDetails.type === "tweet" && (
-                <TweetFormModal
-                  key={cardDetails.cardId}
-                  cardDetails={cardDetails}
-                />
-              )}
               {cardDetails.type === "tag" && (
                 <TagFormModal
-                  key={cardDetails.cardId}
-                  cardDetails={cardDetails}
-                />
-              )}
-              {cardDetails.type === "link" && (
-                <LinkFormModal
-                  key={cardDetails.cardId}
-                  cardDetails={cardDetails}
-                />
-              )}
-              {cardDetails.type === "image" && (
-                <ImageFormModal
                   key={cardDetails.cardId}
                   cardDetails={cardDetails}
                 />

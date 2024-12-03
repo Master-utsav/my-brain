@@ -65,7 +65,7 @@ export const loginSchema = z.object({
 const BaseInterfaceSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
-  link: z.union([z.string(), z.array(z.string())]).optional(),
+  link: z.union([z.string().url(), z.array(z.string().url())]).optional(),
   tags: z.array(z.string()).optional(),
   isShareable: z.boolean(),
   type: z.enum(["image", "tweet", "tag", "link", "note"]),
@@ -77,14 +77,14 @@ export const NoteInterfaceSchema = BaseInterfaceSchema.extend({
   list: z
     .array(z.string().nonempty("List item cannot be empty"))
     .min(1, "At least one item is required"),
-  link: z.string().optional(),
+   link: z.string().url().optional(),
 });
 
 // TweetInterface schema
 export const TweetInterfaceSchema = BaseInterfaceSchema.extend({
   type: z.literal("tweet"),
   description: z.string().min(10 , "min 10 characters required"),
-  link: z.string().optional(),
+  link: z.string().url().optional(),
 });
 
 // TagsInterface schema
@@ -92,13 +92,13 @@ export const TagsInterfaceSchema = BaseInterfaceSchema.extend({
   type: z.literal("tag"),
   tags: z.array(z.string().nonempty("input - tag item cannot be empty"))
   .min(1, "At least one item is required"),
-  link: z.string().optional(),
+   link: z.string().url().optional(),
 });
 
 // LinkInterface schema
 export const LinkInterfaceSchema = BaseInterfaceSchema.extend({
   type: z.literal("link"),
-  link: z.array(z.string().nonempty("List item cannot be empty"))
+  link: z.array(z.string().url().nonempty("List item cannot be empty"))
   .min(1, "At least one item is required"),
 });
 
@@ -106,5 +106,5 @@ export const LinkInterfaceSchema = BaseInterfaceSchema.extend({
 export const ImageInterfaceSchema = BaseInterfaceSchema.extend({
   type: z.literal("image"),
   image: z.union([z.string(), z.instanceof(File)]),
-  link: z.string().optional(),
+  link: z.string().url().optional(),
 });
