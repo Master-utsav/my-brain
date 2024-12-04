@@ -12,7 +12,6 @@ export default function ListWithLinkInput({
   const [list, setList] = useState<string[]>(listItem || [""]);
   const [error, setError] = useState<string | null>(null);
 
- 
   const isValidURL = (url: string) => {
     try {
       new URL(url);
@@ -21,7 +20,6 @@ export default function ListWithLinkInput({
       return false;
     }
   };
-
 
   const validateList = (updatedList: string[]) => {
     if (updatedList.length === 0 || updatedList.every((item) => item.trim() === "")) {
@@ -56,6 +54,12 @@ export default function ListWithLinkInput({
     validateList(updatedList);
     onListItem(updatedList);
   };
+
+  useEffect(() => {
+    if (listItem && listItem.length > 0) {
+      setList(listItem);
+    }
+  }, [listItem]);
 
   useEffect(() => {
     validateList(list);

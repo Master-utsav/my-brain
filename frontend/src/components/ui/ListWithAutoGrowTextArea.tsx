@@ -13,7 +13,12 @@ export default function ListWithAutoGrowTextArea({
   const [list, setList] = useState<string[]>(listItem || [""]);
   const [error, setError] = useState<string | null>(null);
 
-  // Function to validate the list
+  useEffect(() => {
+    if (listItem && listItem.length > 0) {
+      setList(listItem);
+    }
+  }, [listItem]);
+
   const validateList = (updatedList: string[]) => {
     if (updatedList.length === 0 || updatedList.every((item) => item.trim() === "")) {
       setError("At least one non-empty list item is required.");
@@ -26,21 +31,21 @@ export default function ListWithAutoGrowTextArea({
   const handleAddItem = () => {
     const updatedList = [...list, ""];
     setList(updatedList);
-    validateList(updatedList); 
+    validateList(updatedList);
   };
 
   const handleRemoveItem = (index: number) => {
     const updatedList = list.filter((_, i) => i !== index);
     setList(updatedList);
-    validateList(updatedList); 
-    onListItem(updatedList); 
+    validateList(updatedList);
+    onListItem(updatedList);
   };
 
   const handleTextAreaChange = (index: number, value: string) => {
     const updatedList = list.map((item, i) => (i === index ? value : item));
     setList(updatedList);
-    validateList(updatedList); 
-    onListItem(updatedList); 
+    validateList(updatedList);
+    onListItem(updatedList);
   };
 
   useEffect(() => {

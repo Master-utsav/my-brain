@@ -57,7 +57,7 @@ const AllContentSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className={`absolute w-full min-h-screen flex top-20 md:top-0 left-0 justify-center items-center bg-transparent backdrop-blur-lg z-50 transition-opacity duration-300`}
+            className={`fixed w-full min-h-screen flex top-0 left-0 justify-center items-center bg-transparent backdrop-blur-lg z-50 transition-opacity duration-300`}
             onClick={() => handleEditCardFunction(!isEditModalOpen)}
           >
             {cardDetails.type === "note" && (

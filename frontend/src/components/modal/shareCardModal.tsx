@@ -106,7 +106,7 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
           </p>
 
           <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
-            {<UserButton ButtonName="Confirm" onClickBtn={handleConfirmBtn} className="text-blue-500"/> }
+            {<UserButton ButtonName="Confirm" onClickBtn={handleConfirmBtn} className="dark:text-blue-300 text-blue-500"/> }
           </div>
           </>
           :
@@ -118,6 +118,15 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
           <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
             {<LinkReadInput link={`${FRONTEND_DOMAIN}/view-card/${cardId}`}/>}
           </div>
+          <>
+          <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
+            you want to make it un-shareable ?
+          </p>
+
+          <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
+            {<UserButton ButtonName="Confirm" onClickBtn={handleConfirmBtn} className="dark:text-red-300 text-red-500"/> }
+          </div>
+          </>
           </>
           }
         </motion.div>

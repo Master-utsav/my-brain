@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import AutoGrowTextArea from "../ui/AutoGrowTextArea";
-import ShareableSelectButton from "../ui/ShareableSelectButton";
+// import ShareableSelectButton from "../ui/ShareableSelectButton";
 import HashTagInputForm from "../ui/HashTagInputForm";
 import { ImageInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import FileInputField from "../ui/FileInputField";
@@ -35,18 +35,21 @@ const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
       description: "",
     },
   });
-
-  if(cardDetails && cardDetails.type === "image"){
-    setValue("image", cardDetails.image);
-    setValue("link", cardDetails.link);
-    setValue("tags", cardDetails.tags);
-    setValue("isShareable", cardDetails.isShareable);
-    setValue("title", cardDetails.title);
-    setValue("description", cardDetails.description);
-  }
+ 
+  useEffect(() => {
+    if(cardDetails && cardDetails.type === "image"){
+      setValue("image", cardDetails.image);
+      setValue("link", cardDetails.link);
+      setValue("tags", cardDetails.tags);
+      setValue("isShareable", cardDetails.isShareable);
+      setValue("title", cardDetails.title);
+      setValue("description", cardDetails.description);
+    }
+  }, [cardDetails, setValue]);
 
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
+  
   const [upload, setUpload] = useState<"LINK" | "FILE">("LINK");
   const { addContent , loading} = useAddContent();
 
@@ -63,7 +66,7 @@ const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
     formData.append("title", data.title);
     formData.append("description", data.description ?? "");
     formData.append("image", data.image);
-    formData.append("link", JSON.stringify([data.link]));
+    formData.append("link", JSON.stringify(data.link ? [data.link] : []));
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
@@ -280,17 +283,18 @@ const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
                 {showLTagInput ? "Remove tags" : "Add tags"}
               </HoverBorderGradient>
             </div>
-
+{/* 
             <div className="flex w-full gap-1 relative justify-between items-center">
               <span className="text-sm dark:text-white text-black font-noto-sans ">
                 Do you want to make your note shareable?
               </span>
               <ShareableSelectButton
+                isShareable={getValues("isShareable")}
                 OnShareable={() =>
                   setValue("isShareable", !getValues("isShareable"))
                 }
               />
-            </div>
+            </div> */}
 
             {/* Submit Button */}
             <div className="w-full">

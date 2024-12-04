@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import AutoGrowTextArea from "../ui/AutoGrowTextArea";
-import ShareableSelectButton from "../ui/ShareableSelectButton";
 import HashTagInputForm from "../ui/HashTagInputForm";
 import { TagsInterfaceSchema } from "@/validChecksSchema/zodSchemas";
 import useAddContent from "@/hooks/addContent";
@@ -17,7 +16,11 @@ import { AllContentInterface } from "@/constants";
 
 type TagInterface = z.infer<typeof TagsInterfaceSchema>;
 
-const TagFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
+const TagFormModal = ({
+  cardDetails,
+}: {
+  cardDetails?: AllContentInterface;
+}) => {
   const {
     register,
     handleSubmit,
@@ -35,15 +38,18 @@ const TagFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
     },
   });
 
-  if(cardDetails && cardDetails.type === "tag"){
-    setValue("link", cardDetails.link);
-    setValue("tags", cardDetails.tags);
-    setValue("isShareable", cardDetails.isShareable);
-    setValue("title", cardDetails.title);
-    setValue("description", cardDetails.description);
-  }
+  useEffect(() => {
+    if (cardDetails && cardDetails.type === "tag") {
+      setValue("link", cardDetails.link);
+      setValue("tags", cardDetails.tags);
+      setValue("isShareable", cardDetails.isShareable);
+      setValue("title", cardDetails.title);
+      setValue("description", cardDetails.description);
+    }
+  }, [cardDetails, setValue]);
 
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
+  
   const navigate = useNavigate();
   const { addContent, loading } = useAddContent();
 
@@ -51,13 +57,13 @@ const TagFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
     navigate("/user/tag-box");
   };
 
-  const onSubmit = async(data: TagInterface) => {
+  const onSubmit = async (data: TagInterface) => {
     const formData = new FormData();
 
     formData.append("type", data.type);
     formData.append("title", data.title);
     formData.append("description", data.description ?? "");
-    formData.append("link", JSON.stringify([data.link]));
+    formData.append("link", JSON.stringify(data.link ? [data.link] : []));
     formData.append("tags", JSON.stringify(data.tags));
     formData.append("isShareable", data.isShareable ? "true" : "false");
 
@@ -188,7 +194,7 @@ const TagFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
               </HoverBorderGradient>
 
               {/* Tag Input */}
-              <div className="w-full relative ">
+              <div className="w-full relative">
                 <HashTagInputForm
                   tags={
                     getValues("tags")?.map((tag, idx) => ({
@@ -203,6 +209,7 @@ const TagFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
                     );
                   }}
                 />
+
                 {errors.tags && (
                   <p className="text-red-500 text-sm text-end">
                     {errors.tags.message}
@@ -211,16 +218,17 @@ const TagFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
               </div>
             </div>
 
-            <div className="flex w-full gap-1 relative justify-between items-center">
+            {/* <div className="flex w-full gap-1 relative justify-between items-center">
               <span className="text-sm dark:text-white text-black font-noto-sans ">
                 Do you want to make your note shareable?
               </span>
               <ShareableSelectButton
+                isShareable={getValues("isShareable")}
                 OnShareable={() =>
                   setValue("isShareable", !getValues("isShareable"))
                 }
               />
-            </div>
+            </div> */}
 
             {/* Submit Button */}
             <div className="w-full">
