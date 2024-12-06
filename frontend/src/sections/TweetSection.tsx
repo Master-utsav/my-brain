@@ -60,6 +60,7 @@ const TweetSection: React.FC = () => {
               {cardDetails.type === "tweet" && (
                 <TweetFormModal
                   key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                   cardDetails={cardDetails}
                 />
               )}

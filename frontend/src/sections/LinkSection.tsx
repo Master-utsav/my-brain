@@ -60,6 +60,7 @@ const LinkSection: React.FC = () => {
               {cardDetails.type === "link" && (
                 <LinkFormModal
                   key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                   cardDetails={cardDetails}
                 />
               )}

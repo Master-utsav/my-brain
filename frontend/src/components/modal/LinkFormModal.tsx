@@ -18,7 +18,7 @@ import { AllContentInterface } from "@/constants";
 
 type LinkInterface = z.infer<typeof LinkInterfaceSchema>;
 
-const LinkFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
+const LinkFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllContentInterface , isEditImageOpen?: boolean}) => {
   const {
     handleSubmit,
     formState: { errors },
@@ -49,7 +49,7 @@ const LinkFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   
   const navigate = useNavigate();
-  const { addContent, loading } = useAddContent();
+  const { manageContent, loading } = useAddContent();
 
   const onClose = () => {
     navigate("/user/note-box");
@@ -68,7 +68,7 @@ const LinkFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
     const token = getVerifiedToken();
 
     if (token) {
-      await addContent(formData, token);
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
     }
   };
 

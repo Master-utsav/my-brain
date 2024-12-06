@@ -12,16 +12,17 @@ const useAddContent = () => {
   const { setContentData, loadContentData } = useContentContext();
   const {toast} = useToast();
   const navigate = useNavigate();
-  const addContent = async (formData: FormData, token: string) => {
+  const manageContent = async (formData: FormData, token: string, API_ENDPOINT: string) => {
     setLoading(true);
     setError(null);
 
     if (!token) {
       setError("No token provided");
     }
+
     try {
       const response = await axios.post(
-        `${CONTENT_API}/add-content`,
+        `${CONTENT_API}/${API_ENDPOINT}`,
         formData,
         {
           headers: {
@@ -57,8 +58,7 @@ const useAddContent = () => {
       setLoading(false);
     }
   };
-
-  return { addContent, loading, error, responseData };
+  return { manageContent, loading, error, responseData };
 };
 
 export default useAddContent;

@@ -60,6 +60,7 @@ const TagSection: React.FC = () => {
               {cardDetails.type === "tag" && (
                 <TagFormModal
                   key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                   cardDetails={cardDetails}
                 />
               )}

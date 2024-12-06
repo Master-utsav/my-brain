@@ -69,30 +69,35 @@ const BookmarkSection: React.FC = () => {
             {cardDetails.type === "note" && (
               <NoteFormModal
                 key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                 cardDetails={cardDetails}
               />
             )}
             {cardDetails.type === "tweet" && (
               <TweetFormModal
                 key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                 cardDetails={cardDetails}
               />
             )}
             {cardDetails.type === "tag" && (
               <TagFormModal
                 key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                 cardDetails={cardDetails}
               />
             )}
             {cardDetails.type === "link" && (
               <LinkFormModal
                 key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                 cardDetails={cardDetails}
               />
             )}
             {cardDetails.type === "image" && (
               <ImageFormModal
                 key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                 cardDetails={cardDetails}
               />
             )}

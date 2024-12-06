@@ -17,7 +17,7 @@ import { AllContentInterface } from "@/constants";
 
 type NoteInterface = z.infer<typeof NoteInterfaceSchema>;
 
-const NoteFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
+const NoteFormModal = ({cardDetails , isEditImageOpen=false} : {cardDetails?:AllContentInterface, isEditImageOpen?: boolean}) => {
   const {
     register,
     handleSubmit,
@@ -45,13 +45,14 @@ const NoteFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
       setValue("title", cardDetails.title);
       setValue("description", cardDetails.description);
     }
+    console.log(isEditImageOpen)
   }, [cardDetails, setValue]);
 
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   
   const navigate = useNavigate();
-  const { addContent, loading } = useAddContent();
+  const { manageContent, loading } = useAddContent();
 
   const onClose = () => {
     navigate("/user/note-box");
@@ -72,7 +73,7 @@ const NoteFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
     const token = getVerifiedToken();
 
     if (token) {
-      await addContent(formData, token);
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
     }
   };
 

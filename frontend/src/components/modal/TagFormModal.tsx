@@ -18,8 +18,10 @@ type TagInterface = z.infer<typeof TagsInterfaceSchema>;
 
 const TagFormModal = ({
   cardDetails,
+  isEditImageOpen=false
 }: {
   cardDetails?: AllContentInterface;
+  isEditImageOpen?: boolean
 }) => {
   const {
     register,
@@ -51,7 +53,7 @@ const TagFormModal = ({
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   
   const navigate = useNavigate();
-  const { addContent, loading } = useAddContent();
+  const { manageContent, loading } = useAddContent();
 
   const onClose = () => {
     navigate("/user/tag-box");
@@ -70,7 +72,7 @@ const TagFormModal = ({
     const token = getVerifiedToken();
 
     if (token) {
-      await addContent(formData, token);
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
     }
   };
 

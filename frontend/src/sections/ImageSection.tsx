@@ -59,6 +59,7 @@ const ImageSection: React.FC = () => {
             {cardDetails.type === "image" && (
               <ImageFormModal
                 key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                 cardDetails={cardDetails}
               />
             )}

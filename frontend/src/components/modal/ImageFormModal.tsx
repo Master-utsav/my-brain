@@ -18,7 +18,7 @@ import { AllContentInterface } from "@/constants";
 
 type LinkInterface = z.infer<typeof ImageInterfaceSchema>;
 
-const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
+const ImageFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllContentInterface, isEditImageOpen?: boolean}) => {
   const {
     handleSubmit,
     register,
@@ -51,7 +51,7 @@ const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   
   const [upload, setUpload] = useState<"LINK" | "FILE">("LINK");
-  const { addContent , loading} = useAddContent();
+  const { manageContent , loading} = useAddContent();
 
   const navigate = useNavigate();
 
@@ -73,7 +73,7 @@ const ImageFormModal = ({cardDetails} : {cardDetails?:AllContentInterface}) => {
     const token = getVerifiedToken();
 
     if (token) {
-      await addContent(formData, token);
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
     }
   };
 

@@ -59,6 +59,7 @@ const NoteSection: React.FC = () => {
               {cardDetails.type === "note" && (
                 <NoteFormModal
                   key={cardDetails.cardId}
+                isEditImageOpen={isEditModalOpen}
                   cardDetails={cardDetails}
                 />
               )}
