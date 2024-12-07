@@ -39,7 +39,7 @@ const NoteFormModal = ({cardDetails , isEditImageOpen=false} : {cardDetails?:All
   useEffect(() => {
     if(cardDetails && cardDetails.type === "note"){
       setValue("list", cardDetails.list);
-      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0]  || null);
+      setValue("link", cardDetails.link && cardDetails.link[0] || null);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);

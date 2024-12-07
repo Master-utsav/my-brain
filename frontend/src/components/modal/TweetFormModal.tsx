@@ -43,7 +43,7 @@ const TweetFormModal = ({
 
   useEffect(() => {
     if (cardDetails && cardDetails.type === "tweet") {
-      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0] || null);
+      setValue("link", cardDetails.link && cardDetails.link[0] || null);
       setValue("tags", cardDetails.tags || []);
       setValue("isShareable", cardDetails.isShareable || false);
       setValue("title", cardDetails.title || "");

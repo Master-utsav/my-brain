@@ -39,8 +39,7 @@ const ImageFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:All
   useEffect(() => {
     if(cardDetails && cardDetails.type === "image"){
       setValue("image", cardDetails.image);
-      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0]  || null);
-      console.log(cardDetails.type === "link" ? [] : cardDetails.link[0] || null);
+      setValue("link", cardDetails.link && cardDetails.link[0] || null);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);

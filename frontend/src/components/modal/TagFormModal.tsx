@@ -42,7 +42,7 @@ const TagFormModal = ({
 
   useEffect(() => {
     if (cardDetails && cardDetails.type === "tag") {
-      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0]  || null);
+      setValue("link", cardDetails.link && cardDetails.link[0] || null);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);
