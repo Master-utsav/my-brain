@@ -38,7 +38,7 @@ const LinkFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllC
    
   useEffect(() => {
     if(cardDetails && cardDetails.type === "link"){
-      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link || null);
+      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0] || null);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);
