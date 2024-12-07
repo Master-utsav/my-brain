@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,23 +39,26 @@ const NoteFormModal = ({cardDetails , isEditImageOpen=false} : {cardDetails?:All
   useEffect(() => {
     if(cardDetails && cardDetails.type === "note"){
       setValue("list", cardDetails.list);
-      setValue("link", cardDetails.link);
+      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0]  || null);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);
       setValue("description", cardDetails.description);
     }
-    console.log(isEditImageOpen)
   }, [cardDetails, setValue]);
 
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
+  const location = useLocation();
   
   const navigate = useNavigate();
   const { manageContent, loading } = useAddContent();
 
   const onClose = () => {
     navigate("/user/note-box");
+    if(location.pathname === "/user/note-box" && isEditImageOpen){
+      navigate("/user/all-content");
+    }
   };
 
   const onSubmit = async(data: NoteInterface) => {
@@ -73,7 +76,7 @@ const NoteFormModal = ({cardDetails , isEditImageOpen=false} : {cardDetails?:All
     const token = getVerifiedToken();
 
     if (token) {
-      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : cardDetails && manageContent(formData, token , "edit-content", cardDetails.cardId) );
     }
   };
 

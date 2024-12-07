@@ -4,6 +4,7 @@ import { handleAddContentRequestFunction } from "../controllers/content/addConte
 import multer from "multer";
 import { handleGetAllContentOfUserFunction, handleShareableContentOfUserFunction } from "../controllers/content/getContent.controllers";
 import { handleBookmarkCardFunction, handleDeleteCardFunction, handleIsShareableCardFunction } from "../controllers/content/contentCardHandlers.controllers";
+import { handleEditContentRequestFunction } from "../controllers/content/editContent.controllers";
 
 const storage = multer.memoryStorage();
 export const upload = multer({ storage: storage });
@@ -11,6 +12,7 @@ export const upload = multer({ storage: storage });
 const contentRoute = express.Router();
 
 contentRoute.post("/add-content" , authenticateToken , upload.single("image") , handleAddContentRequestFunction)
+contentRoute.post("/edit-content/:cardId" , authenticateToken , upload.single("image") , handleEditContentRequestFunction);
 contentRoute.get("/get-content" , authenticateToken , handleGetAllContentOfUserFunction)
 contentRoute.get("/get-content/:cardId" , handleShareableContentOfUserFunction)
 

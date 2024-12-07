@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,7 +42,7 @@ const TagFormModal = ({
 
   useEffect(() => {
     if (cardDetails && cardDetails.type === "tag") {
-      setValue("link", cardDetails.link);
+      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0]  || null);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);
@@ -54,9 +54,13 @@ const TagFormModal = ({
   
   const navigate = useNavigate();
   const { manageContent, loading } = useAddContent();
+  const location = useLocation();
 
   const onClose = () => {
     navigate("/user/tag-box");
+    if(location.pathname === "/user/tag-box" && isEditImageOpen){
+      navigate("/user/all-content");
+    }
   };
 
   const onSubmit = async (data: TagInterface) => {
@@ -72,7 +76,7 @@ const TagFormModal = ({
     const token = getVerifiedToken();
 
     if (token) {
-      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : cardDetails && manageContent(formData, token , "edit-content", cardDetails.cardId) );
     }
   };
 

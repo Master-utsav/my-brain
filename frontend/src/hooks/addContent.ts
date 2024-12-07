@@ -12,17 +12,29 @@ const useAddContent = () => {
   const { setContentData, loadContentData } = useContentContext();
   const {toast} = useToast();
   const navigate = useNavigate();
-  const manageContent = async (formData: FormData, token: string, API_ENDPOINT: string) => {
+  const manageContent = async (formData: FormData, token: string, API_ENDPOINT: string, cardId?: string) => {
     setLoading(true);
-    setError(null);
 
+    const type: string = (formData.get("type") ?? "").toString();
+
+    setError(null);
+    let API_URL =  `${CONTENT_API}/${API_ENDPOINT}`
+    if(API_ENDPOINT === "edit-content"){
+      if(!cardId){
+        setError("cardId is Required");
+      }
+      else{
+        API_URL = `${CONTENT_API}/${API_ENDPOINT}/${cardId}`
+      }
+
+    }
     if (!token) {
       setError("No token provided");
     }
-
+    
     try {
       const response = await axios.post(
-        `${CONTENT_API}/${API_ENDPOINT}`,
+        API_URL,
         formData,
         {
           headers: {
@@ -39,7 +51,11 @@ const useAddContent = () => {
         toast({
           title: response.data.message
         })
-        navigate("/user/all-content");
+        if (type) {
+          navigate(`/user/${type}-box`);
+        } else {
+          navigate(`/user/add-content`);
+        }
       } else {
         toast({
           title: response.data.message,

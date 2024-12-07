@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,7 +43,7 @@ const TweetFormModal = ({
 
   useEffect(() => {
     if (cardDetails && cardDetails.type === "tweet") {
-      setValue("link", cardDetails.link || "");
+      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0] || null);
       setValue("tags", cardDetails.tags || []);
       setValue("isShareable", cardDetails.isShareable || false);
       setValue("title", cardDetails.title || "");
@@ -55,9 +55,13 @@ const TweetFormModal = ({
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const navigate = useNavigate();
   const { manageContent, loading } = useAddContent();
+  const location = useLocation();
 
   const onClose = () => {
     navigate("/user/tweet-box");
+    if(location.pathname === "/user/tweet-box" && isEditImageOpen){
+      navigate("/user/all-content");
+    }
   };
 
   const onSubmit = async (data: TweetInterface) => {
@@ -73,9 +77,9 @@ const TweetFormModal = ({
     const token = getVerifiedToken();
 
     if (token) {
-      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : cardDetails && manageContent(formData, token , "edit-content", cardDetails.cardId) );
     }
-    
+
   };
 
   const toggleLinkInput = () => {

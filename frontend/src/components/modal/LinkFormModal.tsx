@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,7 +38,7 @@ const LinkFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllC
    
   useEffect(() => {
     if(cardDetails && cardDetails.type === "link"){
-      setValue("link", cardDetails.link);
+      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link || null);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);
@@ -47,12 +47,16 @@ const LinkFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllC
   }, [cardDetails, setValue]);
 
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
+  const location = useLocation();
   
   const navigate = useNavigate();
   const { manageContent, loading } = useAddContent();
 
   const onClose = () => {
-    navigate("/user/note-box");
+    navigate("/user/link-box");
+    if(location.pathname === "/user/link-box" && isEditImageOpen){
+      navigate("/user/all-content");
+    }
   };
 
   const onSubmit = async (data: LinkInterface) => {
@@ -68,7 +72,7 @@ const LinkFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllC
     const token = getVerifiedToken();
 
     if (token) {
-      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : cardDetails && manageContent(formData, token , "edit-content", cardDetails.cardId) );
     }
   };
 

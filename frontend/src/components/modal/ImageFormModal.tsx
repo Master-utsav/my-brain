@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CloseButton from "../ui/CloseButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,7 +39,8 @@ const ImageFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:All
   useEffect(() => {
     if(cardDetails && cardDetails.type === "image"){
       setValue("image", cardDetails.image);
-      setValue("link", cardDetails.link);
+      setValue("link", cardDetails.type === "link" ? [] : cardDetails.link[0]  || null);
+      console.log(cardDetails.type === "link" ? [] : cardDetails.link[0] || null);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);
@@ -49,6 +50,7 @@ const ImageFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:All
 
   const [showLTagInput, setShowTagInput] = useState<boolean>(false);
   const [showLinkInput, setShowLinkInput] = useState<boolean>(false);
+  const location = useLocation();
   
   const [upload, setUpload] = useState<"LINK" | "FILE">("LINK");
   const { manageContent , loading} = useAddContent();
@@ -57,6 +59,10 @@ const ImageFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:All
 
   const onClose = () => {
     navigate("/user/image-box");
+    if(location.pathname === "/user/image-box" && isEditImageOpen){
+      navigate("/user/all-content");
+    }
+    
   };
 
   const onSubmit = async (data: LinkInterface) => {
@@ -73,7 +79,7 @@ const ImageFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:All
     const token = getVerifiedToken();
 
     if (token) {
-      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : manageContent(formData, token , "edit-content") );
+      await (!isEditImageOpen ? manageContent(formData, token , "add-content") : cardDetails && manageContent(formData, token , "edit-content", cardDetails.cardId) );
     }
   };
 

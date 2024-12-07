@@ -306,6 +306,12 @@ export async function cloudinaryDeleteUserImage(imageUrl: string) {
   return cloudinaryDeleteImage(imageUrl, "userImages");
 }
 
+export async function cloudinaryDeleteContentImage(imageUrl: string) {
+  return cloudinaryDeleteImage(imageUrl, "myBrain-image");
+}
+
+
+
 export async function cloudinaryDeleteCourseImage(imageUrl: string) {
   return cloudinaryDeleteImage(imageUrl, "courseImages");
 }
