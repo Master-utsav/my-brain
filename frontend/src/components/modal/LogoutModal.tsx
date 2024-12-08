@@ -27,7 +27,7 @@ const LogoutModal = () => {
   };
 
   return (
-    <section className="w-full h-screen fixed inset-0 flex items-center justify-center bg-white dark:bg-black  backdrop-blur-lg transition-opacity duration-300">
+    <section className="w-full h-screen absolute inset-0 flex items-center justify-center bg-white dark:bg-black  backdrop-blur-lg transition-opacity duration-300">
       <HoverBorderGradient
         containerClassName="rounded-lg mb-1"
         className="w-full flex p-4 font-ubuntu justify-center flex-col items-center text-black dark:text-white bg-white dark:bg-black">

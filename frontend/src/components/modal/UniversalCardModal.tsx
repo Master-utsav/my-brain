@@ -77,14 +77,14 @@ const UniversalCardModal: React.FC<UniversalCardModalProps> = ({
 
             {/* for type note */}
             {cardDetails.type === "note" && (
-              <ul className="w-full dark:bg-black-300/40 bg-white-800/40 p-1 rounded-lg dark:shadow-white-500/10 shadow-md ">
+              <ul className="w-full dark:bg-black-300/40 bg-white-800/40 p-1 space-y-1 rounded-lg dark:shadow-white-500/10 shadow-md ">
                 {cardDetails.list.map((item, idx) => (
                   <li
                     key={idx}
                     className="w-full flex justify-start items-center gap-1 text-sm font-noto-sans dark:text-blue-100 text-blue-900"
                   >
                     <RxDot className="size-5 dark:text-blue-200 text-blue-900" />
-                    {item}
+                    <span className="w-full">{item}</span>
                   </li>
                 ))}
               </ul>
