@@ -109,7 +109,7 @@ const Sidebar: React.FC<SideBarProps> = ({ className, isSideBarOpen , OnSideBarO
         <HomeButton onClickBtn={() => navigate("/")}/>
         <ContactButton onClickBtn={() => navigate("/contact")} />
         <ModeToggle />
-        <ShareButton />
+        <ShareButton onClickBtn={() => navigate("/user/select-cards")}/>
       </div>
       <div className={`w-full ${isSideBarOpen ? "h-[12%]" : ""} rounded-lg relative p-2 overflow-hidden flex justify-start flex-col items-center`}>
         <Logo className="w-12" theme={theme} />

@@ -146,97 +146,119 @@ export const ChooseCategoryItemsItems = [
 ];
 
 export const routeHeaders: {
-  [key: string]: { title: string; description: string; isBtnShow: boolean };
+  [key: string]: { title: string; description: string; isBtnShow: boolean; isConfirmBtn?: boolean};
 } = {
   "/user/note-box": {
     title: "All Notes",
     description:
       "Organize, categorize, and access your notes with ease. Keep track of important ideas and reminders in one central place to boost your productivity.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/tweet-box": {
     title: "Your Tweets",
     description:
       "Manage and analyze your tweets like never before. Track your engagement, organize your thoughts, and optimize your social presence all in one place.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/image-box": {
     title: "Image Box",
     description:
       "Store, organize, and access all your images effortlessly. Create a digital library of your visual content for quick and easy retrieval anytime.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   // "/user/video-box": {
   //   title: "Video Box",
   //   description:
   //     "Manage your video library with ease. From organizing content to watching your favorites, our platform ensures your videos are always at your fingertips.",
   //   isBtnShow: true,
+  // isConfirmBtn: false,
   // },
   "/user/all-content": {
     title: "All Content",
     description:
       "Explore and manage all your content in one place. Organize, discover, and enjoy seamless access to your favorite videos anytime.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/bookmark-box": {
     title: "Bookmarks",
     description:
       "Save and organize your most important web links. Quickly access your favorite websites and resources without the hassle of searching through countless tabs.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/tag-box": {
     title: "Hash-Tags",
     description:
       "Categorize your content with tags to make organization and search effortless. Streamline your workflow and quickly find what you need with custom tags.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/link-box": {
     title: "All Links",
     description:
       "Organize, manage, and access your web links in an intuitive way. Keep track of your important URLs and resources for a seamless browsing experience.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/edit-profile": {
     title: "Edit Profile",
     description:
       "Update and personalize your profile to reflect who you are. Modify your information, upload images, and fine-tune your details to stay in control of your digital presence.",
     isBtnShow: true,
+    isConfirmBtn: false,
+  },
+  "/user/select-cards": {
+    title: "Select Cards",
+    description:
+      "Select cards which you want to share to others, you can only able to select the cards which is already set to the shareable true, if you want you have to first make it shareable as true.",
+    isBtnShow: false,
+    isConfirmBtn: true,
   },
   "/user/add-content/note": {
     title: "New Note",
     description:
       "Create a new note to organize your thoughts and reminders. Categorize and save your ideas for easy reference anytime.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/add-content/tweet": {
     title: "New Tweet",
     description:
       "Draft and save your latest tweets. Manage your social media presence by composing and organizing tweets effortlessly.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/add-content/image": {
     title: "New Image",
     description:
       "Upload and save a new image to your library. Organize your visual content for easy access and retrieval.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   // "/user/add-content/video": {
   //   title: "New Video",
   //   description:
   //     "Upload and organize a new video. Keep your video content easily accessible for viewing anytime.",
   //   isBtnShow: true,
+  // isConfirmBtn: false,
   // },
   "/user/add-content/tag": {
     title: "New Tag",
     description:
       "Create and manage new tags to categorize your content. Streamline organization and improve searchability.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
   "/user/add-content/link": {
     title: "New Link",
     description:
       "Save a new web link to your collection. Organize and manage important URLs for seamless access.",
     isBtnShow: true,
+    isConfirmBtn: false,
   },
 };
 

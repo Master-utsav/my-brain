@@ -27,20 +27,27 @@ import TweetSection from "@/sections/TweetSection";
 import { routeHeaders } from "@/constants";
 import AllContentSection from "@/sections/AllContentSection";
 import { useContentContext } from "@/context/ContentContext";
+import SelectCardsSection from "@/sections/SelectCardsSection";
 
 
 const UserRoutes = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [cardIds, setCardIds] = useState<String[]>([])
   const {loadContentData} = useContentContext();
   const location = useLocation();
 
   const currentPath = location.pathname;
-  const { title, description, isBtnShow } = routeHeaders[currentPath] || {
+  const { title, description, isBtnShow , isConfirmBtn } = routeHeaders[currentPath] || {
     title: "Page Not Found",
     description: "The page you are looking for does not exist.",
     isBtnShow: false,
+    isConfirmBtn: false
   };
+
+  async function handleConfirmSelectionBtn(){
+    //TODO: complete this function 
+  }
 
   useEffect(() => {
     loadContentData();
@@ -75,7 +82,9 @@ const UserRoutes = () => {
             description={description}
             isSideBarOpen={isSideBarOpen}
             isBtnShow={isBtnShow}
+            isConfirmBtn={isConfirmBtn}
             onClickBtn={toggleModal}
+            onClickConfirmBtn={handleConfirmSelectionBtn}
           />
         </AnimatePresence>
 
@@ -92,6 +101,8 @@ const UserRoutes = () => {
             <Route path="/tag-box" element={<TagSection />} />
             <Route path="/link-box" element={<LinkSection />} />
             <Route path="/edit-profile" element={<EditProfileSection />} />
+            <Route path="/select-cards" element={<SelectCardsSection onCardsSelect={() => setCardIds(cardIds)}/>} />
+            
 
             {/* Modal Routes when user select a category */}
             <Route path="/add-content/tweet" element={<TweetFormModal />} />

@@ -31,6 +31,7 @@ export interface IUser extends Document {
   bookmarks?: {
     content: string[];
   };
+  groupedKey?: string;
 }
 
 const userSchema = new mongoose.Schema<IUser>(
@@ -66,7 +67,7 @@ const userSchema = new mongoose.Schema<IUser>(
       state: { type: String },
     },
     uploadedContent: [{ type: String, ref: "Content" }],
-
+    groupedKey: {type: String, ref: "Content"},
     bookmarks: {
       course: [{ type: String, ref: "Content" }],
     },

@@ -21,6 +21,7 @@ export interface IContent extends Document {
   isShareable: boolean;
   createdById: string;
   addedOn: Date;
+  groupedIn?: string;
 }
 
 const contentSchema = new Schema<IContent>(
@@ -41,6 +42,7 @@ const contentSchema = new Schema<IContent>(
     isBookmarked: { type: Boolean, default: false },
     createdById: { type: String, required: true, ref: "User" },
     addedOn: { type: Date, default: Date.now },
+    groupedIn: {type: String , ref: "User"},
   },
   {
     toJSON: { virtuals: true },

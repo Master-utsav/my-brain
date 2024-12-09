@@ -4,16 +4,20 @@ import { FaPlus } from "react-icons/fa6";
 
 const SectionHeader = ({
   onClickBtn,
+  onClickConfirmBtn,
   title,
   description,
   isSideBarOpen = false,
   isBtnShow = true,
+  isConfirmBtn = false
 }: {
   onClickBtn?: () => void;
+  onClickConfirmBtn?: () => void;
   title: string;
   description: string;
   isSideBarOpen: boolean;
   isBtnShow?: boolean;
+  isConfirmBtn?: boolean;
 }) => {
   return (
     <nav
@@ -55,6 +59,14 @@ const SectionHeader = ({
           className="flex justify-center items-center gap-2 p-3 font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
         >
           <FaPlus className="size-5 text-black dark:text-white" /> Add Content
+        </HoverBorderGradient>
+      )}
+      {isConfirmBtn && (
+          <HoverBorderGradient
+          onClick={onClickConfirmBtn}
+          className="flex justify-center items-center gap-2 p-3 font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
+        >
+         Confirm selection
         </HoverBorderGradient>
       )}
     </nav>

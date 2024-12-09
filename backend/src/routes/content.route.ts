@@ -5,6 +5,7 @@ import multer from "multer";
 import { handleGetAllContentOfUserFunction, handleShareableContentOfUserFunction } from "../controllers/content/getContent.controllers";
 import { handleBookmarkCardFunction, handleDeleteCardFunction, handleIsShareableCardFunction } from "../controllers/content/contentCardHandlers.controllers";
 import { handleEditContentRequestFunction } from "../controllers/content/editContent.controllers";
+import { handleGetShareBundleFunction, handlePostShareBundleFunction } from "../controllers/content/getAndPostShareBundle.controllers";
 
 const storage = multer.memoryStorage();
 export const upload = multer({ storage: storage });
@@ -19,5 +20,8 @@ contentRoute.get("/get-content/:cardId" , handleShareableContentOfUserFunction)
 contentRoute.post("/delete/:cardId" , authenticateToken , handleDeleteCardFunction)
 contentRoute.post("/bookmark/:cardId" , authenticateToken , handleBookmarkCardFunction)
 contentRoute.post("/shareable/:cardId" , authenticateToken , handleIsShareableCardFunction)
+
+contentRoute.post("/make-share-bundle", authenticateToken , handlePostShareBundleFunction);
+contentRoute.get("/get-share-bundle/:id", handleGetShareBundleFunction);
 
 export default contentRoute;
