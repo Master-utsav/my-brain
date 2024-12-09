@@ -30,6 +30,7 @@ export interface UserDataProps {
   avatarFallbackText: string;
   uploadedContent?: string[];
   bookmarks?: string[];
+  groupedKey?: string;
 }
 
 interface AuthContextType {

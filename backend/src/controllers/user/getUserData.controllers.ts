@@ -26,6 +26,7 @@ export async function handleGetUserDataFunction(req: AuthenticatedRequest, res: 
       phoneNumberVerificationStatus: user.phoneNumberVerificationStatus,
       uploadedContent: user.uploadedContent,
       bookmarks: user.bookmarks,
+      groupedKey: user.groupedKey
     };
 
     return res.status(200).json({ success: true, data: userData });

@@ -28,34 +28,50 @@ import { routeHeaders } from "@/constants";
 import AllContentSection from "@/sections/AllContentSection";
 import { useContentContext } from "@/context/ContentContext";
 import SelectCardsSection from "@/sections/SelectCardsSection";
-
+import useGroupContent from "@/hooks/groupContent";
+import { getVerifiedToken } from "@/lib/cookieService";
+import { toast } from "@/hooks/use-toast";
 
 const UserRoutes = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [cardIds, setCardIds] = useState<String[]>([])
-  const {loadContentData} = useContentContext();
+  const [cardIds, setCardIds] = useState<string[]>([]);
+  const { groupContent} = useGroupContent();
+  const { loadContentData } = useContentContext();
   const location = useLocation();
 
   const currentPath = location.pathname;
-  const { title, description, isBtnShow , isConfirmBtn } = routeHeaders[currentPath] || {
+  const { title, description, isBtnShow, isConfirmBtn} = routeHeaders[
+    currentPath
+  ] || {
     title: "Page Not Found",
     description: "The page you are looking for does not exist.",
     isBtnShow: false,
-    isConfirmBtn: false
+    isConfirmBtn: false,
   };
 
-  async function handleConfirmSelectionBtn(){
-    //TODO: complete this function 
+  async function handleConfirmSelectionBtn() {
+    const token = getVerifiedToken();
+    if (!token) {
+      toast({
+        title: "user is unauthenticated or unauthorized",
+      });
+      return;
+    }
+    await groupContent(cardIds, token);
   }
 
   useEffect(() => {
     loadContentData();
-  }, [])
+  }, []);
 
 
   const toggleSidebar = (val: boolean) => setIsSideBarOpen(val);
   const toggleModal = () => setIsModalOpen((prev) => !prev);
+
+  function handleCardIds(val: string[]) {
+    setCardIds(val);
+  }
   
   return (
     <>
@@ -101,8 +117,10 @@ const UserRoutes = () => {
             <Route path="/tag-box" element={<TagSection />} />
             <Route path="/link-box" element={<LinkSection />} />
             <Route path="/edit-profile" element={<EditProfileSection />} />
-            <Route path="/select-cards" element={<SelectCardsSection onCardsSelect={() => setCardIds(cardIds)}/>} />
-            
+            <Route
+              path="/select-cards"
+              element={<SelectCardsSection onCardsSelect={handleCardIds} />}
+            />
 
             {/* Modal Routes when user select a category */}
             <Route path="/add-content/tweet" element={<TweetFormModal />} />
@@ -119,6 +137,7 @@ const UserRoutes = () => {
           {isModalOpen && (
             <ChooseCategoryModal isOpen={isModalOpen} onClose={toggleModal} />
           )}
+
         </section>
       </div>
     </>

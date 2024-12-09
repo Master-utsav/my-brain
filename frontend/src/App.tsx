@@ -11,6 +11,7 @@ import UnauthenticatedPage from "./components/UnauthenticatedPage";
 import PageNotFound from "./components/PageNotFound";
 import ViewSection from "./sections/ViewSection";
 import { Toaster } from "./components/ui/toaster";
+import ViewGroupedSection from "./sections/ViewGroupedSection";
 
 function App() {
   const location = useLocation();
@@ -39,6 +40,7 @@ function App() {
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/contact" element={<SignupForm />} />
             <Route path="/view-card/:cardId" element={<ViewSection />} />
+            <Route path="/view-cards/:groupedKey" element={<ViewGroupedSection />} />
             <Route path="/user/*" element={<UnauthenticatedPage />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
@@ -51,6 +53,7 @@ function App() {
             <Route path="/" element={<HeroSection />} />
             <Route path="/contact" element={<SignupForm />} />
             <Route path="/view-card/:cardId" element={<ViewSection />} />
+            <Route path="/view-cards/:groupedKey" element={<ViewGroupedSection />} />
             <Route path="/user/*" element={<UserRoutes />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>

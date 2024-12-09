@@ -103,6 +103,7 @@ export async function handleAddContentRequestFunction(
       isShareable: isShareable ?? false,
       createdById: userUniqueId,
       addedOn: Date.now(),
+      groupedIn: ""
     });
 
     await newContent.save();
@@ -131,6 +132,7 @@ export async function handleAddContentRequestFunction(
       isShareable: newContent.isShareable,
       createdById: newContent.createdById,
       addedOn: newContent.addedOn,
+      groupedIn: newContent.groupedIn
     };
 
     return res.status(201).json({

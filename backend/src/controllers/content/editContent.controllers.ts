@@ -132,6 +132,7 @@ export async function handleEditContentRequestFunction(
       isShareable: content.isShareable,
       createdById: content.createdById,
       addedOn: content.addedOn,
+      groupedIn: content.groupedIn,
     };
 
     return res.status(200).json({

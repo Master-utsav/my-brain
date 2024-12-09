@@ -30,6 +30,7 @@ export async function handleGetAllContentOfUserFunction(
       createdById: item.createdById,
       addedOn: item.addedOn,
       isBookmarked: item.isBookmarked,
+      groupedIn: item.groupedIn,
     }));
 
     return res.status(200).json({
@@ -71,6 +72,7 @@ export async function handleShareableContentOfUserFunction(
       createdById: item.createdById,
       addedOn: item.addedOn,
       isBookmarked: item.isBookmarked,
+      groupedIn: item.groupedIn,
     }));
 
     return res.status(200).json({

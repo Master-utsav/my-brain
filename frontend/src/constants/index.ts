@@ -278,6 +278,7 @@ interface BaseInterface {
   type: "image" | "tweet" | "tag" | "link" | "note";
   isBookmarked?: boolean;
   addedOn: string;
+  groupedIn?: string;
 }
 
 export interface TweetInterface extends BaseInterface {
@@ -543,6 +544,6 @@ export const defaultUserData = {
   userDob: "1990-01-01",
   avatarFallbackText: "JD",
   uploadedContent: ["content1", "content2"],
-  bookmarks: ["content1"]
+  bookmarks: ["content1"],
 }
 

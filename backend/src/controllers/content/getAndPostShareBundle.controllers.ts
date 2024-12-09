@@ -10,45 +10,65 @@ export async function handlePostShareBundleFunction(
   const userUniqueId = req.userUniqueId;
 
   if (!userUniqueId) {
-    res
+    return res
       .status(401)
-      .json({ success: false, messsage: "user is un-authourized" });
+      .json({ success: false, message: "User is unauthorized." });
   }
 
   const { cardIds } = req.body;
   if (!Array.isArray(cardIds)) {
-    res
-      .status(404)
-      .json({ success: false, message: "cardIds are not in a array" });
+    return res
+      .status(400)
+      .json({ success: false, message: "cardIds must be an array." });
   }
 
-  const { nanoid } = await import("nanoid");
-  const groupedkey = nanoid();
-
   try {
-    cardIds.map(async (cardId: string) => {
+    const user = await User.findOne({ uniqueId: userUniqueId });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found." });
+    }
+
+    const { nanoid } = await import("nanoid");
+    const previousGroupedKey = user.groupedKey || nanoid();
+    user.groupedKey = previousGroupedKey;
+    await user.save();
+
+    const cardUpdated = await ContentModel.find({
+      groupedIn: previousGroupedKey,
+      createdById: userUniqueId,
+    });
+
+    for (const card of cardUpdated) {
+      card.groupedIn = undefined;
+      await card.save();
+    }
+
+    for (const cardId of cardIds) {
       const cardData = await ContentModel.findOne({
         cardId: cardId,
         createdById: userUniqueId,
         isShareable: true,
       });
-      cardData.groupedIn = groupedkey;
 
-      await cardData.save();
+      if (cardData) {
+        cardData.groupedIn = previousGroupedKey;
+        await cardData.save();
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Group key created successfully.",
+      groupedKey: previousGroupedKey,
     });
-
-    const user = await User.findOne({ uniqueId: userUniqueId });
-    user.groupedkey = groupedkey;
-    await user.save();
-
-    res
-      .status(200)
-      .json({ success: true, message: "group key created successfully" });
   } catch (error) {
-    console.error("Error fetching content:", error);
+    console.error("Error processing request:", error);
     return res.status(500).json({
       success: false,
-      message: "An error occurred while fetching content.",
+      message: "An error occurred while processing the request.",
     });
   }
 }

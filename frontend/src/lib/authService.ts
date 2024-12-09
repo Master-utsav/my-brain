@@ -31,6 +31,7 @@ export const getUserData = async (): Promise<UserDataProps | null> => {
         address: responseData.address
           ? `${responseData.address.city || "Unknown City"}, ${responseData.address.state || "Unknown State"}, ${responseData.address.country || "Unknown Country"}`
           : "Address Not Provided",
+        groupedKey : responseData.groupedKey || "",
         phoneNumberVerificationStatus: responseData.phoneNumberVerificationStatus || false,
         bio: responseData.bio || "Welcome to my app, utilize your resources carefully.",
         userDob: responseData.userDob || "",
