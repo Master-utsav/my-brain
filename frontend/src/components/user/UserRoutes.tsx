@@ -31,10 +31,13 @@ import SelectCardsSection from "@/sections/SelectCardsSection";
 import useGroupContent from "@/hooks/groupContent";
 import { getVerifiedToken } from "@/lib/cookieService";
 import { toast } from "@/hooks/use-toast";
+import ChatBotButton from "../ui/ChatBotButton";
+import ChatBotModal from "../modal/ChatBotModal";
 
 const UserRoutes = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState<boolean>(false);
   const [cardIds, setCardIds] = useState<string[]>([]);
   const { groupContent} = useGroupContent();
   const { loadContentData } = useContentContext();
@@ -77,8 +80,8 @@ const UserRoutes = () => {
     <>
       {/* Sidebar of dashboard*/}
       <Sidebar
-        className={`fixed left-0 top-0 h-full transition-all duration-300 ${
-          isSideBarOpen ? "sm:w-60 w-full" : "w-20"
+        className={`fixed left-0 top-0 h-full transition-all duration-300  ${
+          isSideBarOpen ? "sm:w-60 w-full z-[999]" : "w-20"
         }`}
         OnSideBarOpen={toggleSidebar}
         isSideBarOpen={isSideBarOpen}
@@ -105,7 +108,7 @@ const UserRoutes = () => {
         </AnimatePresence>
 
         {/* all Routes start from /user */}
-        <section className="h-full mt-32 lg:mt-16 scrollbar-meteor">
+        <section className="h-full mt-32 lg:mt-16 scrollbar-meteor ">
           <Routes location={location}>
             {/* Section of user*/}
             <Route path="/all-content" element={<AllContentSection />} />
@@ -137,7 +140,14 @@ const UserRoutes = () => {
           {isModalOpen && (
             <ChooseCategoryModal isOpen={isModalOpen} onClose={toggleModal} />
           )}
-
+          <div className="fixed bottom-5 right-5 flex justify-center items-center z-50">
+            <ChatBotButton onClickBtn={() => setIsChatModalOpen(!isChatModalOpen)}/>
+          </div>
+          {
+            isChatModalOpen && (
+              <ChatBotModal isOpen={isChatModalOpen} onClose={() => setIsChatModalOpen(!isChatModalOpen)}/>
+            )
+          }
         </section>
       </div>
     </>
