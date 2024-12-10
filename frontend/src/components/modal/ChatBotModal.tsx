@@ -90,7 +90,7 @@ const ChatBotModal: React.FC<ChatBotModalProps> = ({ isOpen, onClose }) => {
             animate={{ scale: 1, x: 0 }}
             exit={{ scale: 0.9, x: 400 }}
             transition={{ duration: 0.5 }}
-            className="fixed min-h-[96vh] sm:max-w-[40%] w-full my-5 flex right-0 top-0 flex-col justify-between items-start bg-white/50 rounded-lg dark:bg-black/50 backdrop-blur-lg z-[50]"
+            className="fixed sm:min-h-[96vh] min-h-[100vh] sm:max-w-[40%] w-full sm:my-5 flex right-0 top-0 flex-col justify-between items-start bg-white/50 rounded-lg dark:bg-black/50 backdrop-blur-lg z-[50]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -99,7 +99,7 @@ const ChatBotModal: React.FC<ChatBotModalProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Chatbot Container */}
-            <div className="relative flex flex-col justify-between w-[100%] min-h-[96vh] mx-auto bg-white-700  dark:bg-black-200 rounded-lg shadow-lg overflow-hidden">
+            <div className="relative flex flex-col justify-between w-[100%] sm:min-h-[96vh] min-h-[100vh]  mx-auto bg-white-700  dark:bg-black-200 rounded-lg shadow-lg overflow-hidden">
               {/* Chat Header */}
               <div className="px-4 py-4 text-white font-semibold text-lg shadow border-b-[1px] dark:border-b-white/30 border-b-black/30">
                 My Brain Chatbot
