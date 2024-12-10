@@ -9,14 +9,14 @@
     "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts",
     "vercel-build": "tsc"
   },
-  
   "keywords": [],
   "author": "master-utsav",
   "license": "ISC",
   "dependencies": {
-    "@vercel/node": "^3.2.23",
+    "@vercel/node": "^2.10.3",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.0",
+    "cohere-ai": "^7.15.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
@@ -30,7 +30,8 @@
     "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",
     "streamifier": "^0.1.1",
-    "twilio": "^5.3.3"
+    "twilio": "^5.3.3",
+    "voyageai": "^0.0.3-1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

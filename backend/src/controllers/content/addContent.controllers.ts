@@ -3,6 +3,7 @@ import { AuthenticatedRequest } from "../../middleware/auth.middleware";
 import ContentModel, { ContentType } from "../../models/Content.model";
 import { cloudinaryUploadContentImageFiles } from "../../utils/cloudinary.config";
 import User from "../../models/User.model";
+import { TextToVector } from "../../helpers/textToVector";
 
 export async function handleAddContentRequestFunction(
   req: AuthenticatedRequest,
@@ -90,7 +91,7 @@ export async function handleAddContentRequestFunction(
     }
 
     const { nanoid } = await import("nanoid");
-
+    const embeddings = await TextToVector(title , description);
     const newContent = new ContentModel({
       title,
       description,
@@ -103,7 +104,8 @@ export async function handleAddContentRequestFunction(
       isShareable: isShareable ?? false,
       createdById: userUniqueId,
       addedOn: Date.now(),
-      groupedIn: ""
+      groupedIn: "",
+      embeddings,
     });
 
     await newContent.save();

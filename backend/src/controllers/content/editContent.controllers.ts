@@ -2,6 +2,7 @@ import { Response } from "express";
 import { AuthenticatedRequest } from "../../middleware/auth.middleware";
 import ContentModel, { ContentType } from "../../models/Content.model";
 import { cloudinaryDeleteContentImage, cloudinaryUploadContentImageFiles } from "../../utils/cloudinary.config";
+import { TextToVector } from "../../helpers/textToVector";
 
 export async function handleEditContentRequestFunction(
   req: AuthenticatedRequest,
@@ -115,6 +116,11 @@ export async function handleEditContentRequestFunction(
     if (imageFile) content.image = imageFile;
     if (listsArray.length > 0) content.list = listsArray;
     if (isShareable !== undefined) content.isShareable = isShareable;
+    
+    if (title || description ){
+      const embeddings = await TextToVector(title , description);
+      content.embeddings = embeddings;
+    };
 
     content.addedOn = Date.now(),
 

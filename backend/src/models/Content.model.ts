@@ -22,6 +22,7 @@ export interface IContent extends Document {
   createdById: string;
   addedOn: Date;
   groupedIn?: string;
+  embeddings?: number[];
 }
 
 const contentSchema = new Schema<IContent>(
@@ -43,6 +44,7 @@ const contentSchema = new Schema<IContent>(
     createdById: { type: String, required: true, ref: "User" },
     addedOn: { type: Date, default: Date.now },
     groupedIn: {type: String , ref: "User"},
+    embeddings: {type: [Number]},
   },
   {
     toJSON: { virtuals: true },
