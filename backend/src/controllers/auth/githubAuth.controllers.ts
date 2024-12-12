@@ -75,7 +75,7 @@ passport.use(
             firstName,
             lastName,
             userName: profile.username.replace(/ /g, "_"),
-            email: githubEmail,
+            email: githubEmail.toLowerCase(),
             password: hashedPassword,
             profileImageUrl,
             emailVerificationStatus: true,

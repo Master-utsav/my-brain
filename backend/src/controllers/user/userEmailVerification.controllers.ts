@@ -5,7 +5,7 @@ import User from "../../models/User.model";
 export async function handleEmailVerificationOTP(req: Request, res: Response) {
     try {
       const { otp, email } = req.body;
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({ email: email.toLowerCase()});
       if (!user) {
         return res
           .status(400)
@@ -48,7 +48,7 @@ export async function handleEmailVerificationOTP(req: Request, res: Response) {
     try {
       const { email } = req.body;
   
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({ email: email.toLowerCase() });
       if (!user) {
         return res
           .status(400)

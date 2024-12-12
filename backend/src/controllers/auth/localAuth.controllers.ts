@@ -52,7 +52,7 @@ export async function handleSignUpFunction(req: Request, res: Response) {
       const newUser = new User({
         uniqueId: nanoid(),
         userName: userName,
-        email: email,
+        email: email.toLowerCase(),
         password: hashedPassword,
       });
   
@@ -110,7 +110,7 @@ export async function handleSignUpFunction(req: Request, res: Response) {
             .json({ success: false, message: "Invalid email or password" });
         }
   
-        userIdentity = identity;
+        userIdentity = identity.toLowerCase();
       }
   
       const user = await User.findOne({

@@ -5,7 +5,7 @@ import { signupSchema } from "@/validChecksSchema/zodSchemas";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleIcon from "@/Icons/GoogleIcon";
 import GitHubIcon from "@/Icons/GithubIcon";
 import axios from "axios";
@@ -13,7 +13,7 @@ import EyeCloseIcon from "@/Icons/EyeCloseIcon";
 import EyeOpenIcon from "@/Icons/EyeOpenIcon";
 import { useTheme } from "@/context/ThemeProvider";
 import { USER_API } from "@/lib/env";
-import SignUpOTPModal from "@/components/SignUpOTPModal";
+import SignUpOTPModal from "@/components/modal/SignUpOTPModal";
 import { HoverBorderGradient } from "@/components/ui/HoverBorderGradient";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -217,6 +217,11 @@ const SignupModal: React.FC = () => {
                 )}
               </div>
             </div>
+            <span className="flex justify-end items-center">
+              <Link to={"/login"} className="dark:text-blue-300 text-blue-500 hover:underline font-ubuntu">
+                already have an account?
+              </Link>
+            </span>
           </div>
           <div className="w-full relative sm:flex-row flex flex-col justify-center items-center gap-2">
             <HoverBorderGradient

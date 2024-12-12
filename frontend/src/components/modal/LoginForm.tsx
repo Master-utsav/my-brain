@@ -5,7 +5,7 @@ import { loginSchema } from "@/validChecksSchema/zodSchemas";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleIcon from "@/Icons/GoogleIcon";
 import GitHubIcon from "@/Icons/GithubIcon";
 import axios from "axios";
@@ -153,6 +153,11 @@ const LoginForm: React.FC = () => {
                   </p>
                 )}
               </div>
+            <span className="flex justify-end items-center">
+              <Link to={"/reset-password"} className="dark:text-blue-300 text-blue-500 hover:underline font-ubuntu">
+                forgot password?
+              </Link>
+            </span>
             </div>
           <div className="w-full relative flex flex-col sm:flex-row justify-center items-center gap-2">
             <HoverBorderGradient

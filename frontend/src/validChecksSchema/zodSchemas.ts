@@ -62,6 +62,34 @@ export const loginSchema = z.object({
     }),
 });
 
+export const ResetPasswordSchema = z.object({
+  identity: z
+    .string()
+    .min(3, { message: "Identity must be at least 3 characters long" })
+    .max(50, { message: "Identity can't exceed 50 characters" })
+    .refine((value) => userNameRegex.test(value) || emailRegex.test(value), {
+      message: "Identity must be a valid username or email",
+    }),
+})
+
+export const ResetPasswordOTPFormSchema = z.object({
+  identity: z
+    .string()
+    .min(3, { message: "Identity must be at least 3 characters long" })
+    .max(50, { message: "Identity can't exceed 50 characters" })
+    .refine((value) => userNameRegex.test(value) || emailRegex.test(value), {
+      message: "Identity must be a valid username or email",
+    }),
+
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters long" })
+      .regex(passwordRegex, {
+        message:
+          "Password must contain at least one uppercase, one lowercase, one digit, and one special character",
+      }),
+})
+
 const BaseInterfaceSchema = z.object({
   title: z.string(),
   description: z.string().optional(),

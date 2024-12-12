@@ -2,8 +2,8 @@ import "@/index.css";
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
-import SignupForm from "@/components/SignupForm";
-import LoginForm from "@/components/LoginForm";
+import SignupForm from "@/components/modal/SignupForm";
+import LoginForm from "@/components/modal/LoginForm";
 import { useAuthContext } from "@/context/AuthContext";
 import UserRoutes from "./components/user/UserRoutes";
 import React from "react";
@@ -12,6 +12,7 @@ import PageNotFound from "./components/PageNotFound";
 import ViewSection from "./sections/ViewSection";
 import { Toaster } from "./components/ui/toaster";
 import ViewGroupedSection from "./sections/ViewGroupedSection";
+import ForgotPasswordModal from "./components/modal/ForgotPasswordModal";
 
 function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
             <Route path="/" element={<HeroSection />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
+            <Route path="/reset-password" element={<ForgotPasswordModal />} />
             <Route path="/contact" element={<SignupForm />} />
             <Route path="/view-card/:cardId" element={<ViewSection />} />
             <Route path="/view-cards/:groupedKey" element={<ViewGroupedSection />} />
@@ -51,6 +53,7 @@ function App() {
           {isUserRoute ? "" : <Navbar />}
           <Routes location={location}>
             <Route path="/" element={<HeroSection />} />
+            <Route path="/reset-password" element={<ForgotPasswordModal />} />
             <Route path="/contact" element={<SignupForm />} />
             <Route path="/view-card/:cardId" element={<ViewSection />} />
             <Route path="/view-cards/:groupedKey" element={<ViewGroupedSection />} />

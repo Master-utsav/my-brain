@@ -46,7 +46,7 @@ passport.use(new GoogleStrategy({
         firstName: profile.name?.givenName || 'User',
         lastName: profile.name?.familyName || 'LastName',
         userName: profile.displayName.replace(/ /g, '_'),
-        email: googleEmail,
+        email: googleEmail.toLowerCase(),
         role: "STUDENT",
         password: hashedPassword,
         profileImageUrl: profileImageUrl,  

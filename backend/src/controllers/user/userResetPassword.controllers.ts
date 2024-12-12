@@ -1,24 +1,59 @@
 import { Request, Response } from "express";
 import User from "../../models/User.model"
 import bcrypt from "bcryptjs";
-import {checkPasswordConstraints } from "../../validchecks/checkAuthConstraints";
+import {checkConstraintsAsEmail, checkConstraintsAsUserName, checkPasswordConstraints, returnIdentity } from "../../validchecks/checkAuthConstraints";
 import {sendResetPasswordVerification } from "../../helpers/mailer";
 
 export async function handleResetPasswordFunction(req: Request, res: Response) {
     try {
-      const { email } = req.body;
-      const user = await User.findOne({ email: email });
-      if (!user) {
+      const { identity }: {identity: string} = req.body;
+  
+      if (!identity) {
         return res
           .status(400)
-          .json({ success: false, message: "user doesn't exists" });
+          .json({ success: false, message: "Please fill all the fields" });
       }
+  
+      let userIdentity: null | string = null;
+      const returnedIdentity = returnIdentity(identity);
+  
+      if (returnedIdentity === "userName") {
+        const isValidConstraintsAsUserName = checkConstraintsAsUserName(
+          identity,
+        );
+        if (!isValidConstraintsAsUserName) {
+          return res
+            .status(400)
+            .json({ success: false, message: "Invalid username" });
+        }
+        userIdentity = identity;
+      } else if (returnedIdentity === "email") {
+        const isValidConstraintsAsEmail = checkConstraintsAsEmail(
+          identity,
+        );
+        if (!isValidConstraintsAsEmail) {
+          return res
+            .status(400)
+            .json({ success: false, message: "Invalid email" });
+        }
+        userIdentity = identity.toLowerCase();
+      }
+  
+      const user = await User.findOne({
+        $or: [{ userName: userIdentity }, { email: userIdentity }],
+      });
+      if (!user) {
+        return res
+          .status(404)
+          .json({ success: false, message: "User not found" });
+      }
+
       if (!user?.emailVerificationStatus) {
         return res
           .status(400)
           .json({ success: false, message: "email not verified" });
       }
-  
+      
       if (user && user.passwordResetOTPExpires) {
         const emailTime = user.passwordResetOTPExpires;
         const currentTime = Date.now();
@@ -71,27 +106,56 @@ export async function handleResetPasswordFunction(req: Request, res: Response) {
     res: Response
   ) {
     try {
-      const { otp, newPassword, email } = req.body;
-  
-      if (!otp || !newPassword || !email) {
+      const { otp, newPassword, identity } = req.body;
+      
+      if (!otp || !newPassword || !identity) {
         return res
           .status(400)
           .json({ success: false, message: "All fields are required" });
       }
   
+      let userIdentity: null | string = null;
+      const returnedIdentity = returnIdentity(identity);
+  
+      if (returnedIdentity === "userName") {
+        const isValidConstraintsAsUserName = checkConstraintsAsUserName(
+          identity,
+        );
+        if (!isValidConstraintsAsUserName) {
+          return res
+            .status(400)
+            .json({ success: false, message: "Invalid username" });
+        }
+        userIdentity = identity;
+      } else if (returnedIdentity === "email") {
+        const isValidConstraintsAsEmail = checkConstraintsAsEmail(
+          identity,
+        );
+        if (!isValidConstraintsAsEmail) {
+          return res
+            .status(400)
+            .json({ success: false, message: "Invalid email" });
+        }
+        userIdentity = identity;
+      }
+  
+      
       const isValidPassword = checkPasswordConstraints(newPassword);
       if (!isValidPassword) {
         return res
-          .status(400)
-          .json({ success: false, message: "Invalid password format" });
+        .status(400)
+        .json({ success: false, message: "Invalid password format" });
       }
-  
-      const user = await User.findOne({ email, passwordResetOTP: otp });
-  
+      
+      const user = await User.findOne({
+        $or: [{ userName: userIdentity }, { email: userIdentity }],
+        passwordResetOTP: otp
+      });
+      
       if (!user) {
         return res
           .status(400)
-          .json({ success: false, message: "Invalid OTP or email" });
+          .json({ success: false, message: "Invalid OTP or identity" });
       }
   
       if (user && user.passwordResetOTPExpires) {

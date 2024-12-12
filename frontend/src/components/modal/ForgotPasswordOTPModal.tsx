@@ -9,20 +9,25 @@ import React, {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { HoverBorderGradient } from "./ui/HoverBorderGradient";
+import { HoverBorderGradient } from "../ui/HoverBorderGradient";
 import { useTheme } from "@/context/ThemeProvider";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { USER_API } from "@/lib/env";
 import { useToast } from "@/hooks/use-toast";
+import { ResetPasswordOTPFormSchema } from "@/validChecksSchema/zodSchemas";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import EyeCloseIcon from "@/Icons/EyeCloseIcon";
+import EyeOpenIcon from "@/Icons/EyeOpenIcon";
+import { Spinner } from "@nextui-org/react";
 
-interface OTPComponentProps {
-  userEmail: string;
-}
+type ResetPasswordOTPFormData = z.infer<typeof ResetPasswordOTPFormSchema>;
 
-const SignUpOTPModal: React.FC<OTPComponentProps> = ({ userEmail }) => {
+const ForgotPasswordOTPModal: React.FC = () => {
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
-  const [disable, setDisable] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string[]>(Array(6).fill(""));
+  const [passwordVisible , setPasswordVisible] = useState<boolean>(false);
   const [isResendEnabled, setIsResendEnabled] = useState(true);
   const { theme } = useTheme();
   const {toast} = useToast();
@@ -31,18 +36,26 @@ const SignUpOTPModal: React.FC<OTPComponentProps> = ({ userEmail }) => {
   const closeSignup = () => {
     navigate("/");
   };
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors , isSubmitting},
+  } = useForm<ResetPasswordOTPFormData>({
+    resolver: zodResolver(ResetPasswordOTPFormSchema),
+  });
 
   const isValidOtp = (otpValue: string) =>
     otpValue.length === 6 && /^[0-9]+$/.test(otpValue);
 
-  const submitOTP = async () => {
+  const onSubmit = async (data : ResetPasswordOTPFormData) => {
     const otpValue = inputValue.join("");
-    setDisable(true);
 
     if (isValidOtp(otpValue)) {
       try {
-        const response = await axios.post(`${USER_API}/verify-email-otp`, {
-          email: userEmail,
+        const response = await axios.post(`${USER_API}/reset-password-otp`, {
+          identity: data.identity,
+          newPassword: data.password,
           otp: otpValue,
         });
 
@@ -60,12 +73,8 @@ const SignUpOTPModal: React.FC<OTPComponentProps> = ({ userEmail }) => {
           title: error.response.data.message,
           variant: "destructive"
         })
-      } finally {
-        setDisable(false);
       }
-    } else {
-      setDisable(false);
-    }
+    } 
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
@@ -124,21 +133,82 @@ const SignUpOTPModal: React.FC<OTPComponentProps> = ({ userEmail }) => {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.5 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="relative max-w-xl sm:px-6 px-1 mx-auto py-8 flex flex-col justify-center items-center dark:bg-black-300/20 bg-white-700/20 rounded-3xl shadow-lg gap-6 overflow-hidden"
-      >
+        className="relative max-w-xl sm:px-6 px-1 mx-auto py-8 flex flex-col justify-center items-center dark:bg-black-300/20 bg-white-700/20 rounded-3xl shadow-lg gap-3 overflow-hidden"
+      > 
+      <div className="flex flex-col justify-center items-center gap-2">
         <motion.h3
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5, ease: "easeInOut" }}
           className="sm:text-3xl text-2xl font-kalnia text-center"
         >
-          Verify your{" "}
-          <span className="text-[#2a7ea9] font-bold font-noto-sans">Email</span>
+          Change your{" "}
+          <span className="text-[#2a7ea9] font-bold font-noto-sans">Password</span>
         </motion.h3>
         <p className="text-center text-black-300 dark:text-white-700">
-          6 Digit OTP sent to <span className="font-bold">{userEmail}</span>
+          6 Digit OTP sent to your <span className="font-bold">Email Account</span>
         </p>
+      </div>
+         
+         <div className="flex flex-col justify-center items-center gap-2 w-full ">
+         <div className="w-full relative">
+                <HoverBorderGradient
+                  containerClassName="w-full rounded-xl"
+                  className="w-full flex font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
+                >
+                  <input
+                  type="text"
+                  placeholder="username or email"
+                  className="w-full bg-transparent font-ubuntu text-start outline-none focus:outline-none focus-visible:bg-transparent"
+                  {...register("identity")}
+                />
+              </HoverBorderGradient>
+              {errors.identity && (
+                <p className="text-red-500 text-sm text-end">
+                  {errors.identity.message}
+                </p>
+              )}
+              </div>
 
+              <div className="w-full relative">
+                <HoverBorderGradient
+                  containerClassName="w-full rounded-xl"
+                  className="w-full font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
+                >
+                  <div className="relative w-full flex ">
+                    <input
+                      type={passwordVisible ? "text" : "password"}
+                      placeholder="new password"
+                      className="bg-transparent font-ubuntu  outline-none focus:outline-none"
+                      {...register("password")}
+                    />
+                    <div
+                      className="absolute right-0 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                      onClick={() => setPasswordVisible(!passwordVisible)}
+                    >
+                      {passwordVisible ? (
+                        <EyeOpenIcon
+                          size={18}
+                          fillColor={theme === "dark" ? "white" : "black"}
+                        />
+                      ) : (
+                        <EyeCloseIcon
+                          size={18}
+                          fillColor={theme === "dark" ? "white" : "black"}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </HoverBorderGradient>
+                {errors.password && (
+                  <p className="text-red-500 text-sm text-end">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+         </div>
+        
+              
         <div className="flex justify-center space-x-2">
           {inputValue.map((_, index) => (
             <HoverBorderGradient
@@ -174,14 +244,19 @@ const SignUpOTPModal: React.FC<OTPComponentProps> = ({ userEmail }) => {
           containerClassName="w-full rounded-xl"
           className="w-full rounded-xl  font-ubuntu dark:bg-black bg-white-800 text-black dark:text-white"
         >
-          <Button
-            type="submit"
-            className="flex w-full text-base justify-center dark:bg-black bg-white-800 text-black dark:text-white items-center hover:bg-transparent bg-transparent"
-            onClick={submitOTP}
-            disabled={disable}
-          >
-            Submit
-          </Button>
+              <Button
+                type="submit"
+                className="flex w-full text-base justify-center dark:bg-black bg-white-800 text-black dark:text-white items-center hover:bg-transparent bg-transparent"
+                disabled={isSubmitting}
+                onClick={handleSubmit(onSubmit)}
+              >
+                {isSubmitting ? (
+                <span className="w-full loader mr-2 text-black dark:text-white"><Spinner/>...Sending</span>
+              ) : (
+                "send an OTP"
+              )}
+              </Button>
+    
         </HoverBorderGradient>
 
         <motion.button
@@ -199,4 +274,4 @@ const SignUpOTPModal: React.FC<OTPComponentProps> = ({ userEmail }) => {
   );
 };
 
-export default SignUpOTPModal;
+export default ForgotPasswordOTPModal;
