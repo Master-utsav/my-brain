@@ -136,7 +136,7 @@ const UniversalCard = ({
 
       {/* for type image */}
       {cardDetails.type === "image" && typeof cardDetails.image === "string" && (
-        <div className="w-24 mx-auto relative">
+        <div className="size-32 mx-auto relative">
           <Image
             isBlurred
             className="w-full aspect-square mx-auto object-cover rounded-lg"
