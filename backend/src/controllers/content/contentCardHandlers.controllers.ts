@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { AuthenticatedRequest } from "../../middleware/auth.middleware";
 import ContentModel from "../../models/Content.model";
+import User from "../../models/User.model";
 
 export async function handleDeleteCardFunction(
   req: AuthenticatedRequest,
@@ -15,15 +16,24 @@ export async function handleDeleteCardFunction(
   if (!cardId) {
     return res.status(401).json({ success: false, message: "CardId Required" });
   }
-
+  
   try {
+    const userUpdateResult = await User.updateOne(
+      { uniqueId : userUniqueId },  
+      { $pull: { uploadedContent: cardId } }  
+    );
+
+    if(!userUpdateResult){
+      return res.status(401).json({ success: false, message: "card not found" });
+    }
+    
     const deleteResult = await ContentModel.deleteOne({ cardId: cardId });
     if (deleteResult.deletedCount === 0) {
       return res
         .status(404)
         .json({ success: false, message: "Course not found" });
     }
-
+    
     return res
       .status(200)
       .json({ success: true, message: "Course deleted successfully" });

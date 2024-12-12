@@ -56,7 +56,7 @@ const SelectCardsSection = ({
     ).map((item) => item.cardId);
 
     setSelectedCards(new Set([...prevCardIds]));
-  }, [userData.groupedKey]);
+  }, [userData.groupedKey , contentData]);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [cardDetails, setCardDetails] = useState<AllContentInterface>();

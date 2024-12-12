@@ -39,6 +39,7 @@ const UniversalCard = ({
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isExpandModalOpen, setIsExpandModalOpen] = useState<boolean>(false);
+  const [isAuthorized , setIsAuthorized] = useState<boolean>(false);
   const { cardHandler } = useCardHandler();
   const { userData } = useAuthContext();
   const token = getVerifiedToken();
@@ -106,6 +107,13 @@ const UniversalCard = ({
     };
   }, [setActiveCardId]);
 
+  useEffect(() => {
+    console.log(cardDetails.createdById)
+    console.log(userData.id)
+    setIsAuthorized(cardDetails.createdById === userData.id)
+    console.log(isAuthorized)
+  } , [userData])
+
   return (
     <div className="w-full h-full relative flex flex-col rounded-lg justify-start shadow-md items-start p-3 gap-2 dark:bg-[#121212]/80 bg-[#f5f5f5]/80 dark:text-white text-black border-[1px] transition-all ease-soft-spring delay-75 dark:border-[#121212] border-[#f5f5f5] hover:dark:bg-black hover:bg-white hover:border-black/40 hover:dark:border-white/40 group">
       <div className="w-full header gap-2 flex justify-between items-start">
@@ -118,7 +126,7 @@ const UniversalCard = ({
 
         <div className="flex justify-center items-center flex-col sm:flex-row gap-1">
           <CardTypeButton Icon={returnTypeIcon(cardDetails.type)} />
-          {cardDetails.createdById === userData.id ? (
+          {isAuthorized ? (
             <BurgerButton onClickBtn={handleBurgerButton} />
           ) : (
             <CardTypeButton Icon={CiSaveDown2} />
@@ -195,7 +203,7 @@ const UniversalCard = ({
       <AddedOnChip date={cardDetails.addedOn} />
 
       {/* Popup Menu */}
-      {isBurgerButton && cardDetails.createdById === userData.id && (
+      {isBurgerButton && isAuthorized && (
         <div
           ref={popupRef}
           className="absolute sm:right-1 top-14 p-2 rounded-xl z-50 backdrop-blur-xl flex justify-start items-start sm:flex-col flex-row gap-2 shadow-md dark:bg-[#f5f5f5]/5 bg-[#121212]/5 dark:text-white text-black transition-all ease-soft-spring delay-75"

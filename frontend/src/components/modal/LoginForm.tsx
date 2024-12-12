@@ -17,7 +17,9 @@ import { HoverBorderGradient } from "@/components/ui/HoverBorderGradient";
 import { Button } from "@/components/ui/button";
 import { setTokenCookie } from "@/lib/cookieService";
 import { useAuthContext } from "@/context/AuthContext";
-import {useToast} from "@/hooks/use-toast"
+import {useToast} from "@/hooks/use-toast";
+import { getUserData as fetchUserData } from "@/lib/authService";
+
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
@@ -27,6 +29,7 @@ const LoginForm: React.FC = () => {
   const {setIsLoggedIn} = useAuthContext();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const {toast} = useToast();
+  const {setUserData} = useAuthContext();
 
   const closeSignup = () => {
     navigate("/");
@@ -50,6 +53,8 @@ const LoginForm: React.FC = () => {
           title: responseData.message
         })
         setTokenCookie(responseData.token);
+        const fetchedUserData = await fetchUserData();
+        fetchedUserData && setUserData(fetchedUserData);
         setIsLoggedIn(true);
         navigate("/")
       } else {

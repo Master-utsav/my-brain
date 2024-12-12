@@ -61,6 +61,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
   const [userData, setUserData] = useState<UserDataProps>(defaultUserData);
 
   const loadUserData = useCallback(async () => {
+    console.log("getusercalled")
     try {
       const token = getVerifiedToken();
       if (token) {

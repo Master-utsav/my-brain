@@ -11,6 +11,7 @@ import { getVerifiedToken } from "@/lib/cookieService";
 import { AllContentInterface } from "@/constants";
 import { CONTENT_API } from "@/lib/env";
 
+
 interface ContentContextType {
   contentData: AllContentInterface[] | AllContentInterface;
   setContentData: (data: AllContentInterface | AllContentInterface[]) => void;
@@ -40,9 +41,12 @@ export const ContentContextProvider: React.FC<{ children: ReactNode }> = ({
   >([]);
 
   const loadContentData = useCallback(async () => {
+    const token = getVerifiedToken();
+    if(!token){
+      return
+    }
     try {
       const verifiedToken = getVerifiedToken();
-
       const response = await axios.get(
         `${CONTENT_API}/get-content`,
         {
