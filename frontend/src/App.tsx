@@ -13,6 +13,7 @@ import ViewSection from "./sections/ViewSection";
 import { Toaster } from "./components/ui/toaster";
 import ViewGroupedSection from "./sections/ViewGroupedSection";
 import ForgotPasswordModal from "./components/modal/ForgotPasswordModal";
+import ContactSection from "./sections/contactSection";
 
 function App() {
   const location = useLocation();
@@ -40,7 +41,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/reset-password" element={<ForgotPasswordModal />} />
-            <Route path="/contact" element={<SignupForm />} />
+            <Route path="/contact" element={<ContactSection />} />
             <Route path="/view-card/:cardId" element={<ViewSection />} />
             <Route path="/view-cards/:groupedKey" element={<ViewGroupedSection />} />
             <Route path="/user/*" element={<UnauthenticatedPage />} />
@@ -54,7 +55,7 @@ function App() {
           <Routes location={location}>
             <Route path="/" element={<HeroSection />} />
             <Route path="/reset-password" element={<ForgotPasswordModal />} />
-            <Route path="/contact" element={<SignupForm />} />
+            <Route path="/contact" element={<ContactSection />} />
             <Route path="/view-card/:cardId" element={<ViewSection />} />
             <Route path="/view-cards/:groupedKey" element={<ViewGroupedSection />} />
             <Route path="/user/*" element={<UserRoutes />} />

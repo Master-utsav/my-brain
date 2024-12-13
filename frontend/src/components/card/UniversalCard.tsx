@@ -108,10 +108,7 @@ const UniversalCard = ({
   }, [setActiveCardId]);
 
   useEffect(() => {
-    console.log(cardDetails.createdById)
-    console.log(userData.id)
     setIsAuthorized(cardDetails.createdById === userData.id)
-    console.log(isAuthorized)
   } , [userData])
 
   return (
