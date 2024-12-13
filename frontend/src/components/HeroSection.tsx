@@ -5,10 +5,12 @@ import UserButton from "./ui/DashBoardButton";
 import { useAuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Image } from "@nextui-org/react";
+import { useTheme } from "@/context/ThemeProvider";
 
 const HeroSection: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndexOfImage, setCurrentIndexOfImage] = useState(0);
+  const {theme} = useTheme();
   const { isLoggedIn } = useAuthContext();
   const navigate = useNavigate();
 
@@ -81,7 +83,7 @@ const HeroSection: React.FC = () => {
             >
               <Image
                 key={currentIndexOfImage}
-                src={HeroSectionData.imgUrl[currentIndexOfImage]}
+                src={`${HeroSectionData.imgUrl[currentIndexOfImage]}${theme === "dark" ? "" : "-light"}.png`}
                 alt="Dashboard"
                 className="rounded-lg shadow-2xl object-cover"
                 isBlurred

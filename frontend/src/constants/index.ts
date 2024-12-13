@@ -18,11 +18,11 @@ export const HeroSectionData = {
   ],
   cta: "Get Started",
   imgUrl: [
-    "/images/dashboard1.png",
-    "/images/chatbot.png",
-    "/images/selectcards.png",
-    "/images/expandview.png",
-    "/images/contact.png",
+    "/images/dashboard1",
+    "/images/chatbot",
+    "/images/selectcards",
+    "/images/expandview",
+    "/images/contact",
   ]
 };
 export const NavItemsArray = [
