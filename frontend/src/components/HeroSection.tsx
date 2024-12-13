@@ -58,12 +58,13 @@ const HeroSection: React.FC = () => {
           <UserButton
             ButtonName={"Dashboard"}
             onClickBtn={() => navigate("/user/all-content")}
+            className="text-lg"
           />
         ) : (
           <UserButton
             ButtonName={HeroSectionData.cta}
             onClickBtn={() => navigate("/login")}
-            className="text-lg "
+            className="text-lg"
           />
         )}
       </div>
