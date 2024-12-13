@@ -96,11 +96,6 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
             Share Modal
           </motion.h2>
           {!isShareable ? 
-            loading ? 
-            <span className="dark:text-blue-300 text-blue-500 flex justify-center items-center">
-              <Spinner/>...Creating a ShareLink
-            </span>
-            :
           <>
           <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
             Are you sure you want to make it shareable ?
@@ -111,6 +106,12 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
           </div>
           </>
           :
+          loading ? 
+          <span className="dark:text-blue-300 text-blue-500 flex justify-center items-center">
+            <Spinner/>...Creating a ShareLink
+          </span>
+          :
+          isShareable &&
           loading ? 
           <span className="dark:text-red-300 text-red-500 flex justify-center items-center">
             <Spinner/>...Removing a ShareLink
