@@ -13,7 +13,7 @@ import ViewSection from "./sections/ViewSection";
 import { Toaster } from "./components/ui/toaster";
 import ViewGroupedSection from "./sections/ViewGroupedSection";
 import ForgotPasswordModal from "./components/modal/ForgotPasswordModal";
-import ContactSection from "./sections/contactSection";
+import ContactSection from "./sections/ContactSection";
 
 function App() {
   const location = useLocation();

@@ -48,8 +48,8 @@ const ContactSection: React.FC = () => {
   }
 
   return (
-    <section className="w-full dark:bg-grid-[#2a7ea9]/[0.2] bg-grid-[#2a7ea9]/[0.1] dark:bg-black bg-white">
-      <div className=" relative max-w-xl mx-auto min-h-screen  sm:px-5 px-1 flex flex-col gap-2 justify-center items-center max-sm:mt-10 sm:py-10">
+    <section className="w-full dark:bg-grid-[#2a7ea9]/[0.2] bg-grid-[#2a7ea9]/[0.1] dark:bg-black bg-white flex justify-center items-center">
+      <div className=" relative max-w-xl mx-auto min-h-screen sm:px-5 px-1 flex flex-col gap-2 justify-center items-center max-sm:mt-10 sm:py-10">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
