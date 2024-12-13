@@ -19,12 +19,12 @@ interface shareCardModalProps {
 const shareCardModal: React.FC<shareCardModalProps> = ({
   isOpen,
   cardId,
-  isShareable=false,
+  isShareable = false,
   onClose,
 }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const {loadContentData} = useContentContext();
+  const { loadContentData } = useContentContext();
   const token = getVerifiedToken();
 
   async function handleConfirmBtn() {
@@ -32,16 +32,20 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
     setLoading(true);
     setError(null);
 
-    if(!token){
-        setError('You must be logged in to share this card.');
+    if (!token) {
+      setError("You must be logged in to share this card.");
     }
-    
+
     try {
-      const response = await axios.post(`${CONTENT_API}/shareable/${cardId}` , {} , {
-        headers: {
-            'Authorization' : `Bearer ${token}`
+      const response = await axios.post(
+        `${CONTENT_API}/shareable/${cardId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
       if (response.data.success) {
         await loadContentData();
       } else {
@@ -95,47 +99,53 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
           >
             Share Modal
           </motion.h2>
-          {!isShareable ? 
-          <>
-          <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
-            Are you sure you want to make it shareable ?
-          </p>
-
-          <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
-            {<UserButton ButtonName="Confirm" onClickBtn={handleConfirmBtn} className="dark:text-blue-300 text-blue-500"/> }
-          </div>
-          </>
-          :
-          loading ? 
-          <span className="dark:text-blue-300 text-blue-500 flex justify-center items-center">
-            <Spinner/>...Creating a ShareLink
-          </span>
-          :
-          isShareable &&
-          loading ? 
-          <span className="dark:text-red-300 text-red-500 flex justify-center items-center">
-            <Spinner/>...Removing a ShareLink
-          </span>
-          :
-          <>
-          <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
-            Here is your modal share link!!!
-          </p>
-
-          <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
-            {<LinkReadInput link={`${FRONTEND_DOMAIN}/view-card/${cardId}`}/>}
-          </div>
-          <>
-          <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
-            you want to make it un-shareable ?
-          </p>
-
-          <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
-            {<UserButton ButtonName="Confirm" onClickBtn={handleConfirmBtn} className="dark:text-red-300 text-red-500"/> }
-          </div>
-          </>
-          </>
-          }
+          {!loading ? (
+            !isShareable ? (
+              <>
+                <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
+                  Are you sure you want to make it shareable?
+                </p>
+                <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
+                  <UserButton
+                    ButtonName="Confirm"
+                    onClickBtn={handleConfirmBtn}
+                    className="dark:text-blue-300 text-blue-500"
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
+                  Here is your modal share link!!!
+                </p>
+                <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
+                  <LinkReadInput
+                    link={`${FRONTEND_DOMAIN}/view-card/${cardId}`}
+                  />
+                </div>
+                <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">
+                  Do you want to make it un-shareable?
+                </p>
+                <div className="w-full relative overflow-hidden bg-transparent flex justify-center items-center">
+                  <UserButton
+                    ButtonName="Confirm"
+                    onClickBtn={handleConfirmBtn}
+                    className="dark:text-red-300 text-red-500"
+                  />
+                </div>
+              </>
+            )
+          ) : (
+            <span
+              className={`flex justify-center items-center ${
+                isShareable
+                  ? "dark:text-red-300 text-red-500"
+                  : "dark:text-blue-300 text-blue-500"
+              }`}
+            >
+              <Spinner /> ...{isShareable ? "Removing" : "Creating"} a ShareLink
+            </span>
+          )}
         </motion.div>
       </motion.div>
     </AnimatePresence>
