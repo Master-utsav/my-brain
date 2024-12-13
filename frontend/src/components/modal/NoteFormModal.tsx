@@ -83,7 +83,7 @@ const NoteFormModal = ({cardDetails , isEditImageOpen=false} : {cardDetails?:All
   const toggleLinkInput = () => {
     setShowLinkInput(!showLinkInput);
     if (showLinkInput) {
-      setValue("link", "");
+      setValue("link", null);
     }
   };
 

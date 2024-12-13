@@ -83,7 +83,7 @@ const TagFormModal = ({
   const toggleLinkInput = () => {
     setShowLinkInput(!showLinkInput);
     if (showLinkInput) {
-      setValue("link", "");
+      setValue("link", null);
     }
   };
 

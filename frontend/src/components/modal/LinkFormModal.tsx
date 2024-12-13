@@ -82,8 +82,7 @@ const LinkFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllC
       setValue("tags", []);
     }
   };
-  
-  console.log(getValues("link"))
+
   return (
     <AnimatePresence>
       <motion.div
