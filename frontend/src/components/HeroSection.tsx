@@ -55,7 +55,7 @@ const HeroSection: React.FC = () => {
         {isLoggedIn ? (
           <UserButton
             ButtonName={"Dashboard"}
-            onClickBtn={() => navigate("/user.all-content")}
+            onClickBtn={() => navigate("/user/all-content")}
           />
         ) : (
           <UserButton
@@ -66,7 +66,7 @@ const HeroSection: React.FC = () => {
         )}
       </div>
 
-      <div className="flex justify-center items-center w-full h-full py-10  relative px-4">
+      <div className="flex justify-center items-start w-full h-screen py-10 relative px-4">
         <div className="flex flex-col items-center md:w-[75%] w-full z-10 border-[1px] md:p-5 p-1 dark:bg-black/20 bg-white/20 dark:bg-grid-white/[0.1] bg-grid-black/[0.1] rounded-lg overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
