@@ -27,16 +27,18 @@ const HeroSection: React.FC = () => {
 
   return (
     <section className="flex w-full relative flex-col items-center justify-center min-h-screen md:min-h-[160vh] transition-colors duration-300 mx-auto bg-dot-[#2a7ea9]/[0.5] dark:bg-dot-[#2a7ea9]/[0.4] sm:py-16 pt-40 ">
-      <h1 className="text-4xl md:text-6xl max-w-xl text-center my-5 font-kalnia">
+      <h1 className="text-4xl md:text-6xl max-w-xl text-center mt-5 font-kalnia">
         <span className="text-[#2a7ea9] font-bold font-noto-sans">
           {HeroSectionData.title[0]}
         </span>
         {HeroSectionData.title[1]}
+      </h1>
+      <h1 className="text-4xl md:text-6xl max-w-xl text-center mb-5 font-kalnia">
         <span className="text-[#2a7ea9] font-bold font-noto-sans">
           {HeroSectionData.title[2]}
         </span>
         {HeroSectionData.title[3]}
-      </h1>
+        </h1>
       <div className="text-center max-w-2xl">
         <AnimatePresence mode="wait">
           <motion.p
