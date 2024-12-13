@@ -22,7 +22,7 @@ export async function handleAIChatBot(
       let titles: string[] = [];
       let descriptions: string[] = [];
 
-      responseArray.map((item) => {
+      responseArray.filter((item) => item.createdById === userUniqueId).map((item) => {
         titles.push(item.title);
         descriptions.push(item.description);
       });
