@@ -7,6 +7,24 @@ import { HiLink } from "react-icons/hi";
 import { BsTwitter } from "react-icons/bs";
 import AllContentLogo from "@/components/ui/AllContentLogo";
 
+export const HeroSectionData = {
+  title: ["Cards " , "That Speak, " , "AI " , "That Listens!"],
+  descripion: [
+    "Transform your notes, images, and ideas into beautifully organized cards. My-Brain lets you create, share, and discover like never before—powered by cutting-edge AI.",
+    "From scattered thoughts to shareable sections, My-Brain is your all-in-one hub for creativity and productivity. Ready to take control of your content?",
+    "Don't just create—elevate. Save, search, and share your content effortlessly while AI brings your ideas to life. Dive in and redefine your workflow!",
+    "From managing notes to AI-driven search, My-Brain makes organizing smarter and sharing faster. It's time to experience next-level content management.",
+    "With My-Brain, every card you create becomes a gateway to possibilities. Organize your world and let AI connect the dots. Start your journey today!",
+  ],
+  cta: "Get Started",
+  imgUrl: [
+    "/images/dashboard1.png",
+    "/images/chatbot.png",
+    "/images/selectcards.png",
+    "/images/expandview.png",
+    "/images/contact.png",
+  ]
+};
 export const NavItemsArray = [
   {
     id: 1,
@@ -146,7 +164,12 @@ export const ChooseCategoryItemsItems = [
 ];
 
 export const routeHeaders: {
-  [key: string]: { title: string; description: string; isBtnShow: boolean; isConfirmBtn?: boolean};
+  [key: string]: {
+    title: string;
+    description: string;
+    isBtnShow: boolean;
+    isConfirmBtn?: boolean;
+  };
 } = {
   "/user/note-box": {
     title: "All Notes",
@@ -273,7 +296,7 @@ interface BaseInterface {
   description?: string;
   link?: string | string[];
   tags?: string[];
-  list?:string[];
+  list?: string[];
   isShareable: boolean;
   type: "image" | "tweet" | "tag" | "link" | "note";
   isBookmarked?: boolean;
@@ -536,7 +559,7 @@ export const defaultUserData = {
   emailVerificationStatus: true,
   phoneNumber: {
     code: "+1",
-    number: "1234567890"
+    number: "1234567890",
   },
   phoneNumberVerificationStatus: true,
   address: "123 Main St, City, Country",
@@ -545,5 +568,4 @@ export const defaultUserData = {
   avatarFallbackText: "JD",
   uploadedContent: ["content1", "content2"],
   bookmarks: ["content1"],
-}
-
+};
