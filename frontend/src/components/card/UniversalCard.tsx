@@ -22,24 +22,23 @@ import { BsTwitter } from "react-icons/bs";
 import { HiLink } from "react-icons/hi";
 import UniversalCardModal from "../modal/UniversalCardModal";
 
-
 const UniversalCard = ({
   cardDetails,
   onEditClick,
   setCardDetails,
-  isEditModalOpen
+  isEditModalOpen,
 }: {
-  cardDetails: AllContentInterface,
-  onEditClick?: (val : boolean) => void,
-  isEditModalOpen?: boolean,
-  setCardDetails?: (val: AllContentInterface) => void,
+  cardDetails: AllContentInterface;
+  onEditClick?: (val: boolean) => void;
+  isEditModalOpen?: boolean;
+  setCardDetails?: (val: AllContentInterface) => void;
 }) => {
   const popupRef = useRef<HTMLDivElement | null>(null);
   const [isBurgerButton, setIsBurgerButton] = useState<boolean>(false);
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isExpandModalOpen, setIsExpandModalOpen] = useState<boolean>(false);
-  const [isAuthorized , setIsAuthorized] = useState<boolean>(false);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const { cardHandler } = useCardHandler();
   const { userData } = useAuthContext();
   const token = getVerifiedToken();
@@ -78,10 +77,13 @@ const UniversalCard = ({
   }
 
   function handleEditCardFunction() {
-
-    if(typeof onEditClick === "function" && typeof setCardDetails === "function" && typeof isEditModalOpen === "boolean"){
-        onEditClick(!isEditModalOpen);
-        setCardDetails(cardDetails);
+    if (
+      typeof onEditClick === "function" &&
+      typeof setCardDetails === "function" &&
+      typeof isEditModalOpen === "boolean"
+    ) {
+      onEditClick(!isEditModalOpen);
+      setCardDetails(cardDetails);
     }
     setIsBurgerButton(false);
   }
@@ -93,10 +95,10 @@ const UniversalCard = ({
         !popupRef.current.contains(event.target as Node)
       ) {
         setActiveCardId(null);
-        setIsBurgerButton(false)
+        setIsBurgerButton(false);
       }
     }
-    
+
     setIsBurgerButton(activeCardId === cardDetails.cardId);
     document.addEventListener("mousedown", handleClickOutside as EventListener);
     return () => {
@@ -108,8 +110,8 @@ const UniversalCard = ({
   }, [setActiveCardId]);
 
   useEffect(() => {
-    setIsAuthorized(cardDetails.createdById === userData.id)
-  } , [userData])
+    setIsAuthorized(cardDetails.createdById === userData.id);
+  }, [userData]);
 
   return (
     <div className="w-full h-full relative flex flex-col rounded-lg justify-start shadow-md items-start p-3 gap-2 dark:bg-[#121212]/80 bg-[#f5f5f5]/80 dark:text-white text-black border-[1px] transition-all ease-soft-spring delay-75 dark:border-[#121212] border-[#f5f5f5] hover:dark:bg-black hover:bg-white hover:border-black/40 hover:dark:border-white/40 group">
@@ -165,9 +167,11 @@ const UniversalCard = ({
       {/* for type link */}
       {cardDetails.type === "link" ? (
         <div className="w-full dark:bg-black-300/40 bg-white-800/40 p-1 rounded-lg dark:shadow-white-500/10 shadow-md flex flex-col gap-1">
-          {cardDetails.link.map((item, idx) => (
-            <LinkReadInput link={item ?? ""} key={idx} />
-          ))}
+          {cardDetails.link &&
+            Array.isArray(cardDetails.link[0]) &&
+            cardDetails.link[0].map((item, idx) => (
+              <LinkReadInput link={item ?? ""} key={idx} />
+            ))}
         </div>
       ) : (
         Array.isArray(cardDetails.link) &&

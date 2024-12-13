@@ -93,7 +93,7 @@ const UniversalCardModal: React.FC<UniversalCardModalProps> = ({
             {/* for type link */}
             {cardDetails.type === "link" ? (
               <div className="w-full dark:bg-black-300/40 bg-white-800/40 p-1 rounded-lg dark:shadow-white-500/10 shadow-md flex flex-col gap-1">
-                {cardDetails.link.map((item, idx) => (
+                {cardDetails.link && Array.isArray(cardDetails.link[0]) && cardDetails.link[0].map((item, idx) => (
                   <LinkReadInput link={item ?? ""} key={idx} />
                 ))}
               </div>

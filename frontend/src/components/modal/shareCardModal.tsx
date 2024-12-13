@@ -7,6 +7,7 @@ import { CONTENT_API, FRONTEND_DOMAIN } from "@/lib/env";
 import { useContentContext } from "@/context/ContentContext";
 import LinkReadInput from "../ui/LinkReadInput";
 import { getVerifiedToken } from "@/lib/cookieService";
+import { Spinner } from "@nextui-org/react";
 
 interface shareCardModalProps {
   isOpen: boolean;
@@ -42,7 +43,6 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
         }
       });
       if (response.data.success) {
-        console.log(response.data.message);
         await loadContentData();
       } else {
         setError("Failed to fetch content data.");
@@ -55,10 +55,6 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
     } finally {
       setLoading(false);
     }
-  }
-
-  if (loading) {
-    return <div>Loading...</div>;
   }
 
   if (error) {
@@ -75,7 +71,7 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
         className={`fixed min-h-screen flex inset-0 justify-center items-center bg-black bg-opacity-50 z-50 transition-opacity duration-300 ${
           isOpen ? "block" : "hidden"
         }`}
-        onClick={onClose}
+        onClick={!loading ? () => onClose() : undefined}
       >
         <motion.div
           initial={{ scale: 0.9, y: -100 }}
@@ -109,6 +105,11 @@ const shareCardModal: React.FC<shareCardModalProps> = ({
             {<UserButton ButtonName="Confirm" onClickBtn={handleConfirmBtn} className="dark:text-blue-300 text-blue-500"/> }
           </div>
           </>
+          :
+          loading ? 
+          <span>
+            <Spinner/>...Creating a ShareLink
+          </span>
           :
           <>
           <p className="mt-2 text-center font-ubuntu dark:text-white-600 text-black-200">

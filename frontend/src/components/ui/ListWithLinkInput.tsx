@@ -11,7 +11,8 @@ export default function ListWithLinkInput({
 }) {
   const [list, setList] = useState<string[]>(listItem || [""]);
   const [error, setError] = useState<string | null>(null);
-
+  
+  console.log(listItem)
   const isValidURL = (url: string) => {
     try {
       new URL(url);
@@ -22,11 +23,11 @@ export default function ListWithLinkInput({
   };
 
   const validateList = (updatedList: string[]) => {
-    if (updatedList.length === 0 || updatedList.every((item) => item.trim() === "")) {
+    if (updatedList.length === 0) {
       setError("At least one valid URL is required.");
       return false;
     }
-    const invalidURLs = updatedList.filter((item) => item.trim() && !isValidURL(item.trim()));
+    const invalidURLs = updatedList.filter((item) => !isValidURL(item));
     if (invalidURLs.length > 0) {
       setError("One or more URLs are invalid.");
       return false;

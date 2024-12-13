@@ -38,7 +38,7 @@ const LinkFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllC
    
   useEffect(() => {
     if(cardDetails && cardDetails.type === "link"){
-      setValue("link", cardDetails.link);
+      setValue("link",  Array.isArray(cardDetails.link[0]) ? cardDetails.link[0] : []);
       setValue("tags", cardDetails.tags);
       setValue("isShareable", cardDetails.isShareable);
       setValue("title", cardDetails.title);
@@ -82,7 +82,8 @@ const LinkFormModal = ({cardDetails, isEditImageOpen=false} : {cardDetails?:AllC
       setValue("tags", []);
     }
   };
-
+  
+  console.log(getValues("link"))
   return (
     <AnimatePresence>
       <motion.div
