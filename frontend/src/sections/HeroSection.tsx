@@ -1,7 +1,7 @@
 import { HeroSectionData } from "@/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import UserButton from "./ui/DashBoardButton";
+import UserButton from "../components/ui/DashBoardButton";
 import { useAuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Image } from "@nextui-org/react";
@@ -28,7 +28,7 @@ const HeroSection: React.FC = () => {
   }, [currentIndex]);
 
   return (
-    <section className="flex w-full relative flex-col items-center justify-center min-h-screen md:min-h-[160vh] transition-colors duration-300 mx-auto bg-dot-[#2a7ea9]/[0.5] dark:bg-dot-[#2a7ea9]/[0.4] sm:py-16 pt-40 ">
+    <section className="flex w-full relative flex-col items-center justify-center min-h-screen md:min-h-[160vh] transition-colors duration-300 mx-auto bg-dot-[#2a7ea9]/[0.5] dark:bg-dot-[#2a7ea9]/[0.4] sm:pt-20 pt-40 ">
       <h1 className="text-4xl md:text-6xl max-w-xl text-center mt-5 font-kalnia">
         <span className="text-[#2a7ea9] font-bold font-noto-sans">
           {HeroSectionData.title[0]}
@@ -71,7 +71,7 @@ const HeroSection: React.FC = () => {
         )}
       </div>
 
-      <div className="flex justify-center items-start w-full h-screen md:py-20 py-10 relative px-4">
+      <div className="flex justify-center items-start w-full h-screen md:py-12 py-10 relative px-4">
         <div className="flex flex-col items-center md:w-[75%] w-full z-10 border-[1px] md:p-5 p-1 dark:bg-black/20 bg-white/20 dark:bg-grid-white/[0.1] bg-grid-black/[0.1] rounded-lg overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
@@ -93,6 +93,7 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
     </section>
+    
   );
 };
 

@@ -23,9 +23,9 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 w-[80%] sm:max-w-7xl mx-auto bg-transparent my-2">
-      <div className="max-w-full sm:py-2 relative">
-        <div className="flex sm:flex-row relative flex-col justify-between px-5 items-center font-noto-sans xl:gap-20 md:gap-5 gap-3">
+    <header className="fixed top-0 left-0 right-0 z-40 md:w-[80%] w-fit sm:max-w-7xl md:rounded-md rounded-xl mx-auto bg-transparent my-2">
+      <div className="max-w-full sm:py-2 relative  md::rounded-md rounded-xl">
+        <div className="flex sm:flex-row md:backdrop-blur-none backdrop-blur-md  md:rounded-md rounded-xl relative flex-col justify-between px-5 items-center font-noto-sans xl:gap-20 md:gap-5 gap-3">
           <Link
             to={"/"}
             className="flex justify-start py-2 items-center font-noto-sans"

@@ -6,6 +6,71 @@ import { FaHashtag } from "react-icons/fa6";
 import { HiLink } from "react-icons/hi";
 import { BsTwitter } from "react-icons/bs";
 import AllContentLogo from "@/components/ui/AllContentLogo";
+import { FiHome } from "react-icons/fi";
+import { FaRegComments } from "react-icons/fa";
+import { AiOutlineProduct } from "react-icons/ai";
+import { RiInformationLine } from "react-icons/ri";
+import { IoMdHelpCircleOutline } from "react-icons/io";
+import PersonalPicButton from "@/components/ui/PersonalPicButton";
+import { ImGithub } from "react-icons/im";
+import { FaLinkedinIn } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { IoMdMail } from "react-icons/io";
+
+export const NavItems = [
+  {
+    name: "Home",
+    path: "/",
+    icon: FiHome,
+  },
+  {
+    name: "Community",
+    path: "/community",
+    icon: FaRegComments,
+  },
+  {
+    name: "Plans",
+    path: "/plans",
+    icon: AiOutlineProduct,
+  },
+  {
+    name: "About",
+    path: "/about",
+    icon: RiInformationLine,
+  },
+  {
+    name: "Contact",
+    path: "/contact",
+    icon: IoMdHelpCircleOutline,
+  },
+];
+export const PersonalLinksNavItems = [
+  {
+    name: "Portfolio",
+    path: "https://masterutsav.in",
+    icon: PersonalPicButton,
+  },
+  {
+    name: "Github: Repo",
+    path: "https://github.com/Master-utsav/my-brain",
+    icon: ImGithub,
+  },
+  {
+    name: "LinkedIn",
+    path: "https://www.linkedin.com/in/master-utsav",
+    icon: FaLinkedinIn,
+  },
+  {
+    name: "Twitter",
+    path: "https://x.com/masterutsav01",
+    icon: FaXTwitter,
+  },
+  {
+    name: "Contact Me",
+    path: "mailto:masterutsav.in@gmail.com?subject=Message%20for%20Master%20Utsav&body=Hello%2C%20I%27m%20interested%20in%20your%20services.",
+    icon: IoMdMail,
+  },
+];
 
 export const HeroSectionData = {
   title: ["Cards " , "That Speak, " , "AI " , "That Listens!"],
