@@ -22,8 +22,6 @@ function App() {
   const { isLoggedIn } = useAuthContext();
   const [isUserRoute, setIsUserRoute] = React.useState<boolean>(false);
 
-  // const navigate = useNavigate();
-
   React.useEffect(() => {
     if (isLoggedIn && location.pathname.startsWith("/user")) {
       setIsUserRoute(true);
